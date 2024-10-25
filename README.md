@@ -13,7 +13,7 @@ This repository contains MATLAB and Python implementations of several orbital me
 ---
 
 ## Overview
-The **Orbital Mechanics Simulation Toolkit** provides a set of MATLAB and Python scripts for modeling and simulating space-based mechanics, including coordinate transformations, orbital element calculations, interplanetary trajectory solutions, and more. The toolkit is designed for educational and research purposes and is a resource for those interested in understanding or working within astrodynamics.
+The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and Python scripts based on Orbital Mechanics for Engineering Students by Howard D. Curtis for modeling and simulating space-based mechanics, including coordinate transformations, orbital element calculations, interplanetary trajectory solutions, and more. The toolkit is designed for educational and research purposes and is a resource for those interested in understanding or working within astrodynamics.
 
 ## Requirements
 - **MATLAB** (R2021a or later recommended) OR **Python** 3.8+
@@ -77,3 +77,7 @@ Clone the repository and navigate to the MATLAB files directory.
 
 ### Python
 Clone the repository and navigate to the Python files directory.
+
+## Installation
+```bash
+git clone https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics.git
