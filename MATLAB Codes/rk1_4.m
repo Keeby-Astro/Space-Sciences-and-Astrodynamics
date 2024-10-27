@@ -1,3 +1,6 @@
+% Algorithm 1.1: Numerical integration of a system of first-order differential
+% equations by choice of Runge-Kutta methods RK1, RK2, RK3. or RK4.
+
 function [tout, yout] = rk1_4(ode_function, tspan, y0, h, rk)
 %{
     This function uses a selected Runge-Kutta procedure to integrate
