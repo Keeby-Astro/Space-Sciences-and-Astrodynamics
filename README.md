@@ -1,4 +1,4 @@
-# Orbital Mechanics Simulation Toolkit
+# Space-Sciences-and-Astrodynamics
 
 This repository contains MATLAB and Python implementations of several orbital mechanics and astrodynamics functions. The toolkit offers functionality for simulating orbits, computing transformations, performing numerical integrations, and more.
 
@@ -39,8 +39,6 @@ The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and
 | `Family_of_orbits.py`         | Simulates and visualizes a family of orbits with varying semi-major axis and eccentricity. Also includes an animation function for orbit visualization. |
 | `Orbital Elements.py`         | Calculates orbital parameters from initial state vectors, such as vector magnitude, radial velocity, and angular momentum. |
 | `Orbit_Simulator.py`          | Simulates orbital motion with transformations between orbital elements and Cartesian coordinates, providing a 3D orbit visualization. |
-| `twobody3d.m`                 | Solves the two-body gravitational problem in 3D using Runge-Kutta-Fehlberg 4(5), calculating trajectories for both masses and their center of mass. |
-| `threebody.m`                 | Simulates the planar three-body problem using MATLAB’s `ode45` solver, showing trajectories relative to the inertial frame and center of mass. |
 
 ### MATLAB Code Modules
 | File                     | Description |
@@ -66,6 +64,8 @@ The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and
 | `simpsons_lunar_ephemeris.m` | Computes the Moon's position and velocity vectors based on Simpson's ephemeris model. |
 | `solar_position.m`       | Calculates the position vector of the Sun relative to Earth for a given Julian date. |
 | `stumpC.m`, `stumpS.m`   | Evaluates Stumpff functions, used in solving Kepler's equations. |
+| `twobody3d.m`                 | Solves the two-body gravitational problem in 3D using Runge-Kutta-Fehlberg 4(5), calculating trajectories for both masses and their center of mass. |
+| `threebody.m`                 | Simulates the planar three-body problem using MATLAB’s `ode45` solver, showing trajectories relative to the inertial frame and center of mass. |
 
 ### Python Code Modules
 Python versions of all above modules are also available, with the same functionality, optimized for `NumPy` and `SciPy`.
