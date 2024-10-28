@@ -1,3 +1,5 @@
+# Algorithm 1.2: Numerical integration of a system of first-order differential
+# equations by Heun’s predictor-corrector method
 import numpy as np
 
 def heun(ode_function, tspan, y0, h):
