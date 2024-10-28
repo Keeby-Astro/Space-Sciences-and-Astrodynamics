@@ -1,3 +1,6 @@
+% Algorithm 10.2: Calculate the geocentric position of the sun at a given
+% epoch.
+
 function [lamda eps r_S] = solar_position(jd)
 %{
     This function alculates the geocentric equatorial position vector
