@@ -1,3 +1,6 @@
+% Algorithm 3.2: Solution of Kepler’s equation for the hyperbola using
+% Newton’s method.
+
 function F = kepler_H(e, M)
 %{
     This function uses Newton’s method to solve Kepler’s equation
