@@ -1,3 +1,6 @@
+% Algorithm 5.4: Calculation of the state vector from measurements of range,
+% angular position, and their rates.
+
 function [r,v] = rv_from_observe(rho, rhodot, A, Adot, a, ...
 adot, theta, phi, H)
 %{
