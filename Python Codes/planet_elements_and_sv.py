@@ -1,3 +1,6 @@
+# Algorithm 8.1: Calculation of the heliocentric state vector of a planet at a
+# given epoch.
+
 import numpy as np
 import J0
 import kepler_E
