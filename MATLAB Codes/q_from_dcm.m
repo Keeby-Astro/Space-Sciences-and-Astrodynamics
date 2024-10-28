@@ -1,3 +1,4 @@
+% Algorithm 11.2: Calculate the quaternion from the direction cosine matrix.
 function q = q_from_dcm(Q)
 %{
     This function calculates the quaternion from the direction
