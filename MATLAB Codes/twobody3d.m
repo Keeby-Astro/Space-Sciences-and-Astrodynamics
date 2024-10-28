@@ -1,3 +1,5 @@
+% Algorithm 2.1: Numerical solution for the motion of two bodies relative to
+% an inertial frame.
 function twobody3d
 %{
     This function solves the inertial two-body problem in three dimensions
