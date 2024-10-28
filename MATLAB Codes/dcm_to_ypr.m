@@ -1,3 +1,5 @@
+% Algorithm 4.4: Obtain the yaw, pitch, and roll angles from a DCM.
+
 function [yaw pitch roll] = dcm_to_ypr(Q)
 %{
     This function finds the angles of the yaw-pitch-roll sequence
