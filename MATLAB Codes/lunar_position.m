@@ -1,3 +1,6 @@
+% Algorithm 10.4: Calculate the geocentric position of the moon at a given
+% epoch.
+
 function r_moon = lunar_position(jd)
 %{
     Calculates the geocentric equatorial position vector of the moon
