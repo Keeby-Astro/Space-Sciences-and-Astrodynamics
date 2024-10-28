@@ -1,3 +1,5 @@
+# Algorithm 4.1: Obtain right ascension and declination from the position
+# vector.
 import numpy as np
 
 def ra_and_dec_from_r(r):
