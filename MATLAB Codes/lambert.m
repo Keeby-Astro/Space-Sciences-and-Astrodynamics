@@ -1,3 +1,5 @@
+% Algorithm 5.2: Solution of Lambert’s problem.
+
 function [V1, V2] = lambert(R1, R2, t, string)
 %{
     This function solves Lambert’s problem.
