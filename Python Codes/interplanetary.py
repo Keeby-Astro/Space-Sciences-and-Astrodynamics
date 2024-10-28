@@ -1,3 +1,4 @@
+# Algorithm 8.2: Calculate the spacecraft trajectory from planet 1 to planet 2.
 import numpy as np
 import planet_elements_and_sv
 import lambert
