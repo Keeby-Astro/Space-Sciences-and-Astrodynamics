@@ -1,3 +1,4 @@
+# Algorithm 4.2: Calculation of the orbital elements from the state vector.
 import numpy as np
 
 def coe_from_sv(R, V, mu):
