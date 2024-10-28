@@ -1,5 +1,6 @@
+# Algorithm 4.3: Obtain the classical Euler angle sequence from a DCM.
 import numpy as np
-from atan2d_0_360 import atan2d_0_360
+import atan2d_0_360
 
 def dcm_to_euler(Q):
     """
