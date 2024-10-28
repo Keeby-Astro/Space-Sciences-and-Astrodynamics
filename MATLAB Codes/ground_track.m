@@ -1,3 +1,6 @@
+% Algorithm 4.6: Calculate the ground track of a satellite from its orbital
+% elements.
+
 function ground_track
 %{
     This program plots the ground track of an earth satellite
