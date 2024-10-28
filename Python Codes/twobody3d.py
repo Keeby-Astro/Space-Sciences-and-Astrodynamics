@@ -1,3 +1,5 @@
+# Algorithm 2.1: Numerical solution for the motion of two bodies relative to
+# an inertial frame.
 import numpy as np
 import matplotlib.pyplot as plt
 import rkf45
