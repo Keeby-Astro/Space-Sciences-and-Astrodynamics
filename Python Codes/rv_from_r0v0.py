@@ -1,7 +1,9 @@
+# Algorithm 3.4: Calculation of the state vector given the initial state vector
+# and the time lapse Δt.
 import numpy as np
-from kepler_U import kepler_U
-from f_and_g import f_and_g
-from fDot_and_gDot import fDot_and_gDot
+import kepler_U
+import f_and_g
+import fDot_and_gDot
 
 def rv_from_r0v0(R0, V0, t, mu):
     """
