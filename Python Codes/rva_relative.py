@@ -1,3 +1,5 @@
+# Algorithm 7.1: Find the position, velocity, and acceleration of B relative to
+# A’s comoving frame.
 import numpy as np
 
 def rva_relative(rA, vA, rB, vB, mu):
