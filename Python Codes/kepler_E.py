@@ -29,5 +29,6 @@ def kepler_E(e, M):
     while abs(ratio) > error:
         ratio = (E - e * np.sin(E) - M) / (1 - e * np.cos(E))
         E = E - ratio
+        E = E % (2*np.pi)
 
     return E
