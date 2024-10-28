@@ -1,6 +1,8 @@
+# Algorithm 2.3: Calculate the state vector given the initial state vector and
+# the change in true anomaly.
 import numpy as np
-from f_and_g_ta import f_and_g_ta
-from fDot_and_gDot_ta import fDot_and_gDot_ta
+import f_and_g_ta
+import fDot_and_gDot_ta
 
 def rv_from_r0v0_ta(r0, v0, dt, mu):
     """
