@@ -1,3 +1,5 @@
+% Algorithm 3.1: Solution of Kepler’s equation by Newton’s method.
+
 function E = kepler_E(e, M)
 %{
     This function uses Newton’s method to solve Kepler’s
