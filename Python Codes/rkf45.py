@@ -1,3 +1,7 @@
+# Algorithm 1.3: Numerical integration of a system of first-order differential
+# equations by the Runge-Kutta-Fehlberg 4(5) method with adaptive step
+# size control.
+
 import numpy as np
 
 def rkf45(ode_function, tspan, y0, tolerance=1.e-8):
