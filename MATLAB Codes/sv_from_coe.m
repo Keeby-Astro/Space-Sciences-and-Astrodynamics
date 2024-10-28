@@ -1,3 +1,5 @@
+% Algorithm 4.5: Calculation of the state vector from the orbital elements.
+
 function [r, v] = sv_from_coe(coe,mu)
 %{
     This function computes the state vector (r,v) from the
