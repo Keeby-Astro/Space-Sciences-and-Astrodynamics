@@ -1,5 +1,6 @@
+# Algorithm 4.4: Obtain the yaw, pitch, and roll angles from a DCM.
 import numpy as np
-from atan2d_0_360 import atan2d_0_360
+import atan2d_0_360
 
 def dcm_to_ypr(Q):
     """
