@@ -20,8 +20,10 @@ def kepler_E(e, M):
     # Select a starting value for E:
     if M < np.pi:
         E = M + e / 2
-    else:
+    elif M < np.pi:
         E = M - e / 2
+    else:
+        E = M
 
     # Iterate on Equation 3.17 until E is determined to within
     # the error tolerance:
