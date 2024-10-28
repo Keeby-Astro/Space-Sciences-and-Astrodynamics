@@ -1,6 +1,8 @@
+# Algorithm 5.2: Solution of Lambert’s problem.
+
 import numpy as np
-from stumpC import stumpC
-from stumpS import stumpS
+import stumpC
+import stumpS
 
 def lambert(R1, R2, t, string='pro'):
     """
