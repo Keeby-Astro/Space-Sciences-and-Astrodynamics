@@ -1,3 +1,4 @@
+# Algorithm 10.3: Determine whether or not a satellite is in earth’s shadow.
 import numpy as np
 
 def los(r_sat, r_sun):
