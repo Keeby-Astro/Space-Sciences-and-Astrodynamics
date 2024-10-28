@@ -1,3 +1,6 @@
+# Algorithms 5.5 and 5.6: Gauss’ method of preliminary orbit determination
+# with iterative improvement.
+
 import numpy as np
 import kepler_U
 import f_and_g
