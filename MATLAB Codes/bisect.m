@@ -1,3 +1,5 @@
+% Algorithm 2.4: Find the root of a function using the bisection method.
+
 function root = bisect(fun, xl, xu)
 %{
     This function evaluates a root of a function using
