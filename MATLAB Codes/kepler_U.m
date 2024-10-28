@@ -1,3 +1,6 @@
+% Algorithm 3.3: Solution of the universal Kepler’s equation using Newton’s
+% method.
+
 function x = kepler_U(dt, ro, vro, a)
 %{
     This function uses Newton’s method to solve the universal
