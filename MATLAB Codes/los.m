@@ -1,3 +1,5 @@
+% Algorithm 10.3: Determine whether or not a satellite is in earth’s shadow.
+
 function light_switch = los(r_sat, r_sun)
 %{
     This function uses the ECI position vectors of the satellite (r_sat)
