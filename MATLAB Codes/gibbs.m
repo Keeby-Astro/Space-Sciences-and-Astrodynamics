@@ -1,3 +1,5 @@
+% Algorithm 5.1: Gibbs’ method of preliminary orbit determination.
+
 function [V2, ierr] = gibbs(R1, R2, R3)
 %{
     This function uses the Gibbs method of orbit determination to
