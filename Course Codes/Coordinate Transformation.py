@@ -1,5 +1,4 @@
-### Orbital elements to state vectors
-
+# Orbital elements to state vectors
 import numpy as np
 
 mu = 398600.4418 # km^3/s^2
