@@ -1,3 +1,4 @@
+# Algorithm 11.1: Calculate the direction cosine matrix from the quaternion.
 import numpy as np
 
 def dcm_from_q(q):
