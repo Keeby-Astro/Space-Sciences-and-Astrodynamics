@@ -1,3 +1,5 @@
+# Algorithm 3.2: Solution of Kepler’s equation for the hyperbola using
+# Newton’s method.
 import numpy as np
 
 def kepler_H(e, M):
