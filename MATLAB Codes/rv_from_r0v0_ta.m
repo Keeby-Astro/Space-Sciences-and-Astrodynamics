@@ -1,3 +1,6 @@
+% Algorithm 2.3: Calculate the state vector given the initial state vector and
+% the change in true anomaly.
+
 function [r,v] = rv_from_r0v0_ta(r0, v0, dt, mu)
 %{
     This function computes the state vector (r,v) from the
