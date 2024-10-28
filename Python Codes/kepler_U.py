@@ -1,6 +1,8 @@
+# Algorithm 3.3: Solution of the universal Kepler’s equation using Newton’s
+# method.
 import numpy as np
-from stumpC import stumpC
-from stumpS import stumpS
+import stumpC
+import stumpS
 
 def kepler_U(dt, ro, vro, a, mu):
     """
