@@ -1,3 +1,5 @@
+# Algorithm 5.1: Gibbs’ method of preliminary orbit determination.
+
 import numpy as np
 
 def gibbs(R1, R2, R3, mu):
