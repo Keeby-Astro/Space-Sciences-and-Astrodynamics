@@ -1,5 +1,3 @@
-% Algorithm 2.4: Find the root of a function using the bisection method.
-
 function density = atmosphere(z)
 %{
     ATMOSPHERE calculates density for altitudes from sea level
