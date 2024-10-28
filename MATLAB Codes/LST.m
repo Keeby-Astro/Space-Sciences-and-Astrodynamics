@@ -1,3 +1,5 @@
+% Algorithm 5.3: Calculation of local sidereal time.
+
 function lst = LST(y, m, d, ut, EL)
 %{
     This function calculates the local sidereal time.
