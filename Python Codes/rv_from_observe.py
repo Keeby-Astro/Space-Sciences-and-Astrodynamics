@@ -1,5 +1,5 @@
 # Algorithm 5.4: Calculation of the state vector from measurements of range,
-#  position, and their rates.
+# position, and their rates.
 import numpy as np
 
 def rv_from_observe(rho, rhodot, A, Adot, a, adot, theta, phi, H):
