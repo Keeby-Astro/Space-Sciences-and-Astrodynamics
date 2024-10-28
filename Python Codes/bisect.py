@@ -1,3 +1,5 @@
+# Algorithm 2.4: Find the root of a function using the bisection method.
+
 def bisect(fun, xl, xu, tol=1.e-6):
     """
     This function evaluates a root of a function using
