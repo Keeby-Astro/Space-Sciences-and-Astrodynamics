@@ -1,3 +1,6 @@
+% Algorithm 1.2: Numerical integration of a system of first-order differential
+% equations by Heun’s predictor-corrector method
+
 function [tout, yout] = heun(ode_function, tspan, y0, h)
 %{
     This function uses the predictor-corrector method to integrate a system
