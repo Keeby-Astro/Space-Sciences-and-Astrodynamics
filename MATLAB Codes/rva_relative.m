@@ -1,3 +1,6 @@
+% Algorithm 7.1: Find the position, velocity, and acceleration of B relative to
+% A’s comoving frame.
+
 function [r_rel_x, v_rel_x, a_rel_x] = rva_relative(rA,vA,rB,vB)
 %{
     This function uses the state vectors of spacecraft A and B
