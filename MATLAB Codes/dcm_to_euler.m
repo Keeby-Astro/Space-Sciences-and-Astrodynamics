@@ -1,3 +1,5 @@
+% Algorithm 4.3: Obtain the classical Euler angle sequence from a DCM.
+
 function [alpha beta gamma] = dcm_to_euler(Q)
 %{
     This function finds the angles of the classical Euler sequence
