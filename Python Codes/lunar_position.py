@@ -1,3 +1,5 @@
+# Algorithm 10.4: Calculate the geocentric position of the moon at a given
+# epoch.
 import numpy as np
 
 def lunar_position(jd):
