@@ -1,3 +1,5 @@
+# Algorithm 10.2: Calculate the geocentric position of the sun at a given
+# epoch.
 import numpy as np
 
 def solar_position(jd):
