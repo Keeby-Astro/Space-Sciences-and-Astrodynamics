@@ -1,3 +1,6 @@
+% Algorithm 3.4: Calculation of the state vector given the initial state vector
+% and the time lapse Δt.
+
 function [R,V] = rv_from_r0v0(R0, V0, t)
 %{
     This function computes the state vector (R,V) from the
