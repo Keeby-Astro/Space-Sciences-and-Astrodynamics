@@ -1,3 +1,4 @@
+% Algorithm 8.2: Calculate the spacecraft trajectory from planet 1 to planet 2.
 function ...
 [planet1, planet2, trajectory] = interplanetary(depart, arrive)
 %{
