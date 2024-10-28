@@ -1,3 +1,5 @@
+# Algorithm 5.3: Calculation of local sidereal time.
+
 import numpy as np
 from J0 import J0
 
