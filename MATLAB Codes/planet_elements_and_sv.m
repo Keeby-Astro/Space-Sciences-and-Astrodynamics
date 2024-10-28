@@ -1,3 +1,6 @@
+% Algorithm 8.1: Calculation of the heliocentric state vector of a planet at a
+% given epoch.
+
 function [coe, r, v, jd] = planet_elements_and_sv ...
 (planet_id, year, month, day, hour, minute, second)
 %{
