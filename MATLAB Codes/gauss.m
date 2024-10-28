@@ -1,3 +1,6 @@
+% Algorithms 5.5 and 5.6: Gauss’ method of preliminary orbit determination
+% with iterative improvement.
+
 function [r, v, r_old, v_old] = ...
 gauss(Rho1, Rho2, Rho3, R1, R2, R3, t1, t2, t3)
 %{
