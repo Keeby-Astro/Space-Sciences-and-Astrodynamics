@@ -1,3 +1,4 @@
+# Algorithm 3.1: Solution of Kepler’s equation by Newton’s method.
 import numpy as np
 
 def kepler_E(e, M):
