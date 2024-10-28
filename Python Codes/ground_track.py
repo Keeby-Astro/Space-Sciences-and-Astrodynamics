@@ -1,8 +1,10 @@
+# Algorithm 4.6: Calculate the ground track of a satellite from its orbital
+# elements.
 import numpy as np
 import matplotlib.pyplot as plt
-from sv_from_coe import sv_from_coe
-from kepler_E import kepler_E
-from ra_and_dec_from_r import ra_and_dec_from_r
+import sv_from_coe
+import kepler_E
+import ra_and_dec_from_r
 
 def ground_track():
     """
