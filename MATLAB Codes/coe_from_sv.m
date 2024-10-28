@@ -1,3 +1,5 @@
+% Algorithm 4.2: Calculation of the orbital elements from the state vector.
+
 function coe = coe_from_sv(R,V,mu)
 %{
     This function computes the classical orbital elements (coe)
