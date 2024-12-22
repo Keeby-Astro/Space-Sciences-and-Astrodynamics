@@ -127,7 +127,7 @@ def lunar_trajectory():
     ra_end, dec_end             - Right ascension and declination of end point
                                     of trajectory (km)
 
-    User M-functions required: none
+    User py-functions required: none
     User subfunctions required: rates, plotit_XYZ, plotit_xyz
     '''
     #...general data
