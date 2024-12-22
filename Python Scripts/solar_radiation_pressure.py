@@ -22,8 +22,9 @@ def solar_radiation_pressure():
     This function solves the Gauss planetary equations for
     solar radiation pressure (Equations 10.106).
     
-    User M-functions required:  sv_from_coe, los, solar_position
+    User py-functions required:  sv_from_coe, los, solar_position
     User subfunctions required: rates
+    
     The M-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
     and Higher Dimensions with Missing Values, Computational Statistics and Data Analysis,
     5 Vol. 54, 1167-1178, 2010.
