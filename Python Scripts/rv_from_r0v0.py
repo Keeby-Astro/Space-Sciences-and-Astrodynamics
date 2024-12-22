@@ -18,7 +18,7 @@ def rv_from_r0v0(R0, V0, t, mu):
     R  - final position vector (km)
     V  - final velocity vector (km/s)
 
-    % User py-functions required: kepler_U, f_and_g, fDot_and_gDot
+    User py-functions required: kepler_U, f_and_g, fDot_and_gDot
     '''
     mu = 398600.4418
 
