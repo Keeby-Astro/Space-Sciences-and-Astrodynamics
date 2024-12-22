@@ -11,7 +11,7 @@ def atmosisa(h_m):
     P   - Pressure [Pa]
     rho - Density [kg/m^3]
 
-    User py-function required:  None
+    User py-functions required: none
     '''
     g0    = 9.80665
     R     = 287.053
