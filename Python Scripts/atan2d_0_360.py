@@ -6,6 +6,8 @@ def atan2d_0_360(y, x):
     and places the result in the range [0, 360].
 
     t - angle in degrees
+    
+    User py-functions required:  None
     '''
     if x == 0:
         if y == 0:
