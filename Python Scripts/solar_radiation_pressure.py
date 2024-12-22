@@ -25,9 +25,12 @@ def solar_radiation_pressure():
     User py-functions required:  sv_from_coe, los, solar_position
     User subfunctions required: rates
     
-    The M-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
+    The py-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
     and Higher Dimensions with Missing Values, Computational Statistics and Data Analysis,
     5 Vol. 54, 1167-1178, 2010.
+
+    This code translates the rsmooth function from MATLAB programming language to 
+    the Python programming language.
     '''
     global JD0
 
