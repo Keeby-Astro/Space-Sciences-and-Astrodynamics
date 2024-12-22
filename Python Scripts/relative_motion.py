@@ -32,7 +32,7 @@ def relative_motion():
                geocentric equatorial frame
     y0       - column vector containing r0, v0
 
-    User py-functions required:  sv_from_coe, rkf45
+    User py-functions required: sv_from_coe, rkf45
     User subfunctions required: rates
     '''
     global mu
