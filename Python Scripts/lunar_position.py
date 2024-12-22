@@ -8,7 +8,7 @@ def lunar_position(jd):
     Calculates the geocentric equatorial position vector of the moon
     given the Julian day.
     
-    User py-functions required: None
+    User py-functions required: none
     '''
     # Earth's radius (km)
     RE = 6378.14
