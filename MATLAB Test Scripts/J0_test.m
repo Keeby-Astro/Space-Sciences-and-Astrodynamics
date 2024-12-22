@@ -1,4 +1,4 @@
-%J0_test
+% J0_test
 %{
     This program computes J0 and the Julian day number using the data.
     
