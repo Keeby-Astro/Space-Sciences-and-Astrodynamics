@@ -1,4 +1,4 @@
-%LST_test
+% LST_test
 %{
     This program uses Algorithm 5.3 to obtain the local sidereal
     time from the data provided.
