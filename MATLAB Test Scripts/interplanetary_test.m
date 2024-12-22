@@ -1,4 +1,4 @@
-%interplanetary_test
+% interplanetary_test
 %{
     This program uses Algorithm 8.2 to solve interplanetary trajectory.
 
