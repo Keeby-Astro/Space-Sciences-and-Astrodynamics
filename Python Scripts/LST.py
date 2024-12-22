@@ -19,7 +19,7 @@ def LST(y, m, d, ut, EL):
     gst - Greenwich sidereal time (degrees) at the specified UT
 
     User py-function required: J0
-    User py-subfunction required: zeroTo360
+    User subfunction required: zeroTo360
     '''
     # Equation 5.48
     j0 = J0.J0(y, m, d)
