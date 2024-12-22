@@ -30,7 +30,7 @@ def threebody():
                                     y(:,11), y(:,12) = VX3(:), VY3(:)
     
     User py-functions required: none
-    User py-subfunctions required: rates, plotit
+    User subfunctions required: rates, plotit
     '''
     G = 6.67259e-20
 
