@@ -8,8 +8,7 @@ def gravity_turn():
     This program numerically integrates Equations 13.6 through
     13.8 for a gravity turn trajectory.
     
-    py-functions required:      atmosisa
-    User py-functions required: rkf45
+    User py-functions required: rkf45, atmosisa
     User subfunction required:  rates
     '''
     deg = np.pi / 180  # Convert degrees to radians
