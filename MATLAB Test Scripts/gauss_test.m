@@ -1,4 +1,4 @@
-%gauss_test
+% gauss_test
 %{
     This program uses Algorithms 5.5 and 5.6 (Gauss's method) to compute
     the state vector from the data provided.
