@@ -60,7 +60,7 @@ def planet_elements_and_sv(planet_id, year, month, day, hour, minute, second):
     v           - heliocentric velocity vector
 
     User py-functions required: J0, kepler_E, sv_from_coe
-    User py-subfunctions required: planetary_elements, zero_to_360
+    User subfunctions required: planetary_elements, zero_to_360
     '''
     
     global mu
