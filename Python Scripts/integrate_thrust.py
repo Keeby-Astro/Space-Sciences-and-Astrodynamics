@@ -39,7 +39,7 @@ def integrate_thrust():
     rmax    - apogee radius (km)
 
     User py-functions required: rkf45, coe_from_sv, rv_from_r0v0_ta
-    User py-subfunctions required: rates, output
+    User subfunctions required: rates, output
     '''
     #...Constants
     deg = np.pi / 180
