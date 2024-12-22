@@ -22,7 +22,14 @@ def solar_perturbation():
     This function uses Python's solve_ivp to integrate
     the Gauss variational equations for a solar gravitational perturbation.
     
-    User modules required: sv_from_coe, solar_position
+    User py-functions required: sv_from_coe, solar_position
+
+    The py-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
+    and Higher Dimensions with Missing Values, Computational Statistics and Data Analysis,
+    5 Vol. 54, 1167-1178, 2010.
+
+    This code translates the rsmooth function from MATLAB programming language to 
+    the Python programming language.
     '''
     global JD  # Julian day
 
