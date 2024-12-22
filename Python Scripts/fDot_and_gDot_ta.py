@@ -14,7 +14,7 @@ def fDot_and_gDot_ta(r0, v0, dt, mu):
     fdot    - time derivative of the Lagrange f coefficient (1/s)
     gdot    - time derivative of the Lagrange g coefficient (dimensionless)
 
-    User py-functions required: None
+    User py-functions required: none
     '''
     h = np.linalg.norm(np.cross(r0, v0))
     vr0 = np.dot(v0, r0) / np.linalg.norm(r0)
