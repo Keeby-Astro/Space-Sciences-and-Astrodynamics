@@ -19,7 +19,7 @@ def J2_perturbation():
     (the Gauss planetary equations) to determine the J2 perturbation of 
     the orbital elements.
     
-    User py-functions required:  None
+    User py-functions required: none
     User subfunctions required: rates    
     '''
     # Conversion factors:
