@@ -12,7 +12,7 @@ function [fdot, gdot] = fDot_and_gDot_ta(r0, v0, dt, mu)
     fdot    - time derivative of the Lagrange f coefficient (1/s)
     gdot    - time derivative of the Lagrange g coefficient (dimensionless)
 
-    User M-functions required: None
+    User M-functions required: none
 %}
 % --------------------------------------------------------
 
