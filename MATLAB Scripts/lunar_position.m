@@ -6,7 +6,7 @@ function r_moon = lunar_position(jd)
     Calculates the geocentric equatorial position vector of the moon
     given the Julian day.
     
-    User M-functions required: None
+    User M-functions required: none
 %}
 % -------------------------------------------------------------------------
 %...Earth's radius (km):
