@@ -4,8 +4,8 @@ function J2_perturbation
 % (the Gauss planetary equations) to determine the J2 perturbation of 
 % the orbital elements.
 %
-% User M-functions required:  None
-% User subfunctions required: rates                          
+% User M-function required: none
+% User subfunction required: rates                          
 % ------------------------------------------------------------------------
  
 close all; clear all; clc
