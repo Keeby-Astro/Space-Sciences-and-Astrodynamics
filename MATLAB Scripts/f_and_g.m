@@ -12,6 +12,8 @@ function [f, g] = f_and_g(x, t, ro, a)
 
     User M-functions required: stumpC, stumpS
 %}
+% --------------------------------------------------
+
 global mu
 
 z = a*x^2;
