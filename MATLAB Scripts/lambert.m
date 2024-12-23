@@ -26,7 +26,7 @@ function [V1, V2] = lambert(R1, R2, t, string)
               C(z), S(z) - Stumpff functions
     dum     - a dummy variable
 
-    User M-functions required: stumpC and stumpS
+    User M-functions required: stumpC, stumpS
 %}
 % ----------------------------------------------
 
