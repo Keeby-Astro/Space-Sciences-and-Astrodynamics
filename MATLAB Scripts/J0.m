@@ -8,7 +8,7 @@ function j0 = J0(year, month, day)
     month   - range: 1 - 12
     day     - range: 1 - 31
 
-    User m-functions required: none
+    User M-functions required: none
 %}
 % ----------------------------------
 
