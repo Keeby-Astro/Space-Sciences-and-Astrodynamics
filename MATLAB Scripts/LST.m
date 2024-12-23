@@ -43,9 +43,9 @@ lst = lst - 360*fix(lst/360);
 
 return
 
-    % -------------------
+    % -----------------------
     function y = zeroTo360(x)
-    % -------------------
+    % -----------------------
     %{
         This subfunction reduces an angle to the range 0 - 360 degrees.
     
