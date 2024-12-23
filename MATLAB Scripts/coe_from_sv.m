@@ -25,7 +25,7 @@ function coe = coe_from_sv(R,V,mu)
     pi      - 3.1415926...
     coe     - vector of orbital elements [h e RA incl w TA a]
 
-    User M-functions required: None
+    User M-functions required: none
 %}
 % ---------------------------------------------
 
