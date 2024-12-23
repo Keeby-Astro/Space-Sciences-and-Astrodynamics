@@ -11,7 +11,7 @@ function E = kepler_E(e, M)
     M  - mean anomaly (radians), passed from the calling program
     pi - 3.1415926...
 
-    User m-functions required: none
+    User M-functions required: none
 %}
 % ----------------------------------------------
 
