@@ -6,7 +6,7 @@ function light_switch = los(r_sat, r_sun)
     and the sun (r_sun) to determine whether the earth is in the line of
     sight between the two.
     
-    User M-functions required: None
+    User M-functions required: none
 %}
 % -----------------------------------------------------------------------------
 RE = 6378; % Earth's radius (km)
