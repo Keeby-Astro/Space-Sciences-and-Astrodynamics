@@ -3,7 +3,7 @@ import sv_from_coe
 import rva_relative
 
 def rva_relative_test():
-    """
+    '''
     This program uses the data of Example 7.1 to calculate the position,
     velocity and acceleration of an orbiting chaser B relative to an
     orbiting target A.
@@ -29,7 +29,7 @@ def rva_relative_test():
                         co-moving frame
 
     User py-function required:   sv_from_coe, rva_relative
-    """
+    '''
     mu  = 398600.4418
     deg = np.pi/180
 
