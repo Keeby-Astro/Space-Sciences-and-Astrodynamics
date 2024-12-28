@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from atmosisa import atmosisa  # Assuming atmosisa is a valid Python function
-from rkf45 import rkf45  # Assuming rkf45 is a valid Python function
+import atmosisa
+import rkf45
 
 def gravity_turn():
     '''
@@ -49,7 +49,7 @@ def gravity_turn():
 
     # Call to Runge-Kutta numerical integrator 'rkf45'
     # rkf45 solves the system of equations df/dt = f(t):
-    t, f = rkf45(rates, tspan, f0)
+    t, f = rkf45.rkf45(rates, tspan, f0)
 
     # Solution f(t) returned on the time interval [t0, tf]:
     v = f[:, 0] * 1.e-3  # Velocity (km/s)
@@ -65,7 +65,7 @@ def gravity_turn():
     for i in range(len(t)):
         Rho = rho0 * np.exp(-h[i] * 1000 / hscale)  # Air density (kg/m^3)
         q.append(0.5 * Rho * (v[i] * 1.e3) ** 2)  # Dynamic pressure (Pa)
-        _, a, _, _ = atmosisa(h[i] * 1000)  # Speed of sound (m/s)
+        _, a, _, _ = atmosisa.atmosisa(h[i] * 1000)  # Speed of sound (m/s)
         M.append(1000 * v[i] / a)  # Mach number
 
     # Maximum dynamic pressure and corresponding parameters:
@@ -74,7 +74,7 @@ def gravity_turn():
     tQ = t[imax]  # Time
     vQ = v[imax]  # Speed
     hQ = h[imax]  # Altitude
-    _, aQ, _, _ = atmosisa(h[imax] * 1000)  # Speed of sound at altitude
+    _, aQ, _, _ = atmosisa.atmosisa(h[imax] * 1000)  # Speed of sound at altitude
     MQ = 1000 * vQ / aQ
 
     # Output results:
