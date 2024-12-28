@@ -3,7 +3,7 @@ import lambert
 import coe_from_sv
 
 def lambert_test():
-    """
+    '''
     This program uses Algorithm 5.2 to solve Lambert's problem for the
     data provided.
 
@@ -28,7 +28,7 @@ def lambert_test():
     T - period of an elliptic orbit (s)
 
     User py-functions required: lambert, coe_from_sv
-    """
+    '''
     mu = 398600.4418
 
     deg = np.pi / 180.0
