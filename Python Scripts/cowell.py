@@ -29,9 +29,9 @@ def cowell():
     deg = np.pi / 180             # Degrees to radians
 
     # Constants:
-    mu = 398600                   # Gravitational parameter (km^3/s^2)
-    RE = 6378                    # Earth's radius (km)
-    wE = np.array([0, 0, 7.2921159e-5])  # Earth's angular velocity (rad/s)
+    mu = 398600.4418                    # Gravitational parameter (km^3/s^2)
+    RE = 6378.14                        # Earth's radius (km)
+    wE = np.array([0, 0, 7.2921159e-5]) # Earth's angular velocity (rad/s)
 
     # Satellite data:
     CD = 2.2                     # Drag coefficient
