@@ -5,6 +5,8 @@ def atan2d_0_360_test():
     '''
     This script tests the atan2d_0_360 function for various inputs.
 
+    t - angle in degrees
+
     User py-function required: atan2d_0_360
     '''
     # Inputs
