@@ -25,18 +25,18 @@ def encke():
     User py-functions required: sv_from_coe, coe_from_sv, rv_from_r0v0
     User subfunction required: rates 
     '''
-    # Conversion factors:
+    #...Conversion factors:
     hours = 3600                  # Hours to seconds
     days = 24 * hours             # Days to seconds
     deg = np.pi / 180             # Degrees to radians
 
-    # Constants:
+    #...Constants:
     global mu
     mu = 398600.4418               # Gravitational parameter (km^3/s^2)
     RE = 6378.14                   # Earth's radius (km)
     J2 = 1082.63e-6
 
-    # Initial orbital parameters (given):
+    #...Initial orbital parameters (given):
     zp0 = 300                     # Perigee altitude (km)
     za0 = 3062                    # Apogee altitude (km)
     RA0 = 45 * deg                # Right ascension of the node (radians)
@@ -44,7 +44,7 @@ def encke():
     w0  = 30 * deg                # Argument of perigee (radians)
     TA0 = 40 * deg                # True anomaly (radians)
 
-    # Initial orbital parameters (inferred):
+    #...Initial orbital parameters (inferred):
     rp0 = RE + zp0                          # Perigee radius (km)
     ra0 = RE + za0                          # Apogee radius (km)
     e0  = (ra0 - rp0) / (ra0 + rp0)         # Eccentricity
@@ -58,7 +58,7 @@ def encke():
     # Store the initial orbital elements in the array coe0:
     coe0 = [h0, e0, RA0, i0, w0, TA0]
 
-    # Obtain the initial state vector from sv_from_coe:
+    #...Obtain the initial state vector from sv_from_coe:
     R0, V0 = sv_from_coe(coe0, mu)  # R0 is the initial position vector
                                     # V0 is the initial velocity vector
     r0 = np.linalg.norm(R0)         # Magnitude of R0
@@ -66,7 +66,7 @@ def encke():
 
     del_t = T0 / 100                # Time step for Encke procedure
 
-    # Begin the Encke integration:
+    #...Begin the Encke integration:
     t = t0                         # Initialize the time scalar
     tsave = [t0]                   # Initialize the vector of solution times
     y = [np.concatenate((R0, V0))] # Initialize the state vector
@@ -134,6 +134,8 @@ def encke():
     n_times = len(t)
     r, v, h, e, RA, i, w, TA = ([] for _ in range(8))
 
+    #...At each solution time extract the orbital elements from the state
+    #   vector using Algorithm 4.2:
     for j in range(n_times):
         R = y[j, :3]
         V = y[j, 3:]
@@ -150,7 +152,7 @@ def encke():
     # Convert lists to numpy arrays for easier handling:
     r, v, h, e, RA, i, w, TA = map(np.array, [r, v, h, e, RA, i, w, TA])
 
-    # Plot selected osculating elements:
+    #...Plot selected osculating elements:
     plt.figure(1)
     plt.subplot(2, 1, 1)
     plt.plot(t / 3600, (RA - RA0) / deg)
