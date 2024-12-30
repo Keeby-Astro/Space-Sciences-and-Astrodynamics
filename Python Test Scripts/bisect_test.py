@@ -16,26 +16,27 @@ def bisect_test():
     User py-function required: bisect
     User subfunction required: fun
     '''
-    # Input data:
+    #...Input data:
     m1 = 5.974e24
     m2 = 7.348e22
     r12 = 3.844e5
 
     xl = [-1.1, 0.5, 1.0]
     xu = [-0.9, 1.0, 1.5]
-    # End input data
+    #...End input data
 
     p = m2 / (m1 + m2)
 
     x = []
     for i in range(3):
-        x.append(bisect(lambda z: fun(z, p), xl[i], xu[i]))
+        x.append(bisect.bisect(lambda z: fun(z, p), xl[i], xu[i]))
 
-    # Output the results
+    #...Output the results
     output(m1, m2, r12, p, x)
 
 # -----------------
 def fun(z, p):
+# -----------------
     '''
     This subroutine evaluates the function in Equation 2.204
 
@@ -46,35 +47,12 @@ def fun(z, p):
     f = (1 - p) * (z + p) / abs(z + p)**3 + p * (z + p - 1) / abs(z + p - 1)**3 - z
     return f
 
-def bisect(func, xl, xu, tol=1e-6, max_iter=100):
-    '''
-    Bisection method to find the root of a function.
-
-    func - the function to evaluate
-    xl   - lower bound
-    xu   - upper bound
-    tol  - tolerance for convergence
-    max_iter - maximum number of iterations
-
-    Returns:
-    x - the root of the function
-    '''
-    for _ in range(max_iter):
-        x = (xl + xu) / 2
-        if func(x) == 0 or abs(xu - xl) / 2 < tol:
-            return x
-        if func(xl) * func(x) < 0:
-            xu = x
-        else:
-            xl = x
-    return x
-
 def output(m1, m2, r12, p, x):
     '''
     This function prints out the x-coordinates of L1, L2, and L3
     relative to the center of mass.
     '''
-    # Output to the console:
+    #...Output to the console:
     print("\n\n---------------------------------------------")
     print("\n For:")
     print(f" m1  = {m1:.6g} kg")
