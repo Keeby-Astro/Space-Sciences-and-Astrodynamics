@@ -13,6 +13,7 @@ import numpy as np
 from scipy.integrate import solve_ivp
 from scipy.fftpack import dct, idct
 from scipy.optimize import minimize_scalar
+import matplotlib.pyplot as plt
 import sv_from_coe
 import los
 import solar_position
@@ -22,36 +23,32 @@ def solar_radiation_pressure():
     This function solves the Gauss planetary equations for
     solar radiation pressure (Equations 10.106).
     
-    User py-functions required:  sv_from_coe, los, solar_position
+    User M-functions required:  sv_from_coe, los, solar_position
     User subfunctions required: rates
-    
-    The py-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
+    The M-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
     and Higher Dimensions with Missing Values, Computational Statistics and Data Analysis,
     5 Vol. 54, 1167-1178, 2010.
-
-    This code translates the rsmooth function from MATLAB programming language to 
-    the Python programming language.
     '''
     global JD0
 
-    # Conversion factors:
+    #...Conversion factors:
     hours = 3600                   # Hours to seconds
     days = 24 * hours              # Days to seconds
     deg = np.pi / 180              # Degrees to radians
 
-    # Constants:
+    #...Constants:
     mu = 398600.4418               # Gravitational parameter (km^3/s^2)
     RE = 6378.14                   # Earth's radius (km)
     c = 2.998e8                    # Speed of light (m/s)
     S = 1367                       # Solar constant (W/m^2)
     Psr = S / c                    # Solar pressure (Pa)
 
-    # Satellite data:
+    #...Satellite data:
     CR = 2                         # Radiation pressure coefficient
     m = 100                        # Mass (kg)
     As = 200                       # Frontal area (m^2)
 
-    # Initial orbital parameters (given):
+    #...Initial orbital parameters (given):
     a0 = 10085.44                  # Semimajor axis (km)
     e0 = 0.025422                  # Eccentricity
     incl0 = 88.3924 * deg          # Inclination (radians)
@@ -59,19 +56,22 @@ def solar_radiation_pressure():
     TA0 = 343.4268 * deg           # True anomaly (radians)
     w0 = 227.493 * deg             # Argument of perigee (radians)
 
-    # Initial orbital parameters (inferred):
-    h0 = np.sqrt(mu * a0 * (1 - e0**2))  # Angular momentum (km^2/s)
-    T0 = 2 * np.pi / np.sqrt(mu) * a0**1.5  # Period (s)
+    #...Initial orbital parameters (inferred):
+    h0 = np.sqrt(mu * a0 * (1 - e0**2))    # Angular momentum (km^2/s)
+    T0 = 2 * np.pi / np.sqrt(mu) * a0**1.5 # Period (s)
+    rp0 = h0**2 / mu / (1 + e0)            # Perigee radius (km)
+    ra0 = h0**2 / mu / (1 - e0)            # Apogee radius (km)
 
-    # Store initial orbital elements in the vector coe0:
+    #...Store initial orbital elements in the vector coe0:
     coe0 = [h0, e0, RA0, incl0, w0, TA0]
 
-    # Use solve_ivp to integrate the Gauss planetary equations:
+    #...Use solve_ivp to integrate Equations 12.106, the Gauss planetary equations
+    #   from t0 to tf:
     JD0 = 2438400.5                # Initial Julian date (6 January 1964 0 UT)
     t0 = 0                         # Initial time (s)
     tf = 3 * 365 * days            # Final time (s)
     nout = 4000                    # Number of solution points to output
-    t_eval = np.linspace(t0, tf, nout)  # Time array
+    t_eval = np.linspace(t0, tf, nout)
 
     def rates(t, f):
         # Update the Julian Date at time t:
@@ -130,13 +130,13 @@ def solar_radiation_pressure():
 
     sol = solve_ivp(rates, [t0, tf], coe0, t_eval=t_eval, method='RK45', rtol=1e-8, atol=1e-8)
 
-    # Extract the solution:
+    #...Extract the solution:
     t = sol.t
     y = sol.y
     h, e, RA, incl, w, TA = y
     a = h**2 / mu / (1 - e**2)
 
-    # Smooth the data:
+    #...Smooth the data:
     h = rsmooth(h)
     e = rsmooth(e)
     RA = rsmooth(RA)
@@ -144,8 +144,7 @@ def solar_radiation_pressure():
     w = rsmooth(w)
     a = rsmooth(a)
 
-    # Plot the results:
-    import matplotlib.pyplot as plt
+    #...Plot the results:
     plt.figure(figsize=(10, 12))
 
     plt.subplot(3, 2, 1)
@@ -182,21 +181,26 @@ def solar_radiation_pressure():
     plt.show()
 
 def rsmooth(y):
+    '''
+    Apply recursive smoothing to the data.
+    '''
     y = np.asarray(y)
     n = len(y)
     Lambda = -2 + 2 * np.cos(np.arange(n) * np.pi / n)
+    Lambda_sq = Lambda**2 
     W = np.ones(n)
     z = y.copy()
 
     for _ in range(6):
         tol = float('inf')
         while tol > 1e-5:
-            DCTy = dct(W * (y - z) + z)
-            GCVscore = lambda p: np.sum((W * (y - idct(1 / (1 + 10**p * Lambda**2) * DCTy)))**2)
-            s = 10**minimize_scalar(GCVscore, bounds=(-15, 38), method='bounded').x
-            Gamma = 1 / (1 + s * Lambda**2)
-            new_z = idct(Gamma * DCTy)
-            tol = np.linalg.norm(new_z - z) / np.linalg.norm(z)
+            DCTy = dct(W * (y - z) + z, norm='ortho')
+            GCVscore = lambda p: np.sum((W * (y - idct(1 / (1 + 10**p * Lambda_sq) * DCTy, norm='ortho')))**2)
+            result = minimize_scalar(GCVscore, bounds=(-15, 38), method='bounded')
+            s = 10**result.x
+            Gamma = 1 / (1 + s * Lambda_sq)
+            new_z = idct(Gamma * DCTy, norm='ortho') 
+            tol = np.linalg.norm(new_z - z) / max(np.linalg.norm(z), 1e-10)
             z = new_z
     return z
 
