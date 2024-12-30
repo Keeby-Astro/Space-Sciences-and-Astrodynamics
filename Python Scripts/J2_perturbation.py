@@ -19,37 +19,37 @@ def J2_perturbation():
     (the Gauss planetary equations) to determine the J2 perturbation of 
     the orbital elements.
     
-    User py-functions required: none
+    User py-functions required:  None
     User subfunctions required: rates    
     '''
-    # Conversion factors:
-    hours = 3600  # Hours to seconds
-    days = 24 * hours  # Days to seconds
-    deg = np.pi / 180  # Degrees to radians
+    #...Conversion factors:
+    hours = 3600        # Hours to seconds
+    days  = 24 * hours  # Days to seconds
+    deg   = np.pi / 180 # Degrees to radians
 
-    # Constants:
-    mu = 398600.4418  # Gravitational parameter (km^3/s^2)
-    RE = 6378.14  # Earth's radius (km)
+    #...Constants:
+    mu = 398600.4418 # Gravitational parameter (km^3/s^2)
+    RE = 6378.14     # Earth's radius (km)
     J2 = 1082.63e-6  # Earth's J2
 
-    # Initial orbital parameters (given):
+    #...Initial orbital parameters (given):
     rp0 = RE + 300  # Perigee radius (km)
-    ra0 = RE + 3062  # Apogee radius (km)
+    ra0 = RE + 3062 # Apogee radius (km)
     RA0 = 45 * deg  # Right ascension of the node (radians)
-    i0 = 28 * deg  # Inclination (radians)
-    w0 = 30 * deg  # Argument of perigee (radians)
+    i0  = 28 * deg  # Inclination (radians)
+    w0  = 30 * deg  # Argument of perigee (radians)
     TA0 = 40 * deg  # True anomaly (radians)
 
-    # Initial orbital parameters (inferred):
-    e0 = (ra0 - rp0) / (ra0 + rp0)  # Eccentricity
-    h0 = np.sqrt(rp0 * mu * (1 + e0))  # Angular momentum (km^2/s)
-    a0 = (rp0 + ra0) / 2  # Semi-major axis (km)
-    T0 = 2 * np.pi / np.sqrt(mu) * a0 ** 1.5  # Period (s)
+    #...Initial orbital parameters (inferred):
+    e0 = (ra0 - rp0) / (ra0 + rp0)           # Eccentricity
+    h0 = np.sqrt(rp0 * mu * (1 + e0))        # Angular momentum (km^2/s)
+    a0 = (rp0 + ra0) / 2                     # Semi-major axis (km)
+    T0 = 2 * np.pi / np.sqrt(mu) * a0 ** 1.5 # Period (s)
 
-    # Store initial orbital elements in the vector coe0:
+    #...Store initial orbital elements in the vector coe0:
     coe0 = [h0, e0, RA0, i0, w0, TA0]
 
-    # Use solve_ivp to integrate the Gauss variational equations:
+    #...Use solve_ivp to integrate the Gauss variational equations:
     t0 = 0
     tf = 2 * days
     nout = 5000  # Number of solution points to output for plotting purposes
@@ -94,13 +94,12 @@ def J2_perturbation():
 
     sol = solve_ivp(rates, [t0, tf], coe0, t_eval=tspan, rtol=1e-8, atol=1e-8)
 
-    # Assign the time histories mnemonic variable names:
+    #...Assign the time histories mnemonic variable names:
     t = sol.t
     h, e, RA, i, w, TA = sol.y
 
-    # Plot the time histories of the osculating elements:
+    #...Plot the time histories of the osculating elements:
     plt.figure(figsize=(10, 15))
-
     plt.subplot(5, 1, 1)
     plt.plot(t / hours, (RA - RA0) / deg)
     plt.title('Right Ascension (degrees)')
