@@ -39,7 +39,7 @@ def twobody3d():
     User py-functions required: rkf45, 
     User subfunctions required: rates, output
     '''
-    # Input data
+    #...Input data
     m1 = 1.e26
     m2 = 1.e26
     t0 = 0
@@ -47,16 +47,17 @@ def twobody3d():
 
     R1_0 = np.array([0, 0, 0])
     R2_0 = np.array([3000, 0, 0])
+
     V1_0 = np.array([10, 20, 30])
     V2_0 = np.array([0, 40, 0])
+    #...End input data
 
-    # Initial state vector
     y0 = np.hstack((R1_0, R2_0, V1_0, V2_0))
 
-    # Integrate the equations of motion
+    #...Integrate the equations of motion
     t, y = rkf45.rkf45(rates, [t0, tf], y0)
 
-    # Output the results
+    #...Output the results
     output(t, y, m1, m2)
 
 # ––––––––––––––
@@ -75,24 +76,24 @@ def rates(_, y):
     dydt    - column vector containing the velocity and acceleration
               vectors of the system at time t
     '''
-    G = 6.67259e-20  # gravitational constant (km^3/kg/s^2)
-    m1 = 1.e26       # mass of the first body
-    m2 = 1.e26       # mass of the second body
+    G = 6.67259e-20 
+    m1 = 1.e26
+    m2 = 1.e26
 
-    # Extract positions and velocities from y
     R1 = y[0:3]
     R2 = y[3:6]
+
     V1 = y[6:9]
     V2 = y[9:12]
 
-    # Distance between the two bodies
     r = np.linalg.norm(R2 - R1)
 
-    # Accelerations due to gravitational force
     A1 = G * m2 * (R2 - R1) / r**3
     A2 = G * m1 * (R1 - R2) / r**3
 
-    return np.hstack((V1, V2, A1, A2))
+    dydt = np.hstack((V1, V2, A1, A2))
+
+    return dydt
 
 # –––––––––––––––––––––––
 def output(_, y, m1, m2):
@@ -106,16 +107,16 @@ def output(_, y, m1, m2):
 
     User subfunction required: common_axis_settings
     '''
-    # Extract trajectories
+    #...Extract the particle trajectories:
     X1, Y1, Z1 = y[:, 0], y[:, 1], y[:, 2]
     X2, Y2, Z2 = y[:, 3], y[:, 4], y[:, 5]
 
-    # Calculate center of mass
+    #...Locate the center of mass at each time step:
     XG = (m1 * X1 + m2 * X2) / (m1 + m2)
     YG = (m1 * Y1 + m2 * Y2) / (m1 + m2)
     ZG = (m1 * Z1 + m2 * Z2) / (m1 + m2)
 
-    # Plot trajectories
+    #...Plot the trajectories:
     plt.figure(1)
     plt.title('Figure 2.3: Motion relative to the inertial frame')
     plt.plot(X1, Y1, Z1, '-r', label="m1")
