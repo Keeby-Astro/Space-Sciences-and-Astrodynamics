@@ -21,7 +21,7 @@ deg   = pi/180;                % Degrees to radians
  
 %...Constants;
 mu    = 398600;                % Gravitational parameter (km^3/s^2)
-RE    = 6378;                  % Eath's radius (km)
+RE    = 6378;                  % Earth's radius (km)
 c     = 2.998e8;               % Speed of light (m/s)
 S     = 1367;                  % Solar constant (W/m^2)
 Psr   = S/c;                   % Solar pressure (Pa);
