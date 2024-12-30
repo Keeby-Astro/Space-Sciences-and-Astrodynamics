@@ -3,7 +3,7 @@
 
 import numpy as np
 
-def bisect(fun, xl, xu, tol=1.e-6):
+def bisect(fun, xl, xu):
     '''
     This function evaluates a root of a function using
     the bisection method.
@@ -21,6 +21,7 @@ def bisect(fun, xl, xu, tol=1.e-6):
 
     User py-functions required: none
     '''
+    tol=1.e-6
     n = np.ceil(np.log(abs(xu - xl) / tol) / np.log(2))
 
     for i in range(int(n)):
