@@ -61,7 +61,7 @@ wx    = f(:,5);
 wy    = f(:,6);
 wz    = f(:,7);
  
-%...Obtain the direction cosine matrix, the Euler angles and the  Euler 
+%...Obtain the direction cosine matrix, the Euler angles and the Euler 
 %   angle rates at each solution time:
 for m = 1:length(t)
     %...DCM from the quaternion:
