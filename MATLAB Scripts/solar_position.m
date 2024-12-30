@@ -18,7 +18,7 @@ n = jd - 2451545;
 %...Julian centuries since J2000:
 cy = n/36525;
 
-%...Mean anomaly (deg{:
+%...Mean anomaly (deg):
 M = 357.528 + 0.9856003*n;
 M = mod(M,360);
 
