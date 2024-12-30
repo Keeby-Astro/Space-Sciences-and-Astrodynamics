@@ -11,9 +11,9 @@ global mu;
 mu = 398600; % km^3/s^2, standard for Earth
 
 %...Inputs
-ro = 7000; % km, radial position at time to
-t = 500; % s, time elapsed
-x = 1.5; % universal anomaly
+ro = 7000;   % km, radial position at time to
+t = 500;     % s, time elapsed
+x = 1.5;     % universal anomaly
 a = 1/10000; % 1/km, reciprocal of the semimajor axis
 
 % Call the f_and_g function
