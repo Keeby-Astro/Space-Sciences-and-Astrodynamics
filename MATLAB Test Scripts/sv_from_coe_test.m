@@ -24,7 +24,7 @@ clear all; clc
 deg = pi/180;
 mu  = 398600;
 
-%...Data declaration for Example 4.5 (angles in degrees):
+%...Data declaration (angles in degrees):
 h    = 80000;
 e    = 1.4;
 RA   = 40;
