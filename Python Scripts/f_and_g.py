@@ -17,10 +17,10 @@ def f_and_g(x, t, ro, a, mu):
     '''
     z = a * x**2
 
-    # Equation 3.69a:
+    #...Equation 3.69a:
     f = 1 - (x**2 / ro) * stumpC.stumpC(z)
 
-    # Equation 3.69b:
+    #...Equation 3.69b:
     g = t - (1 / mu**0.5) * x**3 * stumpS.stumpS(z)
 
     return f, g
