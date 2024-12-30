@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import rkf45
 
 def rkf45_test():
-    """
+    '''
     This program uses RKF4(5) with adaptive step size control
     to solve the differential equation
 
@@ -30,7 +30,7 @@ def rkf45_test():
 
     User py-function required: rkf45
     User py-subfunction required: rates
-    """
+    '''
     # Parameters
     mu = 398600
     minutes = 60  # Conversion from minutes to seconds
@@ -50,7 +50,7 @@ def rkf45_test():
     plotit(t, f, minutes)
 
 def rates(t, f):
-    """
+    '''
     This function calculates first and second time derivatives of x
     governed by the equation of two-body rectilinear motion.
 
@@ -62,7 +62,7 @@ def rates(t, f):
     dfdt - column vector containing Dx and D2x at time t
     
     User py-functions required: none
-    """
+    '''
     mu = 398600  # Earth's gravitational parameter in km^3/s^2
     x = f[0]
     Dx = f[1]
