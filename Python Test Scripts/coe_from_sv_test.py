@@ -26,14 +26,14 @@ def coe_from_sv_test():
     deg = np.pi/180
     mu = 398600.4418
 
-    # Data declaration
+    #...Data declaration
     r = np.array([-6045, -3490, 2500])
     v = np.array([-3.457, 6.618, 2.533])
 
-    # Algorithm 4.2: Compute orbital elements
+    #...Algorithm 4.2:
     coe = coe_from_sv.coe_from_sv(r, v, mu)
 
-    # Echo the input data and output results to the console
+    #...Echo the input data and output results to the console
     print('-----------------------------------------------------')
     print(f'\n Gravitational parameter (km^3/s^2) = {mu}')
     print('\n State vector:')
@@ -48,7 +48,7 @@ def coe_from_sv_test():
     print(f'True anomaly (deg)                 = {coe[5] / deg}')
     print(f'Semimajor axis (km):               = {coe[6]}')
 
-    # If the orbit is an ellipse, output its period (Equation 2.73)
+    #...If the orbit is an ellipse, output its period (Equation 2.73)
     if coe[1] < 1:
         T = 2 * np.pi / np.sqrt(mu) * coe[6] ** 1.5
         print('\nPeriod:')
