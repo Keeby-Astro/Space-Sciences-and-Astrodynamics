@@ -4,28 +4,37 @@ import rv_from_r0v0_ta
 def rv_from_r0v0_ta_test():
     '''
     This program computes the state vector [R, V] from the initial
-    state vector [R0, V0] and the change in true anomaly, using
-    the data in Example 2.13.
+    state vector [R0, V0] and the change in true anomaly, using the data.
+
+    mu - gravitational parameter (km^3/s^2)
+    R0 - the initial position vector (km)
+    V0 - the initial velocity vector (km/s)
+    r0 - magnitude of R0
+    v0 - magnitude of V0
+    R  - final position vector (km)
+    V  - final velocity vector (km/s)
+    r  - magnitude of R
+    v  - magnitude of V
+    dt - change in true anomaly (degrees)
 
     User py-function required: rv_from_r0v0_ta
     '''
     mu = 398600.4418
 
-    # Input data
+    #...Input data
     R0 = np.array([8182.4, -6865.9, 0])
     V0 = np.array([0.47572, 8.8116, 0])
-    dt = 120  # Change in true anomaly (degrees)
+    dt = 120
+    #...End input data
 
-    # Compute final position and velocity vectors using rv_from_r0v0_ta
+    #...Algorithm 2.3:
     R, V = rv_from_r0v0_ta.rv_from_r0v0_ta(R0, V0, dt, mu)
 
-    # Calculate magnitudes
     r0 = np.linalg.norm(R0)
     v0 = np.linalg.norm(V0)
     r = np.linalg.norm(R)
     v = np.linalg.norm(V)
 
-    # Display results
     print("--------------------------------------------------------------------")
     print("\n Initial state vector:")
     print(f"\n r = [{R0[0]:.1f}, {R0[1]:.1f}, {R0[2]:.1f}] (km)")
