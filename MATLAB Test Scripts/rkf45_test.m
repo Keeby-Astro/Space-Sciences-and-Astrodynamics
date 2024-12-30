@@ -1,4 +1,3 @@
-%
 function rkf45_test
 %
 %{
@@ -91,4 +90,3 @@ axis([-inf inf -10 10])
 end %plotit
 
 end %rkf45_test
-%
