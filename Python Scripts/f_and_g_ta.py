@@ -17,17 +17,17 @@ def f_and_g_ta(r0, v0, dt, mu):
 
     User py-functions required: None
     '''
-    h = np.linalg.norm(np.cross(r0, v0))
+    h   = np.linalg.norm(np.cross(r0, v0))
     vr0 = np.dot(v0, r0) / np.linalg.norm(r0)
-    r0_norm = np.linalg.norm(r0)
-    s = np.sin(np.radians(dt))
-    c = np.cos(np.radians(dt))
+    r0  = np.linalg.norm(r0)
+    s   = np.sin(np.radians(dt))
+    c   = np.cos(np.radians(dt))
 
-    # Equation 2.152:
-    r = h**2 / mu / (1 + (h**2 / mu / r0_norm - 1) * c - h * vr0 * s / mu)
+    #...Equation 2.152:
+    r = h**2 / mu / (1 + (h**2 / mu / r0 - 1) * c - h * vr0 * s / mu)
 
-    # Equations 2.158a & b:
+    #...Equations 2.158a & b:
     f = 1 - mu * r * (1 - c) / h**2
-    g = r * r0_norm * s / h
+    g = r * r0 * s / h
 
     return f, g
