@@ -59,11 +59,12 @@ def rv_from_observe_test():
     theta  = 300
     phi    = 60
     H      = 0
+    #...
 
-    # Algorithm 5.4
+    #...Algorithm 5.4:
     r, v = rv_from_observe.rv_from_observe(rho, rhodot, A, Adot, a, adot, theta, phi, H)
 
-    # Algorithm 4.2
+    #...Algorithm 4.2:
     coe = coe_from_sv.coe_from_sv(r, v, mu)
 
     h    = coe[0]
@@ -74,10 +75,10 @@ def rv_from_observe_test():
     TA   = coe[5]
     a    = coe[6]
 
-    # Equation 2.40
+    #...Equation 2.40:
     rp = h**2 / mu / (1 + e)
 
-    # Echo the input data and output the solution
+    # Echo the input data and output the solution to the console:
     print('-----------------------------------------------------')
     print('\n Input data:')
     print(f'\n Slant range (km)              = {rho}')
@@ -107,7 +108,7 @@ def rv_from_observe_test():
     print(f'   Semimajor axis (km)         = {a}')
     print(f'   Perigee radius (km)         = {rp}')
 
-    # If the orbit is an ellipse, output its period
+    # If the orbit is an ellipse, output its period:
     if e < 1:
         T = 2 * np.pi / np.sqrt(mu) * a**1.5
         print(f'\n   Period:')
