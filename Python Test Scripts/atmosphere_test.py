@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from atmosphere import atmosphere
+import atmosphere
 
 def atmosphere_test():
     '''
@@ -11,7 +11,7 @@ def atmosphere_test():
     z = np.linspace(0, 1000, 1000)
 
     #...Calculate densities:
-    density = np.array([atmosphere(zi) for zi in z])
+    density = np.array([atmosphere.atmosphere(zi) for zi in z])
 
     #...Plot the results:
     plt.figure()
