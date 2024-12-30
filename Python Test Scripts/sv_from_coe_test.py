@@ -25,15 +25,15 @@ def sv_from_coe_test():
     deg = np.pi / 180
     mu = 398600.4418
 
-    # Data declaration (angles in degrees):
+    #...Data declaration (angles in degrees):
     h = 80000
     e = 1.4
     RA = 40
     incl = 30
     w = 60
     TA = 30
+    #...
 
-    # Orbital elements (convert angles to radians)
     coe = [h, e, RA * deg, incl * deg, w * deg, TA * deg]
 
     # Algorithm 4.5 (requires angular elements be in radians):
