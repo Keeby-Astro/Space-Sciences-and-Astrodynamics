@@ -1,10 +1,8 @@
-%
-% rv_from_r0v0_ta_test.m
+% rv_from_r0v0_ta_test
 % 
 %{
     This program computes the state vector [R,V] from the initial
-    state vector [R0,V0] and the change in true anomaly, using the
-    data in Example 2.13
+    state vector [R0,V0] and the change in true anomaly, using the data.
 
     mu - gravitational parameter (km^3/s^2)
     R0 - the initial position vector (km)
@@ -39,7 +37,6 @@ r0 = norm(R0);
 v0 = norm(V0);
 
 fprintf('---------------------------------------------------------------')
-fprintf('\n Example 2.13 \n')
 fprintf('\n Initial state vector:\n')
 fprintf('\n r = [%g, %g, %g] (km)', R0(1), R0(2), R0(3))
 fprintf('\n magnitude = %g\n', norm(R0))
