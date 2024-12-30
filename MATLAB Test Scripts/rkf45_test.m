@@ -45,7 +45,7 @@ tf = 70*minutes;
 plotit
 return
 
-% 
+% ------------------------
 function dfdt = rates(t,f)
 % ------------------------
 %{
@@ -68,9 +68,9 @@ D2x  = -mu/x^2;
 dfdt = [Dx; D2x];
 end %rates
 
-% 
+% -------------
 function plotit
-%
+%--------------
 
 %...Position vs time:
 subplot(2,1,1)
