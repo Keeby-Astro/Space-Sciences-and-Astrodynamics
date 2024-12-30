@@ -40,35 +40,20 @@ The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and
 | `Orbital Elements.py`         | Calculates orbital parameters from initial state vectors, such as vector magnitude, radial velocity, and angular momentum. |
 | `Orbit_Simulator.py`          | Simulates orbital motion with transformations between orbital elements and Cartesian coordinates, providing a 3D orbit visualization. |
 
-### MATLAB Code Modules
-| File                     | Description |
-|--------------------------|-------------|
-| `atan2d_0_360.m`         | Computes the arctangent of \( y/x \) in degrees, constrained to [0, 360]. |
-| `atmosphere.m`           | Computes atmospheric density up to 1000 km using exponential interpolation for various atmospheric layers. |
-| `bisect.m`               | Implements the bisection method to find roots within specified intervals. |
-| `dcm_to_euler.m`, `dcm_to_ypr.m`, `dcm_from_q.m` | Direction cosine matrix (DCM) transformations to Euler angles and quaternion formats. |
-| `f_and_g.m`, `fDot_and_gDot.m`, `f_and_g_ta.m` | Calculates Lagrange coefficients for orbital propagation over time or with a change in true anomaly. |
-| `kepler_E.m`, `kepler_H.m`, `kepler_U.m` | Solves Kepler's equations for elliptical, hyperbolic, and universal anomaly cases. |
-| `lambert.m`              | Solves Lambert's problem for orbital transfer calculations between two points in space. |
-| `los.m`                  | Determines whether the Earth obstructs the line of sight between a satellite and the Sun. |
-| `LST.m`                  | Calculates local sidereal time based on location and universal time. |
-| `lunar_position.m`       | Computes the Moon's geocentric equatorial position for a given Julian date. |
-| `month_planet_names.m`   | Maps month and planet IDs to their respective names. |
-| `planet_elements_and_sv.m` | Calculates a planet's orbital elements and state vector for a given date and time. |
-| `q_from_dcm.m`           | Converts a DCM into a quaternion representation for coordinate transformations. |
-| `ra_and_dec_from_r.m`    | Converts a position vector to right ascension and declination angles. |
-| `rk1_4.m`, `rkf45.m`     | Implements various Runge-Kutta methods (RK1-RK4, RKF4(5)) for differential equation integration. |
-| `rv_from_observe.m`      | Calculates position and velocity from radar observations. |
-| `rv_from_r0v0.m`, `rv_from_r0v0_ta.m` | Propagates a state vector forward in time or through a change in true anomaly. |
-| `rva_relative.m`         | Calculates relative position, velocity, and acceleration of two objects in an LVLH frame. |
-| `simpsons_lunar_ephemeris.m` | Computes the Moon's position and velocity vectors based on Simpson's ephemeris model. |
-| `solar_position.m`       | Calculates the position vector of the Sun relative to Earth for a given Julian date. |
-| `stumpC.m`, `stumpS.m`   | Evaluates Stumpff functions, used in solving Kepler's equations. |
-| `twobody3d.m`                 | Solves the two-body gravitational problem in 3D using Runge-Kutta-Fehlberg 4(5), calculating trajectories for both masses and their center of mass. |
-| `threebody.m`                 | Simulates the planar three-body problem using MATLAB’s `ode45` solver, showing trajectories relative to the inertial frame and center of mass. |
+### MATLAB and Python Code Modules
+#### `atan2d_0_360.m` | `atan2d_0_360.py`
 
-### Python Code Modules
-Python versions of all above modules are also available, with the same functionality, optimized for `NumPy` and `SciPy`.
+- The `atan2d_0_360` function is a specialized variant of the traditional `atan2` function, designed for scenarios where:
+  - Angles need to be normalized to the range [0, 360] instead of the standard [-180, 180].
+  - Consistent angle representation is required for astrodynamics, robotics, and other applications.
+  - Improved readability and usability of angular calculations are beneficial in workflows.
+
+- The test scripts included in both MATLAB and Python versions validate the `atan2d_0_360` function across a variety of input cases. These scripts:
+  - Test the function with edge cases such as zero and axis-aligned vectors.
+  - Evaluate performance on quadrants to ensure correct angle normalization.
+  - Demonstrate the function's application in common scenarios.
+
+![atan2d_0_360_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/atan2d_0_360_plot.png)
 
 ## Usage
 
@@ -81,3 +66,7 @@ Clone the repository and navigate to the Python files directory.
 ## Installation
 ```bash
 git clone https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics.git
+```
+
+## Future Updates
+C++ and Fortran translations are currently in progress. This READme file will constantly be updated as needed.
