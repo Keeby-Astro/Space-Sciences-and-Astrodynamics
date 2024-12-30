@@ -38,7 +38,7 @@ def rk1_4(ode_function, tspan, y0, h, rk):
 
     User py-function required: ode_function
     '''
-    # Determine which of the four Runge-Kutta methods to use:
+    #...Determine which of the four Runge-Kutta methods is to be used:
     if rk == 1:
         n_stages = 1
         a = np.array([0])
