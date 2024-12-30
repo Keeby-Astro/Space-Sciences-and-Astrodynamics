@@ -23,7 +23,7 @@ function [r, v] = sv_from_coe(coe,mu)
     vp   - velocity vector in the perifocal frame (km/s)
     r    - position vector in the geocentric equatorial frame (km)
     v    - velocity vector in the geocentric equatorial frame (km/s)
-
+    
     User M-functions required: none
 %}
 % ----------------------------------------------
