@@ -10,10 +10,10 @@ def f_and_g_test():
     mu = 398600.4418 # km^3/s^2, standard for Earth
 
     #...Inputs
-    ro = 7000  # km, radial position at time to
-    t = 500  # s, time elapsed
-    x = 1.5  # universal anomaly
-    a = 1 / 10000  # 1/km, reciprocal of the semimajor axis
+    ro = 7000   # km, radial position at time to
+    t = 500     # s, time elapsed
+    x = 1.5     # universal anomaly
+    a = 1 / 100 # 1/km, reciprocal of the semimajor axis
 
     # Call the f_and_g function
     f, g = f_and_g.f_and_g(x, t, ro, a, mu)
