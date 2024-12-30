@@ -4,14 +4,14 @@ def atmosisa(h_m):
     '''
     Returns standard atmosphere properties using an approximation
     to the International Standard Atmosphere (ISA) model for a
-    given geometric altitude h_m [meters].
+    given geometric altitude h_m (meters).
 
-    T   - Temperature [K]
-    a   - Speed of sound [m/s]
-    P   - Pressure [Pa]
-    rho - Density [kg/m^3]
+    T   - Temperature (K)
+    a   - Speed of sound (m/s)
+    P   - Pressure (Pa)
+    rho - Density (g/m^3)
 
-    User py-functions required: none
+    User py-function required: none
     '''
     g0    = 9.80665
     R     = 287.053
@@ -63,7 +63,7 @@ def atmosisa(h_m):
         },
     ]
 
-    # Clip altitudes to [0, 84.852 km]
+    # Clip altitudes to valid range
     if h_m < 0.0:
         raise ValueError("Altitude cannot be negative for this standard model.")
     if h_m > 84852.0:
@@ -97,4 +97,18 @@ def atmosisa(h_m):
     rho = P / (R * T)
     a   = np.sqrt(gamma * R * T)
 
+    print("Standard Atmosphere Properties")
+    print("------------------------------") 
+    print(f"Altitude: {h_m} m")
+    print(f"Layer: {layer_index}")
+    print(f"Temperature: {T} K")
+    print(f"Pressure: {P} Pa")
+    print(f"Density: {rho} kg/m^3")
+    print(f"Speed of Sound: {a} m/s")
+    print("------------------------------")
+
     return (T, a, P, rho)
+
+if __name__ == "__main__":
+    for h_m in [5000.0, 20000.0, 50000.0, 80000.0]:
+        atmosisa(h_m)
