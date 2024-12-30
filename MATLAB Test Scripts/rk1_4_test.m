@@ -82,9 +82,9 @@ output
 
 return
 
-% 
+% ------------------------
 function dfdt = rates(t,f)
-% ------------------------------
+% ------------------------
 %{
     This function calculates first and second time derivatives
     of x as governed by the equation
@@ -98,7 +98,6 @@ function dfdt = rates(t,f)
 
     User M-functions required: none
 %}
-% 
 
 x    = f(1);
 Dx   = f(2);
@@ -106,7 +105,7 @@ D2x  = Fo/m*sin(w*t) - 2*z*wn*Dx - wn^2*x;
 dfdt = [Dx; D2x];
 end %rates
 
-% 
+% -------------
 function output
 % -------------
 %...Exact solution:
