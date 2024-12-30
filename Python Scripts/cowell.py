@@ -24,32 +24,32 @@ def cowell():
     User subfunctions required: rates, terminate                           
     '''
     # Conversion factors:
-    hours = 3600                  # Hours to seconds
-    days = 24 * hours             # Days to seconds
-    deg = np.pi / 180             # Degrees to radians
+    hours = 3600                            # Hours to seconds
+    days = 24 * hours                       # Days to seconds
+    deg = np.pi / 180                       # Degrees to radians
 
     # Constants:
-    mu = 398600.4418                    # Gravitational parameter (km^3/s^2)
-    RE = 6378.14                        # Earth's radius (km)
-    wE = np.array([0, 0, 7.2921159e-5]) # Earth's angular velocity (rad/s)
+    mu = 398600.4418                        # Gravitational parameter (km^3/s^2)
+    RE = 6378.14                            # Earth's radius (km)
+    wE = np.array([0, 0, 7.2921159e-5])     # Earth's angular velocity (rad/s)
 
     # Satellite data:
-    CD = 2.2                     # Drag coefficient
-    m = 100                      # Mass (kg)
-    A = np.pi / 4 * (1 ** 2)     # Frontal area (m^2)
+    CD = 2.2                                # Drag coefficient
+    m = 100                                 # Mass (kg)
+    A = np.pi / 4 * (1 ** 2)                # Frontal area (m^2)
 
     # Initial orbital parameters (given):
-    rp = RE + 215                # Perigee radius (km)
-    ra = RE + 939                # Apogee radius (km)
-    RA = 339.94 * deg            # Right ascension of the node (radians)
-    i = 65.1 * deg               # Inclination (radians)
-    w = 58 * deg                 # Argument of perigee (radians)
-    TA = 332 * deg               # True anomaly (radians)
+    rp = RE + 215                           # Perigee radius (km)
+    ra = RE + 939                           # Apogee radius (km)
+    RA = 339.94 * deg                       # Right ascension of the node (radians)
+    i = 65.1 * deg                          # Inclination (radians)
+    w = 58 * deg                            # Argument of perigee (radians)
+    TA = 332 * deg                          # True anomaly (radians)
 
     # Initial orbital parameters (inferred):
-    e = (ra - rp) / (ra + rp)    # Eccentricity
-    a = (rp + ra) / 2            # Semimajor axis (km)
-    h = np.sqrt(mu * a * (1 - e ** 2))  # Angular momentum (km^2/s)
+    e = (ra - rp) / (ra + rp)               # Eccentricity
+    a = (rp + ra) / 2                       # Semimajor axis (km)
+    h = np.sqrt(mu * a * (1 - e ** 2))      # Angular momentum (km^2/s)
     T = 2 * np.pi / np.sqrt(mu) * a ** 1.5  # Period (s)
 
     # Store initial orbital elements in the vector coe0:
@@ -57,16 +57,16 @@ def cowell():
 
     # Obtain the initial state vector from sv_from_coe:
     R0, V0 = sv_from_coe.sv_from_coe(coe0, mu)  # R0: Initial position vector, V0: Initial velocity vector
-    r0 = np.linalg.norm(R0)         # Magnitude of R0
-    v0 = np.linalg.norm(V0)         # Magnitude of V0
+    r0 = np.linalg.norm(R0)                     # Magnitude of R0
+    v0 = np.linalg.norm(V0)                     # Magnitude of V0
 
     # Use solve_ivp to integrate the equations of motion d/dt(R,V) = f(R,V)
     # from t0 to tf:
     t0 = 0
     tf = 120 * days
-    y0 = np.hstack((R0, V0))        # Initial state vector
-    nout = 40000                   # Number of solution points to output
-    tspan = np.linspace(t0, tf, nout)  # Integration time interval
+    y0 = np.hstack((R0, V0))            # Initial state vector
+    nout = 40000                        # Number of solution points to output
+    tspan = np.linspace(t0, tf, nout)   # Integration time interval
 
     # Termination event function
     def terminate(t, y):
