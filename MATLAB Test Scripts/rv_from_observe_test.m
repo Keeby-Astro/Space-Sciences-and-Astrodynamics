@@ -76,7 +76,7 @@ w    = coe(5);
 TA   = coe(6);
 a    = coe(7);
 
-%...Equation 2.40
+%...Equation 2.40:
 rp = h^2/mu/(1 + e);
 
 %...Echo the input data and output the solution to
