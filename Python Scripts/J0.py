@@ -10,6 +10,6 @@ def J0(year, month, day):
 
     User py-functions required: none
     '''
-    j0 = 367 * year - (7 * (year + ((month + 9) // 12)) // 4) \
-        + (275 * month // 9) + day + 1721013.5
+    j0 = 367 * year - int(7 * (year + ((month + 9) // 12)) // 4) \
+        + int(275 * month // 9) + day + 1721013.5
     return j0
