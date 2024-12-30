@@ -19,11 +19,11 @@ def rv_from_r0v0_ta(r0, v0, dt, mu):
 
     User py-functions required: f_and_g_ta, fDot_and_gDot_ta
     '''
-    # Compute the f and g functions and their derivatives
-    f, g = f_and_g_ta.f_and_g_ta(r0, v0, dt, mu)
+    #...Compute the f and g functions and their derivatives
+    f, g       = f_and_g_ta.f_and_g_ta(r0, v0, dt, mu)
     fdot, gdot = fDot_and_gDot_ta.fDot_and_gDot_ta(r0, v0, dt, mu)
 
-    # Compute the final position and velocity vectors
+    #...Compute the final position and velocity vectors
     r = f * np.array(r0) + g * np.array(v0)
     v = fdot * np.array(r0) + gdot * np.array(v0)
 
