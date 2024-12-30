@@ -18,36 +18,36 @@ def rv_from_r0v0(R0, V0, t, mu):
     R  - final position vector (km)
     V  - final velocity vector (km/s)
 
-    User py-functions required: kepler_U, f_and_g, fDot_and_gDot
+    % User py-functions required: kepler_U, f_and_g, fDot_and_gDot
     '''
     mu = 398600.4418
 
-    # Magnitudes of R0 and V0
+    #...Magnitudes of R0 and V0:
     r0 = np.linalg.norm(R0)
     v0 = np.linalg.norm(V0)
 
-    # Initial radial velocity
+    #...Initial radial velocity:
     vr0 = np.dot(R0, V0) / r0
 
-    # Reciprocal of the semimajor axis (from the energy equation)
+    #...Reciprocal of the semimajor axis (from the energy equation):
     alpha = 2 / r0 - v0**2 / mu
 
-    # Compute the universal anomaly
+    #...Compute the universal anomaly:
     x = kepler_U.kepler_U(t, r0, vr0, alpha, mu)
 
-    # Compute the f and g functions
+    #...Compute the f and g functions:
     f, g = f_and_g.f_and_g(x, t, r0, alpha, mu)
 
-    # Compute the final position vector
+    #...Compute the final position vector:
     R = f * R0 + g * V0
 
-    # Compute the magnitude of R
+    #...Compute the magnitude of R:
     r = np.linalg.norm(R)
 
-    # Compute the derivatives of f and g
+    #...Compute the derivatives of f and g:
     fdot, gdot = fDot_and_gDot.fDot_and_gDot(x, r, r0, alpha, mu)
 
-    # Compute the final velocity
+    #...Compute the final velocity:
     V = fdot * R0 + gdot * V0
 
     return R, V
