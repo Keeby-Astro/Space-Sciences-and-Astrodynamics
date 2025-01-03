@@ -1,46 +1,80 @@
 # Space-Sciences-and-Astrodynamics
 
-This repository contains MATLAB and Python implementations of several orbital mechanics and astrodynamics functions. The toolkit offers functionality for simulating orbits, computing transformations, performing numerical integrations, and more.
+This repository contains MATLAB and Python implementations of orbital mechanics and astrodynamics tools. It provides a comprehensive set of functions for simulating orbital motion, performing numerical methods, analyzing spacecraft trajectories, and modeling celestial mechanics. The repository is based on foundational principles and extends concepts found in *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
 
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Features](#features)
-- [Files and Modules](#files-and-modules)
+- [Course Code Modules](#course-code-modules)
+- [MATLAB and Python Code Modules](#matlab-and-python-code-modules)
 - [Usage](#usage)
 - [Installation](#installation)
+- [Future Updates](#future-updates)
 
 ---
 
 ## Overview
-The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and Python scripts based on Orbital Mechanics for Engineering Students by Howard D. Curtis for modeling and simulating space-based mechanics, including coordinate transformations, orbital element calculations, interplanetary trajectory solutions, and more. The toolkit is designed for educational and research purposes and is a resource for those interested in understanding or working within astrodynamics.
+
+The **Space Sciences and Astrodynamics** repository provides a robust toolkit for modeling, simulating, and analyzing space-based systems. It supports a wide range of functionalities including:
+- Conversion between orbital elements and Cartesian state vectors.
+- Simulation of spacecraft trajectories under gravitational and non-gravitational forces.
+- Calculation of interplanetary trajectories and orbital perturbations.
+- Numerical solutions to astrodynamics equations using advanced algorithms.
+- Visualization of orbits, ground tracks, and other dynamic phenomena.
+
+The toolkit is designed for educational and research purposes and is a resource for those interested in understanding or working within astrodynamics to explore and develop a deeper understanding of orbital mechanics.
 
 ## Requirements
-- **MATLAB** (R2021a or later recommended) OR **Python** 3.8+
-- MATLAB’s `ode45` and other built-in functions
-- Python packages (only if using Python versions of the scripts):
-  - `NumPy`
-  - `SciPy`
-  - `Matplotlib`
+
+### MATLAB
+- **MATLAB**: Version R2021a or later recommended.
+- Built-in functions such as `ode45` for numerical integration.
+
+### Python
+- **Python**: Version 3.8 or later.
+- Required packages:
+  - `numpy`
+  - `scipy`
+  - `matplotlib`
+- **Python**-translated **MATLAB** functions:
+  - `atmosisa`
+  - `quatinv`
+  - `quatmultiply`
 
 ## Features
-- **Coordinate Transformation**: Convert between orbital elements and state vectors.
-- **Orbit Simulations**: Simulate different types of orbits, including two-body and three-body systems.
-- **Trajectory Calculation**: Calculate interplanetary and lunar trajectories.
-- **Root Finding & Numerical Methods**: Implement bisection, Runge-Kutta, and Heun's methods for solving differential equations.
-- **Orbital Elements & Ephemerides**: Compute positions of celestial bodies (e.g., Sun, Moon) for a given Julian date.
+- **Coordinate Transformations**: Convert between orbital elements and state vectors.
+- **Orbit Propagation**: Simulate two-body and three-body systems.
+- **Trajectory Analysis**: Compute interplanetary transfers and lunar trajectories.
+- **Numerical Methods**: Implement advanced solvers like Runge-Kutta, Heun’s method, and bisection.
+- **Ephemeris Calculations**: Predict positions of celestial bodies for a given Julian date.
+- **Perturbation Modeling**: Analyze gravitational (e.g., J2 effects) and non-gravitational forces (e.g., solar radiation pressure).
 
 ## Files and Modules
 
 ### Course Code Modules
-| File                      | Description |
-|---------------------------|-------------|
-| `Coordinate Transformation.py` | Converts between orbital elements and state vectors for orbital dynamics, calculating angular momentum, eccentricity, inclination, and other essential values. |
-| `Family_of_orbits.py`         | Simulates and visualizes a family of orbits with varying semi-major axis and eccentricity. Also includes an animation function for orbit visualization. |
-| `Orbital Elements.py`         | Calculates orbital parameters from initial state vectors, such as vector magnitude, radial velocity, and angular momentum. |
-| `Orbit_Simulator.py`          | Simulates orbital motion with transformations between orbital elements and Cartesian coordinates, providing a 3D orbit visualization. |
 
 ---
+
+#### `Coordinate Transformation.py` 
+- Converts between orbital elements and state vectors for orbital dynamics, calculating angular momentum, eccentricity, inclination, and other essential values.
+
+---
+
+#### `Family_of_orbits.py` 
+- Simulates and visualizes a family of orbits with varying semi-major axis and eccentricity. Also includes an animation function for orbit visualization.
+
+---
+
+#### `Orbital Elements.py`
+- Calculates orbital parameters from initial state vectors, such as vector magnitude, radial velocity, and angular momentum.
+
+---
+
+#### `Orbit_Simulator.py`
+- Simulates orbital motion with transformations between orbital elements and Cartesian coordinates, providing a 3D orbit visualization.
+
+<br>
 
 ### MATLAB and Python Code Modules
 
@@ -696,7 +730,7 @@ The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and
 
 #### `rk1_4.m` | `rk1_4.py`
 
-- The `rk1_4` function implements the Runge-Kutta numerical integration methods (RK1, RK2, RK3, and RK4) to solve systems of first-order ordinary differential equations ($\frac{dy}{dt} = f(t, y)$). This function is essential for:
+- The `rk1_4` function implements the Runge-Kutta numerical integration methods (RK1, RK2, RK3, and RK4) to solve systems of first-order ordinary differential equations $\frac{dy}{dt} = f(t, y)$. This function is essential for:
   - Performing numerical simulations of dynamic systems.
   - Providing flexibility to choose between integration methods depending on accuracy and computational efficiency.
   - Supporting the analysis of time-dependent problems in astrodynamics and engineering.
@@ -710,20 +744,281 @@ The **Space-Sciences-and-Astrodynamics** Repository provides a set of MATLAB and
 
 ---
 
+#### `rkf45.m` | `rkf45.py`
 
+- The `rkf45` function implements the Runge-Kutta-Fehlberg 4(5) method, a numerical integration algorithm with adaptive step size control. It is designed for:
+  - Solving systems of first-order ordinary differential equations $\frac{dy}{dt} = f(t, y)$ with high accuracy and efficiency.
+  - Applications in astrodynamics, engineering, and physics requiring precise integration over varying time steps.
+  - Supporting problems with stringent error tolerance and dynamic step size adjustments.
+
+- The test scripts included in both MATLAB and Python versions validate the `rkf45` function by:
+  - Solving the two-body rectilinear motion and restricted three-body problem.
+  - Demonstrating the function's application to satellite motion and spacecraft trajectory analysis.
+  - Comparing numerical results to analytical expectations and ensuring adaptive step control.
+
+![rkf45_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rkf45_plot.png)
+
+![rkf45_lunar_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rkf45_lunar_plot.png)
+
+---
+
+#### `rv_from_observe.m` | `rv_from_observe.py`
+
+- The `rv_from_observe` function calculates the geocentric equatorial position and velocity vectors of an object from radar observations, including range, azimuth, elevation angle, and their rates. This function is essential for:
+  - Translating radar observation data into state vectors for orbit determination.
+  - Supporting satellite tracking and orbit prediction applications.
+  - Providing a foundation for converting observational data into orbital elements.
+
+- The test scripts included in both MATLAB and Python versions validate the `rv_from_observe` function by:
+  - Using simulated radar observations to compute state vectors.
+  - Applying the state vectors to derive orbital elements such as angular momentum, eccentricity, and inclination.
+  - Comparing results to known values to ensure correctness and demonstrating the function's utility in orbit determination tasks.
+
+![rv_from_observe_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rv_from_observe_plot.png)
+
+---
+
+#### `rv_from_r0v0.m` | `rv_from_r0v0.py`
+
+- The `rv_from_r0v0` function computes the state vector (position and velocity) of a spacecraft at a future time, given its initial state vector and the elapsed time. This is fundamental for:
+  - Propagating orbital trajectories using Kepler's equations and universal anomaly methods.
+  - Simulating spacecraft motion in the two-body problem framework.
+  - Supporting orbital dynamics analysis and mission planning tasks.
+
+- The test scripts included in both MATLAB and Python versions validate the `rv_from_r0v0` function by:
+  - Propagating a predefined initial state vector through a given time interval.
+  - Calculating and echoing the final state vector for accuracy validation.
+  - Demonstrating the function's utility in dynamic orbit propagation tasks.
+
+![rv_from_r0v0_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rv_from_r0v0_plot.png)
+
+---
+
+#### `rv_from_r0v0_ta.m` | `rv_from_r0v0_ta.py`
+
+- The `rv_from_r0v0_ta` function calculates the state vector (position and velocity) of a spacecraft after a specified change in true anomaly, given the initial state vector. This function is essential for:
+  - Propagating orbital trajectories based on changes in true anomaly.
+  - Determining spacecraft position and velocity at specific points in the orbit.
+  - Supporting astrodynamics analysis and mission design tasks.
+
+- The test scripts included in both MATLAB and Python versions validate the `rv_from_r0v0_ta` function by:
+  - Using predefined initial conditions and changes in true anomaly to compute final state vectors.
+  - Comparing the computed results to expected values for accuracy verification.
+  - Demonstrating the function's utility in practical orbital mechanics scenarios.
+
+![rv_from_r0v0_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rv_from_r0v0_ta_plot.png)
+
+---
+
+#### `rva_relative.m` | `rva_relative.py`
+
+- The `rva_relative` function calculates the position, velocity, and acceleration of a spacecraft B relative to spacecraft A in A's Local Vertical Local Horizontal (LVLH) frame. This function is vital for:
+  - Analyzing relative motion in rendezvous and proximity operations.
+  - Simulating formation flying and cooperative satellite missions.
+  - Supporting mission planning for docking and station-keeping tasks.
+
+- The test scripts included in both MATLAB and Python versions validate the `rva_relative` function by:
+  - Using orbital parameters to compute the relative position, velocity, and acceleration of one spacecraft with respect to another.
+  - Comparing outputs to expected values derived from analytical solutions.
+  - Demonstrating its application in dynamic simulation scenarios.
+
+![rva_relative_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rva_relative_plot.png)
+
+---
+
+#### `simpsons_lunar_ephemeris.m` | `simpsons_lunar_ephemeris.py`
+
+- The `simpsons_lunar_ephemeris` function computes the state vector (position and velocity) of the Moon relative to Earth's geocentric equatorial frame for a given Julian date. This function is based on a curve fit to JPL's DE200 ephemeris model, providing:
+  - Accurate lunar position and velocity data for astrodynamics applications.
+  - Essential inputs for spacecraft mission planning and lunar navigation.
+  - A simplified, efficient approach suitable for onboard flight software.
+
+- The test scripts included in both MATLAB and Python versions validate the `simpsons_lunar_ephemeris` function by:
+  - Computing lunar state vectors for a sample Julian date and verifying the results.
+  - Displaying the position and velocity vectors for inspection.
+  - Demonstrating the function's application in lunar ephemeris modeling.
+
+![simpsons_lunar_ephemeris_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/simpsons_lunar_ephemeris_plot1.png)
+
+---
+
+#### `solar_perturbation.m` | `solar_perturbation.py`
+
+- The `solar_perturbation` function simulates the effects of solar gravitational perturbation on a spacecraft's orbit by integrating the Gauss variational equations. This function is designed for:
+  - Analyzing the long-term influence of solar gravity on satellite orbits.
+  - Supporting mission planning by quantifying perturbations on different orbital regimes (e.g., LEO, HEO, GEO).
+  - Providing insights into orbital element variations due to external gravitational effects.
+
+- The scripts included in both MATLAB and Python versions generate comparative simulations for multiple orbits. The function:
+  - Computes changes in right ascension, inclination, and argument of perigee over time.
+  - Utilizes advanced integration techniques to achieve high accuracy.
+  - Visualizes the impact of solar perturbations on orbital elements through detailed plots.
+
+![solar_perturbation_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_perturbation_plot1.png)
+
+![solar_perturbation_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_perturbation_plot2.png)
+
+---
+
+#### `solar_position.m` | `solar_position.py`
+
+- The `solar_position` function calculates the geocentric equatorial position vector of the Sun for a given Julian date. This is crucial for:
+  - Determining the Sun's position relative to Earth in celestial mechanics and satellite mission planning.
+  - Supporting solar radiation pressure calculations and perturbation modeling.
+  - Providing accurate inputs for astrodynamics and space mission design.
+
+- The test scripts included in both MATLAB and Python versions validate the `solar_position` function by:
+  - Calculating the Sun's position for specific Julian dates, such as the Winter Solstice.
+  - Displaying results, including the apparent ecliptic longitude, obliquity of the ecliptic, and geocentric position vector.
+  - Demonstrating the function's utility for solar ephemeris computations.
+
+![solar_position_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_position_plot.png)
+
+---
+
+#### `solar_radiation_pressure.m` | `solar_radiation_pressure.py`
+
+- The `solar_radiation_pressure` function models the effects of solar radiation pressure on a satellite's orbital elements by solving the Gauss planetary equations. This is particularly useful for:
+  - Evaluating the long-term influence of solar radiation on satellite orbits.
+  - Supporting mission planning by quantifying non-gravitational perturbations.
+  - Analyzing changes in angular momentum, eccentricity, and other orbital parameters over time.
+
+- The scripts included in both MATLAB and Python versions provide capabilities to:
+  - Simulate variations in orbital elements caused by solar pressure.
+  - Visualize results through plots of key orbital parameters.
+  - Highlight differences between initial and perturbed orbital states.
+
+![solar_radiation_pressure_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_radiation_pressure_plot.png)
+
+![solar_radiation_pressure_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_radiation_pressure_plot2.png)
+
+---
+
+#### `spinning_top.m` | `spinning_top.py`
+
+- The `spinning_top` function numerically integrates Euler's equations of motion for a spinning top. It uses quaternions to track the time evolution of the top's orientation. This implementation is designed for:
+  - Understanding the rotational dynamics of a rigid body under gravity.
+  - Analyzing Euler angles, angular velocities, and the effects of moments of inertia.
+  - Providing insights into the nutation, precession, and spin behavior of spinning tops.
+
+- The scripts included in both MATLAB and Python versions provide:
+  - A quaternion-based approach for orientation tracking.
+  - RKF45 numerical ODE solver for integrating the equations of motion.
+  - Auxiliary functions for converting between direction cosine matrices (DCM) and Euler angles or quaternions.
+  - Precession, nutation, and spin angles over time.
+  - Corresponding angular rates and visualizations to highlight dynamic changes.
+
+![spinning_top_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/spinning_top_plot1.png)
+
+![spinning_top_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/spinning_top_plot2.png)
+
+![spinning_top_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/spinning_top_plot3.png)
+
+---
+
+#### `stumpC.m` | `stumpC.py`
+
+- The `stumpC` function evaluates the Stumpff function $C(z)$, a key mathematical function in orbital mechanics, particularly for solving Kepler's equation using the universal variable formulation. This implementation is designed for:
+  - Efficiently handling cases for positive, negative, and zero values of $z$.
+  - Supporting numerical algorithms in astrodynamics that require Stumpff function computations.
+  - Providing robust and reliable results for diverse orbital scenarios.
+
+- The test scripts included in both MATLAB and Python versions validate the `stumpC` function by:
+  - Testing it with a range of positive, negative, and zero values of $z$.
+  - Verifying known outcomes for specific cases to ensure accuracy.
+  - Displaying results in a structured format for interpretation and comparison.
+
+![stumpC_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/stumpC_plot.png)
+
+---
+
+#### `stumpS.m` | `stumpS.py`
+
+- The `stumpS` function computes the Stumpff function $S(z)$, essential in solving Kepler's equation using the universal variable formulation. It handles different cases of $z$ (positive, negative, and zero) to provide:
+  - Accurate evaluations for orbital mechanics problems.
+  - Support for numerical algorithms in astrodynamics requiring Stumpff function computations.
+  - Reliable results across various orbital scenarios.
+
+- The test scripts included in both MATLAB and Python versions validate the `stumpS` function by:
+  - Testing it with a range of positive, negative, and zero values of $z$.
+  - Comparing results against known outcomes for specific values.
+  - Ensuring robust and accurate implementation for all cases.
+
+![stumpS_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/stumpS_plot.png)
+
+---
+
+#### `sv_from_coe.m` | `sv_from_coe.py`
+
+- The `sv_from_coe` function computes the state vector (position and velocity) from classical orbital elements. This is particularly useful in astrodynamics for:
+  - Translating orbital elements like eccentricity, inclination, and true anomaly into precise position and velocity vectors in a geocentric equatorial frame.
+  - Supporting simulations and analyses of orbital mechanics, mission planning, and trajectory design.
+  - Ensuring consistent and accurate transformations between orbital and Cartesian coordinates.
+
+- The test scripts included in both MATLAB and Python versions validate the `sv_from_coe` function across a variety of cases:
+  - Test the function with predefined orbital element sets to ensure accuracy.
+  - Evaluate the generated state vectors for correctness against theoretical expectations.
+
+![sv_from_coe_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/sv_from_coe_plot.png)
+
+---
+
+#### `threebody.m` | `threebody.py`
+
+- The `threebody` function provides a graphical simulation of the motion of three celestial bodies interacting under gravitational forces in a two-dimensional plane. It uses:
+  - Newton's laws of motion and the gravitational constant to compute positions and velocities over time.
+  - Numerical integration (Runge-Kutta in MATLAB and Euler's method in Python) to solve the system of differential equations governing the bodies' motion.
+
+- The scripts included in both MATLAB and Python versions validates:
+  - The center of mass and relative positions of the bodies.
+  - The trajectories of the bodies in an inertial frame and relative to the center of mass.
+  - Useful for studying three-body problems in celestial mechanics, such as planetary motion or gravitational dynamics in a triple star system.
+
+![threebody_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/threebody_plot1.png)
+
+![threebody_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/threebody_plot2.png)
+
+---
+
+#### `twobody3d.py` | `twobody3d.py`
+
+- The `twobody3d` function numerically solves the two-body problem in three dimensions relative to an inertial frame. The simulation uses the RKF4(5) numerical integration method to model the gravitational interactions between two massive bodies.
+  - Inputs include initial positions and velocities of the bodies, their masses, and the time interval of the simulation.
+  - Outputs provide trajectories, velocities, and the center of mass for the system at discrete time intervals.
+
+- The scripts included in both MATLAB and Python versions validates:
+  - The motion of each body relative to an inertial frame.
+  - The motion of the second body and the center of mass relative to the first body.
+  - The motion of both bodies relative to the center of mass.
+
+![twobody3d_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/twobody3d_plot1.png)
+
+![twobody3d_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/twobody3d_plot2.png)
+
+![twobody3d_plo3t.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/twobody3d_plot3.png)
+
+---
 
 ## Usage
 
 ### MATLAB
-Clone the repository and navigate to the MATLAB files directory.
+Clone the repository and navigate to the MATLAB files directory. Navigate to the MATLAB files and execute scripts as needed.
 
 ### Python
-Clone the repository and navigate to the Python files directory.
+Clone the repository and navigate to the Python files directory. Install the required Python packages and run scripts directly.
 
 ## Installation
+
+Clone the repository:
 ```bash
 git clone https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics.git
 ```
 
+---
+
 ## Future Updates
-C++ and Fortran translations are currently in progress. This READme file will constantly be updated as needed.
+Actively working on extending functionality to other programming languages, including:
+- **C++**: Faster and more efficient computations for high-performance applications.
+- **Fortran**: Integration with legacy systems and specialized scientific computations.
+
+Additionally, ongoing improvements will be made to enhance existing modules, improve usability, and incorporate new features as needed.
