@@ -1,8 +1,8 @@
 function los_test()
 %{
     Uses the ECI position vectors of the satellite (r_sat) and the sun (r_sun)
-    and evaulates whether the earth is in the line of sight between the two.
-    
+    and evaluates whether the earth is in the line of sight between the two.
+
     User M-functions required: None
 %}
 % -----------------------------------------------------------------------------
@@ -13,32 +13,32 @@ r_sun1 = [1.496e8, 0, 0]; % Sun position vector (ECI, km)
 light_switch1 = los(r_sat1, r_sun1);
 
 if light_switch1 == 1
-    disp('Satellite is in sunlight');
+    fprintf('Satellite is in sunlight\n');
 else
-    disp('Satellite is not in sunlight');
+    fprintf('Satellite is not in sunlight\n');
 end
 
-% Scenario 2: Satellite in Earth's shadow
+% Scenario 2: Satellite in Earth\'s shadow
 r_sat2 = [7000, 0, 0];     % Satellite position vector (ECI, km)
 r_sun2 = [-1.496e8, 0, 0]; % Sun position vector (ECI, km)
 light_switch2 = los(r_sat2, r_sun2);
 
 if light_switch2 == 0
-    disp('Satellite is in Earth\'s shadow');
+    fprintf('Satellite is in Earth''s shadow\n');
 else
-    disp('Satellite is not in Earth\'s shadow');
+    fprintf('Satellite is not in Earth''s shadow\n');
 end
 
-% Scenario 3: Satellite on Earth's surface
-RE = 6378; % Earth's radius (km)
-r_sat3 = [RE, 0, 0];      % Satellite on Earth's surface
+% Scenario 3: Satellite on Earth\'s surface
+RE = 6378; % Earth\'s radius (km)
+r_sat3 = [RE, 0, 0];      % Satellite on Earth\'s surface
 r_sun3 = [1.496e8, 0, 0]; % Sun position vector (ECI, km)
 light_switch3 = los(r_sat3, r_sun3);
 
 if light_switch3 == 1
-    disp('Satellite on Earth\'s surface is in sunlight');
+    fprintf('Satellite on Earth''s surface is in sunlight\n');
 else
-    disp('Satellite on Earth\'s surface is not in sunlight');
+    fprintf('Satellite on Earth''s surface is not in sunlight\n');
 end
 
 end
