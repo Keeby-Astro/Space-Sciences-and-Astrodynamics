@@ -20,8 +20,8 @@ a = 1/10000; % 1/km, reciprocal of the semimajor axis
 [f, g] = f_and_g(x, t, ro, a);
 
 %...Results
-fprintf('Results\n');
-fprintf('Computed f: %.6f\n', f);
-fprintf('Computed g: %.6f\n', g);
+fprintf('Results:\n');
+fprintf('Lagrange f: %.6f\n', f);
+fprintf('Lagrange g: %.6f\n', g);
 
 end
