@@ -30,6 +30,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 ### MATLAB
 - **MATLAB**: Version R2021a or later recommended.
 - Built-in functions such as `ode45` for numerical integration.
+- `rsmooth.m` for proper functionality of dependent scripts.
 
 ### Python
 - **Python**: Version 3.8 or later.
