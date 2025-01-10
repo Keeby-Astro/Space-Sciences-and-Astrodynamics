@@ -299,11 +299,11 @@ fprintf('Date and time of arrival at moon: ')
 fprintf('%s/%s/%s %s:%s:%s', ...
          num2str(month), num2str(day), num2str(year), ...
          num2str(hour), num2str(minute), num2str(second))
-fprintf('\nMoon's position: ')
+fprintf('\nMoon''s position: ')
 fprintf('\n Distance                        = %11g km'      , distance)
 fprintf('\n Right Ascension                 = %11g deg'     , RA)
 fprintf('\n Declination                     = %11g deg '    , Dec)
-fprintf('\nMoon's orbital inclination      = %11g deg\n'   , inclmoon)
+fprintf('\nMoon''s orbital inclination      = %11g deg\n'   , inclmoon)
 
 fprintf('\nThe probe at earth departure (t = %g sec):'      , t0)
 fprintf('\n Altitude                        = %11g km'      , z0)
@@ -335,8 +335,8 @@ fprintf('\n Altitude                        = %11g km'  , dist_min - Rm)
 fprintf('\n Speed                           = %11g km/s',norm(v_atdmin_))
 fprintf('\n Relative speed                  = %11g km/s',rel_speed)
 fprintf('\n Inclination of osculating plane = %11g deg' ,incl(imin))
-fprintf('\n Time from TLI to perilune       = %11g hours (%g days)' ...
-                                                  abs(t(imin))/3600 ...
+fprintf('\n Time from TLI to perilune       = %11g hours (%g days)', ...
+                                                  abs(t(imin))/3600, ...
                                                   abs(t(imin))/3600/24)
 
 fprintf('\n\nTotal time of flight           = %11g days'  , t(end)/days)
@@ -354,7 +354,7 @@ plotit_XYZ(X,Y,Z,Xm,Ym,Zm,imin)
 figure
 hold on
 plot(rms/RS,incl)
-line([0 6][90 90],'Linestyle','-','color','red')
+line([0 6],[90 90],'Linestyle','-','color','red')
 title('Osculating Plane Inclination vs Distance from Moon')
 xlabel('r_{ms}/R_s')
 ylabel('Inclination deg)')
