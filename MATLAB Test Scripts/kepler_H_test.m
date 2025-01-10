@@ -12,7 +12,7 @@
 % -------------------------------------------
 clear
 
-%...Data declaration for Example 3.5:
+%...Data declaration:
 e = 2.7696;
 M = 40.69;
 %...
@@ -22,7 +22,6 @@ F = kepler_H(e, M);
 
 %...Echo the input data and output to the command window:
 fprintf('----------------------------------------------')
-fprintf('\n Example 3.5\n')
 fprintf('\n Eccentricity                 = %g',e)
 fprintf('\n Hyperbolic mean anomaly      = %g\n',M)
 fprintf('\n Hyperbolic eccentric anomaly = %g',F)
