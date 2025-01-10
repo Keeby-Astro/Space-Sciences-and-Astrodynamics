@@ -21,5 +21,5 @@ a = 1/8000; % Reciprocal of semimajor axis (1/km)
 
 % Display results
 fprintf('Results:\n');
-fprintf('f_dot = %.6e 1/s\n', fdot);
-fprintf('g_dot = %.6f (dimensionless)\n', gdot);
+fprintf('Lagrange f_dot coefficient: %.6e 1/s\n', fdot);
+fprintf('Lagrange g_dot coefficient: %.6f (dimensionless)\n', gdot);
