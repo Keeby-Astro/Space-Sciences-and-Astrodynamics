@@ -20,5 +20,4 @@ for i = 1:size(inputs, 1)
     result = atan2d_0_360(y, x);
 
     fprintf('Test case %d: atan2d_0_360(%f, %f)\n', i, y, x);
-    end
 end
