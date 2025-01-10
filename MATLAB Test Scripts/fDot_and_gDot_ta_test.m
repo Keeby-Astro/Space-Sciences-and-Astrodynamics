@@ -25,9 +25,9 @@ mu = 398600;              % Gravitational parameter (km^3/s^2)
 % Call the function
 [fdot, gdot] = fDot_and_gDot_ta(r0, v0, dt, mu);
 
-% Display the results
-disp('Test Results for fDot_and_gDot_ta:');
-disp(['fdot: ', num2str(fdot), ' (1/s)']);
-disp(['gdot: ', num2str(gdot), ' (dimensionless)']);
+% Display results
+fprintf('Results:\n');
+fprintf('Lagrange f_dot: %.6e 1/s\n', fdot);
+fprintf('Lagrange g_dot: %.6f (dimensionless)\n', gdot);
 
 end
