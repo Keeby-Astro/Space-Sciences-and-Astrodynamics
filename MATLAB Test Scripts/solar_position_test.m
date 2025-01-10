@@ -14,7 +14,7 @@ function solar_position_test()
     [lamda, eps, r_S] = solar_position(jd_test);
 
     % Display the results
-    fprintf('Test Case: Julian Date = %.2f\n', jd_test);
+    fprintf('Julian Date = %.2f\n', jd_test);
     fprintf('Apparent Ecliptic Longitude (lamda): %.6f degrees\n', lamda);
     fprintf('Obliquity of the Ecliptic (eps): %.6f degrees\n', eps);
     fprintf('Geocentric Position Vector (r_S):\n');
