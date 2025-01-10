@@ -63,7 +63,16 @@ global alt %Altitude
  
 %...Extract the locally extreme altitudes:
 altitude = sqrt(sum(y(:,1:3).^2,2)) - RE;    % Altitude at each time
-[max_altitude,imax,min_altitude,imin] = extrema(altitude);
+is_max   = islocalmax(altitude);            % Logical array for maxima
+is_min   = islocalmin(altitude);            % Logical array for minima
+
+%...Find the indices and values of the extrema:
+imax = find(is_max);
+imin = find(is_min);
+
+max_altitude = altitude(imax);
+min_altitude = altitude(imin);
+
 maxima   = [t(imax) max_altitude];  % Maximum altitudes and times
 minima   = [t(imin) min_altitude];  % Minimum altitudes and times
 apogee   = sortrows(maxima,1);      % Maxima sorted with time                       
