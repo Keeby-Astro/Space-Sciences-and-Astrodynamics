@@ -130,8 +130,7 @@ v_at_rmax   = norm([y(imax,4) y(imax,5) y(imax,6)]);
 v_at_rmin   = norm([y(imin,4) y(imin,5) y(imin,6)]);
 
 %...Output to the command window:
-fprintf('\n\n--------------------------------------------------------------
-\n')
+fprintf('\n\n--------------------------------------------------------------\n')
 fprintf('\n Earth Orbit\n')
 fprintf(' %s\n', datestr(now))
 fprintf('\n The initial position is [%g, %g, %g] (km).',...
