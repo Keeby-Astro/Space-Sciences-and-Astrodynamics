@@ -3,6 +3,15 @@
 #include <cmath>
 #include "quat_rotate.h"
 
+/*
+    Evaluates known quaternions and vectors to compute
+    that the rotation properly.
+    
+    q - Quaternion to rotate by 1 x 4 matrix
+    v - Vector to rotate by 1 x 3 matrix
+    r - Rotated vector by 1 x 3 matrix
+*/
+    User M-functions required: quat_rotate
 void quat_rotate_test() 
 {
     // Define test quaternions and vectors
