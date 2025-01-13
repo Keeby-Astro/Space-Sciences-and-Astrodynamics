@@ -1,13 +1,13 @@
 # Space-Sciences-and-Astrodynamics
 
-This repository contains MATLAB and Python implementations of orbital mechanics and astrodynamics tools. It provides a comprehensive set of functions for simulating orbital motion, performing numerical methods, analyzing spacecraft trajectories, and modeling celestial mechanics. The repository is based on foundational principles and extends concepts found in *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
+This repository contains MATLAB, Python and C++ implementations of orbital mechanics and astrodynamics tools. It provides a comprehensive set of functions for simulating orbital motion, performing numerical methods, analyzing spacecraft trajectories, and modeling celestial mechanics. The repository is based on foundational principles and extends concepts found in *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
 
 ## Table of Contents
 - [Overview](#overview)
 - [Requirements](#requirements)
 - [Features](#features)
 - [Course Code Modules](#course-code-modules)
-- [MATLAB and Python Code Modules](#matlab-and-python-code-modules)
+- [MATLAB Python and C++ Code Modules](#matlab-python-and-c-code-modules)
 - [Usage](#usage)
 - [Installation](#installation)
 - [Future Updates](#future-updates)
@@ -33,7 +33,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 - `rsmooth.m` for proper functionality of dependent scripts.
 
 ### Python
-- **Python**: Version 3.8 or later.
+- **Python**: Version 3.8 or later recommended
 - Required packages:
   - `numpy`
   - `scipy`
@@ -42,6 +42,14 @@ The toolkit is designed for educational and research purposes and is a resource 
   - `atmosisa`
   - `quatinv`
   - `quatmultiply`
+ 
+### C++
+- **C++**: Version 23 or later recommended.
+- **C++**-translated **MATLAB** functions:
+  - `atmosisa`
+  - `quatinv`
+  - `quatmultiply`
+  - `rsmooth`
 
 ## Features
 - **Coordinate Transformations**: Convert between orbital elements and state vectors.
@@ -77,11 +85,11 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 <br>
 
-### MATLAB and Python Code Modules
+### MATLAB Python and C++ Code Modules
 
 ---
 
-#### `atan2d_0_360.m` | `atan2d_0_360.py`
+#### `atan2d_0_360.m` | `atan2d_0_360.py` | `atan2d_0_360.cpp`
 
 - The `atan2d_0_360` function is a specialized variant of the traditional `arctan` function, designed for scenarios where:
   - Angles need to be normalized to the range [0, 360] instead of the standard [-180, 180].
@@ -97,7 +105,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `atmosisa.py`
+#### `atmosisa.py` | `atmosisa.cpp`
 
 - The `atmosisa` function calculates atmospheric properties using an approximation of the International Standard Atmosphere (ISA) model. It provides:
   - Temperature (K) based on altitude in standard atmospheric layers.
@@ -113,7 +121,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `atmosphere.m` | `atmosphere.py`
+#### `atmosphere.m` | `atmosphere.py` | `atmosphere.cpp`
 
 - The `atmosphere` function calculates atmospheric density for altitudes ranging from sea level to 1000 km using exponential interpolation. This provides:
   - Accurate density values based on the U.S. Standard Atmosphere 1976 model.
@@ -129,7 +137,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `bisect.m` | `bisect.py`
+#### `bisect.m` | `bisect.py` | `bisect.cpp`
 
 - The `bisect` function implements the bisection method for root-finding. This numerical algorithm is designed for scenarios where:
   - The root of a continuous function needs to be located within a specified interval.
@@ -145,7 +153,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `coe_from_sv.m` | `coe_from_sv.py`
+#### `coe_from_sv.m` | `coe_from_sv.py` | `coe_from_sv.cpp`
 
 - The `coe_from_sv` function calculates classical orbital elements (COEs) from a given state vector using Algorithm 4.1. This is essential for:
   - Translating position and velocity vectors into orbital parameters.
@@ -161,7 +169,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `cowell.m` | `cowell.py`
+#### `cowell.m` | `cowell.py` | `cowell.cpp`
 
 - The `cowell` function implements numerical integration using MATLAB's `ode45` or Python's `solve_ivp` to model satellite motion under atmospheric drag. It is designed for scenarios where:
   - Detailed trajectory predictions are needed, accounting for atmospheric drag effects.
@@ -177,7 +185,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `dcm_from_q.m` | `dcm_from_q.py`
+#### `dcm_from_q.m` | `dcm_from_q.py` | `dcm_from_q.cpp`
 
 - The `dcm_from_q` function calculates the direction cosine matrix (DCM) from a quaternion. This is essential for:
   - Translating quaternion-based orientation into matrix form for applications in aerospace and robotics.
@@ -193,7 +201,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `dcm_to_euler.m` | `dcm_to_euler.py`
+#### `dcm_to_euler.m` | `dcm_to_euler.py` | `dcm_to_euler.cpp`
 
 - The `dcm_to_euler` function extracts the classical Euler angles from a direction cosine matrix (DCM) using the sequence $R_3(\gamma) \cdot R_1(\beta) \cdot R_3(\alpha)$. This is useful for:
   - Converting rotational transformations into intuitive angle-based representations.
@@ -209,7 +217,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `dcm_to_ypr.m` | `dcm_to_ypr.py`
+#### `dcm_to_ypr.m` | `dcm_to_ypr.py` | `dcm_to_ypr.cpp`
 
 - The `dcm_to_ypr` function extracts the yaw, pitch, and roll angles from a direction cosine matrix (DCM) using the sequence $$R_1(\text{roll}) \cdot R_2(\text{pitch}) \cdot R_3(\text{yaw}) $$. This is useful for:
   - Converting matrix-based rotations into intuitive yaw, pitch, and roll angles.
@@ -225,7 +233,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `encke.m` | `encke.py`
+#### `encke.m` | `encke.py` | `encke.cpp`
 
 - The `encke` function uses Encke's method to numerically integrate the equations of motion for a satellite under the influence of $J_2$ gravitational perturbations. This code is designed for scenarios where:
   - Precise orbit propagation is required over long periods while accounting for perturbative forces.
@@ -245,7 +253,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `f_and_g.m` | `f_and_g.py`
+#### `f_and_g.m` | `f_and_g.py` | `f_and_g.cpp`
 
 - The `f_and_g` function calculates the Lagrange coefficients $f$ and $g$, which are essential for solving orbital propagation problems. These coefficients:
   - Aid in determining the position and velocity of a celestial body after a time interval.
@@ -261,7 +269,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `f_and_g_ta.m` | `f_and_g_ta.py`
+#### `f_and_g_ta.m` | `f_and_g_ta.py` | `f_and_g_ta.cpp`
 
 - The `f_and_g_ta` function calculates the Lagrange $f$ and $g$ coefficients based on the change in true anomaly ($\Delta \theta$). This function is particularly useful for:
   - Propagating orbits using true anomaly changes without requiring a full numerical integration.
@@ -277,7 +285,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `fDot_and_gDot.m` | `fDot_and_gDot.py`
+#### `fDot_and_gDot.m` | `fDot_and_gDot.py` | `fDot_and_gDot.cpp`
 
 - The `fDot_and_gDot` function calculates the time derivatives of the Lagrange $f$ and $g$ coefficients, which are critical for:
   - Determining changes in position and velocity over time in orbital mechanics.
@@ -293,7 +301,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `fDot_and_gDot_ta.m` | `fDot_and_gDot_ta.py`
+#### `fDot_and_gDot_ta.m` | `fDot_and_gDot_ta.py` | `fDot_and_gDot_ta.cpp`
 
 - The `fDot_and_gDot_ta` function calculates the time derivatives of the Lagrange $f$ and $g$ coefficients based on a change in the true anomaly ($\Delta \theta$). This is particularly useful for:
   - Analyzing time-dependent changes in orbital position and velocity.
@@ -309,7 +317,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `gauss.m` | `gauss.py`
+#### `gauss.m` | `gauss.py` | `gauss.cpp`
 
 - The `gauss` function implements Gauss's method for preliminary orbit determination, including iterative improvement. This algorithm calculates the state vector (position and velocity) of an orbiting body from angles-only observations at three closely spaced times. Key features include:
   - Precise orbit determination using minimal observation data.
@@ -325,7 +333,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `gibbs.m` | `gibbs.py`
+#### `gibbs.m` | `gibbs.py` | `gibbs.cpp`
 
 - The `gibbs` function implements Gibbs's method for preliminary orbit determination using three coplanar geocentric position vectors. It is designed for:
   - Calculating the velocity corresponding to the second position vector.
@@ -341,7 +349,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `gravity_turn.m` | `gravity_turn.py`
+#### `gravity_turn.m` | `gravity_turn.py` | `gravity_turn.cpp`
 
 - The `gravity_turn` function numerically integrates the equations of motion for a gravity turn trajectory. This is particularly useful for:
   - Simulating launch vehicle trajectories under the influence of thrust, drag, and gravity.
@@ -359,7 +367,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `ground_track.m` | `ground_track.py`
+#### `ground_track.m` | `ground_track.py` | `ground_track.cpp`
 
 - The `ground_track` function calculates and plots the ground track of a satellite using its orbital elements. This is useful for:
   - Visualizing the satellite's trajectory relative to Earth's surface over multiple orbits.
@@ -375,7 +383,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `heun.m` | `heun.py`
+#### `heun.m` | `heun.py` | `heun.cpp`
 
 - The `heun` function implements Heun's method, a predictor-corrector numerical integration technique, for solving systems of first-order ordinary differential equations (ODEs). This function is designed for:
   - Accurate numerical integration of time-dependent ODEs in engineering and physics applications.
@@ -391,7 +399,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `integrate_thrust.m` | `integrate_thrust.py`
+#### `integrate_thrust.m` | `integrate_thrust.py` | `integrate_thrust.cpp`
 
 - The `integrate_thrust` function uses numerical integration to model the dynamics of a spacecraft during a delta-v burn. It calculates the resulting trajectory and orbital parameters after the burn. This function is ideal for:
   - Simulating orbital maneuvers, including changes in velocity and trajectory.
@@ -407,7 +415,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `interplanetary.m` | `interplanetary.py`
+#### `interplanetary.m` | `interplanetary.py` | `interplanetary.cpp`
 
 - The `interplanetary` function calculates the trajectory of a spacecraft traveling from one planet to another using patched conic approximations. This function is ideal for:
   - Planning interplanetary missions by determining heliocentric state vectors at departure and arrival.
@@ -423,7 +431,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `J0.m` | `J0.py`
+#### `J0.m` | `J0.py` | `J0.cpp`
 
 - The `J0` function calculates the Julian day number at 0 UT (Universal Time) for a given date. This is essential for:
   - Converting calendar dates into a numerical format suitable for astronomical and orbital calculations.
@@ -439,7 +447,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `J2_perturbation.m` | `J2_perturbation.py`
+#### `J2_perturbation.m` | `J2_perturbation.py` | `J2_perturbation.cpp`
 
 - The `J2_perturbation` function numerically integrates Gauss's planetary equations to analyze the effects of Earth's oblateness ($J_2 $) on the orbital elements of a satellite. This function is designed for:
   - Investigating long-term perturbations in orbital parameters caused by $J_2$.
@@ -459,7 +467,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `kepler_E.m` | `kepler_E.py`
+#### `kepler_E.m` | `kepler_E.py` | `kepler_E.cpp`
 
 - The `kepler_E` function solves Kepler's equation $E - e \sin(E) = M$ for the eccentric anomaly ($E$) using Newton's method. This function is essential for:
   - Determining orbital positions in elliptical trajectories.
@@ -475,7 +483,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `kepler_H.m` | `kepler_H.py`
+#### `kepler_H.m` | `kepler_H.py` | `kepler_H.cpp`
 
 - The `kepler_H` function solves Kepler's equation for hyperbolic orbits, $e \sinh(F) - F = M$, using Newton's method to compute the hyperbolic eccentric anomaly ($F$). This function is essential for:
   - Determining orbital positions in hyperbolic trajectories.
@@ -491,7 +499,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `kepler_U.m` | `kepler_U.py`
+#### `kepler_U.m` | `kepler_U.py` | `kepler_U.cpp`
 
 - The `kepler_U` function solves the universal Kepler's equation to compute the universal anomaly ($x$) using Newton's method. This function is crucial for:
   - Propagating orbits in any conic section (elliptical, parabolic, or hyperbolic).
@@ -507,7 +515,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `lambert.m` | `lambert.py`
+#### `lambert.m` | `lambert.py` | `lambert.cpp`
 
 - The `lambert` function solves Lambert's problem, which calculates the velocity vectors required to transfer a spacecraft between two position vectors in a specified time. This is essential for:
   - Planning interplanetary and orbital transfer trajectories.
@@ -523,7 +531,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `los.m` | `los.py`
+#### `los.m` | `los.py` | `los.cpp`
 
 - The `los` function determines whether a satellite is in Earth's shadow based on the satellite's and Sun's Earth-Centered Inertial (ECI) position vectors. This function is critical for:
   - Assessing solar exposure for satellites in orbit.
@@ -539,7 +547,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `LST.m` | `LST.py`
+#### `LST.m` | `LST.py` | `LST.cpp`
 
 - The `LST` function calculates the Local Sidereal Time (LST) at a specified location on Earth. This is essential for:
   - Determining the orientation of the Earth relative to celestial objects.
@@ -555,7 +563,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `lunar_perturbation_test.m` | `lunar_perturbation_test.py`
+#### `lunar_perturbation_test.m` | `lunar_perturbation_test.py` | `lunar_perturbation_test.cpp`
 
 - The `lunar_perturbation_test` function models the effects of the Moon's gravitational perturbations on satellite orbits using the Gauss variational equations. This function is ideal for:
   - Analyzing long-term orbital changes due to lunar gravity.
@@ -573,7 +581,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `lunar_position.m` | `lunar_position.py`
+#### `lunar_position.m` | `lunar_position.py` | `lunar_position.cpp`
 
 - The `lunar_position` function calculates the geocentric equatorial position vector of the Moon for a given Julian date. This is essential for:
   - Determining the Moon's position relative to Earth in celestial mechanics.
@@ -589,7 +597,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `lunar_trajectory.m` | `lunar_trajectory.py`
+#### `lunar_trajectory.m` | `lunar_trajectory.py` | `lunar_trajectory.cpp`
 
 - The `lunar_trajectory` function models the trajectory of a spacecraft under the gravitational influence of Earth and the Moon using a restricted three-body problem framework. Key features include:
   - Accurate modeling of spacecraft motion with initial conditions and parameters.
@@ -610,7 +618,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `month_planet_names.m` | `month_planet_names.py`
+#### `month_planet_names.m` | `month_planet_names.py` | `month_planet_names.cpp`
 
 - The `month_planet_names` function returns the name of a month and a planet based on their respective numeric IDs. This utility is designed for:
   - Mapping numeric IDs to human-readable month and planet names.
@@ -626,7 +634,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `orbit.m` | `orbit.py`
+#### `orbit.m` | `orbit.py` | `orbit.cpp`
 
 - The `orbit` function computes the orbit of a spacecraft by numerically solving the two-body problem using the Runge-Kutta-Fehlberg (RKF45) method. This function is designed for:
   - Simulating orbital trajectories and calculating spacecraft positions and velocities over time.
@@ -641,7 +649,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `planet_elements_and_sv.m` | `planet_elements_and_sv.py`
+#### `planet_elements_and_sv.m` | `planet_elements_and_sv.py` | `planet_elements_and_sv.cpp`
 
 - The `planet_elements_and_sv` function calculates the heliocentric orbital elements and state vectors (position and velocity) of a planet for a given date and time. This function is essential for:
   - Determining the current position and motion of planets in the solar system.
@@ -657,7 +665,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `q_from_dcm.m` | `q_from_dcm.py`
+#### `q_from_dcm.m` | `q_from_dcm.py` | `q_from_dcm.cpp`
 
 - The `q_from_dcm` function calculates the quaternion representation of a given direction cosine matrix (DCM). This is essential for:
   - Converting rotation matrices into quaternions for use in spacecraft attitude dynamics and robotics.
@@ -673,7 +681,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `quat_rotate.m` | `quat_rotate.py`
+#### `quat_rotate.m` | `quat_rotate.py` | `quat_rotate.cpp`
 
 - The `quat_rotate` function rotates a vector by a unit quaternion, providing a method for:
   - Transforming vectors in 3D space using quaternion-based rotation.
@@ -685,7 +693,7 @@ The toolkit is designed for educational and research purposes and is a resource 
   - Comparing rotated vectors against expected results to ensure accuracy.
   - Demonstrating the function's application in 3D rotational computations.
 
-#### `quatinv.py` and `quatmultiply.py`
+#### `quatinv.py` and `quatmultiply.py` | `quatinv.cpp` and `quatmultiply.cpp`
 
 - These Python scripts implement the functionality of MATLAB's built-in `quatinv` and `quatmultiply` functions. They are essential for:
   - Calculating the inverse of a quaternion with `quatinv`.
@@ -697,7 +705,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `ra_and_dec_from_r.m` | `ra_and_dec_from_r.py`
+#### `ra_and_dec_from_r.m` | `ra_and_dec_from_r.py` | `ra_and_dec_from_r.cpp`
 
 - The `ra_and_dec_from_r` function calculates the right ascension and declination from a geocentric equatorial position vector. This function is essential for:
   - Converting position vectors into angular coordinates for use in celestial mechanics and navigation.
@@ -713,7 +721,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `relative_motion.m` | `relative_motion.py`
+#### `relative_motion.m` | `relative_motion.py` | `relative_motion.cpp`
 
 - The `relative_motion` function calculates and plots the motion of a chaser satellite (B) relative to a target satellite (A) in orbit. This function is useful for:
   - Simulating relative motion dynamics between two satellites for formation flying or rendezvous missions.
@@ -729,7 +737,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `rk1_4.m` | `rk1_4.py`
+#### `rk1_4.m` | `rk1_4.py` | `rk1_4.cpp`
 
 - The `rk1_4` function implements the Runge-Kutta numerical integration methods (RK1, RK2, RK3, and RK4) to solve systems of first-order ordinary differential equations $\frac{dy}{dt} = f(t, y)$. This function is essential for:
   - Performing numerical simulations of dynamic systems.
@@ -745,7 +753,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `rkf45.m` | `rkf45.py`
+#### `rkf45.m` | `rkf45.py` | `rkf45.cpp`
 
 - The `rkf45` function implements the Runge-Kutta-Fehlberg 4(5) method, a numerical integration algorithm with adaptive step size control. It is designed for:
   - Solving systems of first-order ordinary differential equations $\frac{dy}{dt} = f(t, y)$ with high accuracy and efficiency.
@@ -763,7 +771,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `rv_from_observe.m` | `rv_from_observe.py`
+#### `rv_from_observe.m` | `rv_from_observe.py` | `rv_from_observe.cpp`
 
 - The `rv_from_observe` function calculates the geocentric equatorial position and velocity vectors of an object from radar observations, including range, azimuth, elevation angle, and their rates. This function is essential for:
   - Translating radar observation data into state vectors for orbit determination.
@@ -779,7 +787,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `rv_from_r0v0.m` | `rv_from_r0v0.py`
+#### `rv_from_r0v0.m` | `rv_from_r0v0.py` | `rv_from_r0v0.cpp`
 
 - The `rv_from_r0v0` function computes the state vector (position and velocity) of a spacecraft at a future time, given its initial state vector and the elapsed time. This is fundamental for:
   - Propagating orbital trajectories using Kepler's equations and universal anomaly methods.
@@ -795,7 +803,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `rv_from_r0v0_ta.m` | `rv_from_r0v0_ta.py`
+#### `rv_from_r0v0_ta.m` | `rv_from_r0v0_ta.py` | `rv_from_r0v0_ta.cpp`
 
 - The `rv_from_r0v0_ta` function calculates the state vector (position and velocity) of a spacecraft after a specified change in true anomaly, given the initial state vector. This function is essential for:
   - Propagating orbital trajectories based on changes in true anomaly.
@@ -811,7 +819,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `rva_relative.m` | `rva_relative.py`
+#### `rva_relative.m` | `rva_relative.py` | `rva_relative.cpp`
 
 - The `rva_relative` function calculates the position, velocity, and acceleration of a spacecraft B relative to spacecraft A in A's Local Vertical Local Horizontal (LVLH) frame. This function is vital for:
   - Analyzing relative motion in rendezvous and proximity operations.
@@ -827,7 +835,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `simpsons_lunar_ephemeris.m` | `simpsons_lunar_ephemeris.py`
+#### `simpsons_lunar_ephemeris.m` | `simpsons_lunar_ephemeris.py` | `simpsons_lunar_ephemeris.cpp`
 
 - The `simpsons_lunar_ephemeris` function computes the state vector (position and velocity) of the Moon relative to Earth's geocentric equatorial frame for a given Julian date. This function is based on a curve fit to JPL's DE200 ephemeris model, providing:
   - Accurate lunar position and velocity data for astrodynamics applications.
@@ -843,7 +851,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `solar_perturbation.m` | `solar_perturbation.py`
+#### `solar_perturbation.m` | `solar_perturbation.py` | `solar_perturbation.cpp`
 
 - The `solar_perturbation` function simulates the effects of solar gravitational perturbation on a spacecraft's orbit by integrating the Gauss variational equations. This function is designed for:
   - Analyzing the long-term influence of solar gravity on satellite orbits.
@@ -861,7 +869,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `solar_position.m` | `solar_position.py`
+#### `solar_position.m` | `solar_position.py` | `solar_position.cpp`
 
 - The `solar_position` function calculates the geocentric equatorial position vector of the Sun for a given Julian date. This is crucial for:
   - Determining the Sun's position relative to Earth in celestial mechanics and satellite mission planning.
@@ -877,7 +885,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `solar_radiation_pressure.m` | `solar_radiation_pressure.py`
+#### `solar_radiation_pressure.m` | `solar_radiation_pressure.py` | `solar_radiation_pressure.cpp`
 
 - The `solar_radiation_pressure` function models the effects of solar radiation pressure on a satellite's orbital elements by solving the Gauss planetary equations. This is particularly useful for:
   - Evaluating the long-term influence of solar radiation on satellite orbits.
@@ -895,7 +903,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `spinning_top.m` | `spinning_top.py`
+#### `spinning_top.m` | `spinning_top.py` | `spinning_top.cpp`
 
 - The `spinning_top` function numerically integrates Euler's equations of motion for a spinning top. It uses quaternions to track the time evolution of the top's orientation. This implementation is designed for:
   - Understanding the rotational dynamics of a rigid body under gravity.
@@ -917,7 +925,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `stumpC.m` | `stumpC.py`
+#### `stumpC.m` | `stumpC.py` | `stumpC.cpp`
 
 - The `stumpC` function evaluates the Stumpff function $C(z)$, a key mathematical function in orbital mechanics, particularly for solving Kepler's equation using the universal variable formulation. This implementation is designed for:
   - Efficiently handling cases for positive, negative, and zero values of $z$.
@@ -933,7 +941,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `stumpS.m` | `stumpS.py`
+#### `stumpS.m` | `stumpS.py` | `stumpS.cpp`
 
 - The `stumpS` function computes the Stumpff function $S(z)$, essential in solving Kepler's equation using the universal variable formulation. It handles different cases of $z$ (positive, negative, and zero) to provide:
   - Accurate evaluations for orbital mechanics problems.
@@ -949,7 +957,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `sv_from_coe.m` | `sv_from_coe.py`
+#### `sv_from_coe.m` | `sv_from_coe.py` | `sv_from_coe.cpp`
 
 - The `sv_from_coe` function computes the state vector (position and velocity) from classical orbital elements. This is particularly useful in astrodynamics for:
   - Translating orbital elements like eccentricity, inclination, and true anomaly into precise position and velocity vectors in a geocentric equatorial frame.
@@ -964,7 +972,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `threebody.m` | `threebody.py`
+#### `threebody.m` | `threebody.py` | `threebody.cpp`
 
 - The `threebody` function provides a graphical simulation of the motion of three celestial bodies interacting under gravitational forces in a two-dimensional plane. It uses:
   - Newton's laws of motion and the gravitational constant to compute positions and velocities over time.
@@ -981,7 +989,7 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ---
 
-#### `twobody3d.py` | `twobody3d.py`
+#### `twobody3d.py` | `twobody3d.py` | `twobody3d.cpp`
 
 - The `twobody3d` function numerically solves the two-body problem in three dimensions relative to an inertial frame. The simulation uses the RKF4(5) numerical integration method to model the gravitational interactions between two massive bodies.
   - Inputs include initial positions and velocities of the bodies, their masses, and the time interval of the simulation.
@@ -1003,10 +1011,13 @@ The toolkit is designed for educational and research purposes and is a resource 
 ## Usage
 
 ### MATLAB
-Clone the repository and navigate to the MATLAB files directory. Navigate to the MATLAB files and execute scripts as needed.
+Clone the repository and navigate to the MATLAB files directory. Navigate to the .m files and execute scripts as needed.
 
 ### Python
-Clone the repository and navigate to the Python files directory. Install the required Python packages and run scripts directly.
+Clone the repository and navigate to the Python files directory. Install the required .py packages and run scripts directly.
+
+### C++
+Clone the repository and navigate to the C++ and C++ Header files directory. Navigate to the .cpp and .h files and execute scripts as needed.
 
 ## Installation
 
@@ -1019,7 +1030,7 @@ git clone https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics.git
 
 ## Future Updates
 Actively working on extending functionality to other programming languages, including:
-- **C++**: Faster and more efficient computations for high-performance applications.
 - **Fortran**: Integration with legacy systems and specialized scientific computations.
+- **Plot Scripts**: Will add the Python Plot Scripts in the near future for replicating/modifying plots displayed in README.
 
 Additionally, ongoing improvements will be made to enhance existing modules, improve usability, and incorporate new features as needed.
