@@ -19,8 +19,8 @@
 
     User h-functions required: f_and_g_ta
 */
-int main() {
-
+int main() 
+{
     double mu = 398600.4418;                     // Gravitational parameter for Earth (km^3/s^2)
     std::vector<double> r0 = {7000.0, 0.0, 0.0}; // Initial position vector (km)
     std::vector<double> v0 = {0.0, 7.5, 0.0};    // Initial velocity vector (km/s)
