@@ -1017,7 +1017,7 @@ Clone the repository and navigate to the MATLAB files directory. Navigate to the
 Clone the repository and navigate to the Python files directory. Install the required .py packages and run scripts directly.
 
 ### C++
-Clone the repository and navigate to the C++ and C++ Header files directory. Navigate to the .cpp and .h files and execute scripts as needed.
+Clone the repository and navigate to the C++ and C Header files directory. Navigate to the .cpp and .h files and execute scripts as needed.
 
 ## Installation
 
