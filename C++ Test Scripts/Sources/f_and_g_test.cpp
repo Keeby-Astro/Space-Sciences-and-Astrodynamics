@@ -8,8 +8,8 @@
 
     User h-functions required: f_and_g, stumpC, stumpS
 */
-int main() {
-
+int main() 
+{
     // Define the global variable mu (gravitational parameter)
     double mu = 398600.4418; // km^3/s^2, standard for Earth
 

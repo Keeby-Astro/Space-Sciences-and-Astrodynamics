@@ -1,6 +1,6 @@
 # Space-Sciences-and-Astrodynamics
 
-This repository contains MATLAB, Python and C++ implementations of orbital mechanics and astrodynamics tools. It provides a comprehensive set of functions for simulating orbital motion, performing numerical methods, analyzing spacecraft trajectories, and modeling celestial mechanics. The repository is based on foundational principles and extends concepts found in *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
+This repository contains MATLAB, Python, and C++ implementations of orbital mechanics and astrodynamics tools. It provides a comprehensive set of functions for simulating orbital motion, performing numerical methods, analyzing spacecraft trajectories, and modeling celestial mechanics. The repository is based on foundational principles and extends concepts found in *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
 
 ## Table of Contents
 - [Overview](#overview)
