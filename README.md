@@ -125,7 +125,7 @@ Space-Sciences-and-Astrodynamics/
   - Evaluate performance on quadrants to ensure correct angle normalization.
   - Demonstrate the function's application in common scenarios.
 
-![atan2d_0_360_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/atan2d_0_360_plot.png)
+![atan2d_0_360_plot.png]((https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/atan2d_0_360_plot.png))
 
 ---
 
@@ -141,7 +141,7 @@ Space-Sciences-and-Astrodynamics/
   - Accurate representation of temperature gradients and pressure changes in each atmospheric layer.
   - User-friendly implementation that requires only altitude as input.
 
-![atmosisa_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/atmosisa_plot.png)
+![atmosisa_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/atmosisa_plot.png)
 
 ---
 
@@ -157,7 +157,7 @@ Space-Sciences-and-Astrodynamics/
   - Visualizing the relationship between altitude and density with logarithmic plots.
   - Demonstrating the smoothness and accuracy of the exponential interpolation.
 
-![atmosphere_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/atmosphere_plot.png)
+![atmosphere_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/atmosphere_plot.png)
 
 ---
 
@@ -173,7 +173,7 @@ Space-Sciences-and-Astrodynamics/
   - Validating the function's accuracy using predefined intervals and sample equations.
   - Outputting the results to show the convergence of the bisection method for practical problems.
 
-![bisect_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/bisect_plot.png)
+![bisect_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/bisect_plot.png)
 
 ---
 
@@ -189,7 +189,7 @@ Space-Sciences-and-Astrodynamics/
   - Validating the function's accuracy with known inputs and outputs.
   - Displaying additional orbital parameters such as the period for elliptical orbits.
 
-![coe_from_sv_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/coe_from_sv_plot.png)
+![coe_from_sv_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/coe_from_sv_plot.png)
 
 ---
 
@@ -205,7 +205,7 @@ Space-Sciences-and-Astrodynamics/
   - Drag force acting on the satellite.
   - Gravitational effects from Earth.
 
-![cowell_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/cowell_plot.png)
+![cowell_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/cowell_plot.png)
 
 ---
 
@@ -221,7 +221,7 @@ Space-Sciences-and-Astrodynamics/
   - Ensuring the function produces accurate and consistent results across multiple input cases.
   - Demonstrating the utility of quaternion-to-DCM conversions in practical scenarios.
 
-![dcm_from_q_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/dcm_from_q_plot.png)
+![dcm_from_q_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/dcm_from_q_plot.png)
 
 ---
 
@@ -237,7 +237,7 @@ Space-Sciences-and-Astrodynamics/
   - Ensuring accurate conversion to Euler angles across diverse scenarios.
   - Demonstrating practical applications of DCM-to-Euler transformations.
 
-![dcm_to_euler_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/dcm_to_euler_plot.png)
+![dcm_to_euler_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/dcm_to_euler_plot.png)
 
 ---
 
@@ -253,7 +253,7 @@ Space-Sciences-and-Astrodynamics/
   - Ensuring accurate conversion to yaw, pitch, and roll angles across diverse cases.
   - Demonstrating the utility of DCM-to-YPR transformations in practical scenarios.
 
-![dcm_to_ypr_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/dcm_to_ypr_plot.png)
+![dcm_to_ypr_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/dcm_to_ypr_plot.png)
 
 ---
 
@@ -269,11 +269,11 @@ Space-Sciences-and-Astrodynamics/
   - Argument of perigee $$( \Delta\omega )$$.
   - Eccentricity $$( \Delta e )$$, inclination $$( \Delta i )$$, and angular momentum $$( \Delta h )$$.
 
-![encke_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/encke_plot1.png)
+![encke_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/encke_plot1.png)
 
-![encke_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/encke_plot2.png)
+![encke_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/encke_plot2.png)
 
-![encke_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/encke_plot3.png)
+![encke_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/encke_plot3.png)
 
 ---
 
@@ -289,7 +289,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing calculated $f$ and $g$ coefficients to expected results.
   - Demonstrating the function's reliability in typical orbital mechanics scenarios.
 
-![f_and_g_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/f_and_g_plot.png)
+![f_and_g_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/f_and_g_plot.png)
 
 ---
 
@@ -305,7 +305,7 @@ Space-Sciences-and-Astrodynamics/
   - Demonstrating the consistency of outputs for typical orbital mechanics scenarios.
   - Providing sample computations to verify accuracy and functionality.
 
-![f_and_g_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/f_and_g_ta_plot.png)
+![f_and_g_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/f_and_g_ta_plot.png)
 
 ---
 
@@ -321,7 +321,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying the accuracy of computed $\dot{f}$ and $\dot{g}$ coefficients.
   - Demonstrating practical use cases for time-dependent orbital calculations.
 
-![fDot_and_gDot_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/fDot_and_gDot_plot.png)
+![fDot_and_gDot_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/fDot_and_gDot_plot.png)
 
 ---
 
@@ -337,7 +337,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying the accuracy of outputs for practical orbital mechanics scenarios.
   - Demonstrating the function's reliability for analyzing orbital element variations.
 
-![fDot_and_gDot_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/fDot_and_gDot_ta_plot.png)
+![fDot_and_gDot_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/fDot_and_gDot_ta_plot.png)
 
 ---
 
@@ -353,7 +353,7 @@ Space-Sciences-and-Astrodynamics/
   - Computing orbital elements such as angular momentum, eccentricity, inclination, and semimajor axis.
   - Comparing results with and without iterative improvement to demonstrate the method's convergence and reliability.
 
-![gauss_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/gauss_plot.png)
+![gauss_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/gauss_plot.png)
 
 ---
 
@@ -369,7 +369,7 @@ Space-Sciences-and-Astrodynamics/
   - Checking for coplanarity of input vectors to ensure method applicability.
   - Demonstrating the accuracy and reliability of the function in typical orbital scenarios.
 
-![gibbs_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/gibbs_plot.png)
+![gibbs_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/gibbs_plot.png)
 
 ---
 
@@ -385,9 +385,9 @@ Space-Sciences-and-Astrodynamics/
   - Visualization of trajectory and dynamic pressure profiles.
   - Support for varying vehicle and atmospheric parameters to model real-world scenarios.
 
-![gravity_turn_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/gravity_turn_plot1.png)
+![gravity_turn_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/gravity_turn_plot1.png)
 
-![gravity_turn_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/gravity_turn_plot2.png)
+![gravity_turn_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/gravity_turn_plot2.png)
 
 ---
 
@@ -403,7 +403,7 @@ Space-Sciences-and-Astrodynamics/
   - Separation of the ground track into distinct curves to account for orbital discontinuities.
   - Detailed plots of the ground track on Earth's surface for visualization.
 
-![ground_track_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/ground_track_plot.png)
+![ground_track_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/ground_track_plot.png)
 
 ---
 
@@ -419,7 +419,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing solutions obtained with different time step sizes to illustrate convergence and accuracy.
   - Visualizing displacement responses over time for varying numerical resolutions.
 
-![heun_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/heun_plot.png)
+![heun_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/heun_plot.png)
 
 ---
 
@@ -435,7 +435,7 @@ Space-Sciences-and-Astrodynamics/
   - Determination of state vectors and orbital elements before and after the burn.
   - Support for flexible inputs to simulate a variety of propulsion scenarios.
 
-![integrate_thrust_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/integrate_thrust_plot.png)
+![integrate_thrust_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/integrate_thrust_plot.png)
 
 ---
 
@@ -451,7 +451,7 @@ Space-Sciences-and-Astrodynamics/
   - Validating computed orbital elements and hyperbolic excess velocities.
   - Providing a comprehensive analysis of the interplanetary transfer.
 
-![interplanetary_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/interplanetary_plot.png)
+![interplanetary_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/interplanetary_plot.png)
 
 ---
 
@@ -467,7 +467,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying the output against known examples to ensure accuracy.
   - Demonstrating the use of Julian day numbers in time-sensitive computations.
 
-![J0_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/J0_plot.png)
+![J0_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/J0_plot.png)
 
 ---
 
@@ -483,11 +483,11 @@ Space-Sciences-and-Astrodynamics/
   - Visualization of the effects of $J_2$ on angular momentum, eccentricity, and inclination.
   - Flexible setup for analyzing different orbital regimes and initial conditions.
 
-![J2_perturbation_plot_1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/J2_perturbation_plot_1.png)
+![J2_perturbation_plot_1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/J2_perturbation_plot_1.png)
 
-![J2_perturbation_plot_2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/J2_perturbation_plot_2.png)
+![J2_perturbation_plot_2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/J2_perturbation_plot_2.png)
 
-![J2_perturbation_plot_3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/J2_perturbation_plot_3.png)
+![J2_perturbation_plot_3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/J2_perturbation_plot_3.png)
 
 ---
 
@@ -503,7 +503,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying the convergence of Newton's method to within a specified tolerance.
   - Demonstrating the practical application of the function in orbital simulations.
 
-![kepler_E_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/kepler_E_plot.png)
+![kepler_E_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/kepler_E_plot.png)
 
 ---
 
@@ -519,7 +519,7 @@ Space-Sciences-and-Astrodynamics/
   - Ensuring the convergence of Newton's method to the desired accuracy.
   - Demonstrating the utility of the function in analyzing hyperbolic orbits.
 
-![kepler_H_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/kepler_H_plot.png)
+![kepler_H_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/kepler_H_plot.png)
 
 ---
 
@@ -535,7 +535,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying convergence and accuracy of the computed universal anomaly.
   - Demonstrating the function's application in dynamic orbit propagation scenarios.
 
-![kepler_U_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/kepler_U_plot.png)
+![kepler_U_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/kepler_U_plot.png)
 
 ---
 
@@ -551,7 +551,7 @@ Space-Sciences-and-Astrodynamics/
   - Calculating and verifying orbital elements, including angular momentum, eccentricity, and inclination.
   - Demonstrating the application of the function in single-revolution transfer orbits.
 
-![lambert_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lambert_plot.png)
+![lambert_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lambert_plot.png)
 
 ---
 
@@ -567,7 +567,7 @@ Space-Sciences-and-Astrodynamics/
   - Analyzing different satellite positions, including edge cases such as satellites near Earth's surface.
   - Verifying function accuracy in determining the line-of-sight status between the satellite and Sun.
 
-![los_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/los_plot.png)
+![los_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/los_plot.png)
 
 ---
 
@@ -583,7 +583,7 @@ Space-Sciences-and-Astrodynamics/
   - Echoing input data and comparing computed LST values to expected results.
   - Demonstrating the use of LST for observing celestial events or satellite trajectories.
 
-![LST_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/LST_plot.png)
+![LST_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/LST_plot.png)
 
 ---
 
@@ -599,9 +599,9 @@ Space-Sciences-and-Astrodynamics/
   - Analysis of three orbital regimes: geostationary (GEO), highly elliptical (HEO), and low Earth orbit (LEO).
   - Visualization of orbital element evolution under lunar perturbations.
 
-![lunar_perturbation_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lunar_perturbation_plot1.png)
+![lunar_perturbation_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lunar_perturbation_plot1.png)
 
-![lunar_perturbation_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lunar_perturbation_plot2.png)
+![lunar_perturbation_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lunar_perturbation_plot2.png)
 
 ---
 
@@ -617,7 +617,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing the results with known values to ensure accuracy.
   - Demonstrating the function's utility in lunar and Earth-centered orbital analyses.
 
-![lunar_position_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lunar_position_plot.png)
+![lunar_position_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lunar_position_plot.png)
 
 ---
 
@@ -634,11 +634,11 @@ Space-Sciences-and-Astrodynamics/
   - Probe's perilune altitude and relative speed.
   - Trajectory inclination and osculating plane details.
 
-![lunar_trajectory_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lunar_trajectory_plot1.png)
+![lunar_trajectory_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lunar_trajectory_plot1.png)
 
-![lunar_trajectory_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lunar_trajectory_plot2.png)
+![lunar_trajectory_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lunar_trajectory_plot2.png)
 
-![lunar_trajectory_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/lunar_trajectory_plot3.png)
+![lunar_trajectory_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/lunar_trajectory_plot3.png)
 
 ---
 
@@ -654,7 +654,7 @@ Space-Sciences-and-Astrodynamics/
   - Printing the corresponding names for verification.
   - Demonstrating accurate mappings and robustness across valid inputs.
 
-![month_planet_names_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/month_planet_names_plot.png)
+![month_planet_names_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/month_planet_names_plot.png)
 
 ---
 
@@ -669,7 +669,7 @@ Space-Sciences-and-Astrodynamics/
   - Numerical integration of the two-body equations of motion.
   - Detailed plots of the orbital trajectory, including annotations for critical points such as the maximum and minimum altitudes.
 
-![orbit_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/orbit_plot.png)
+![orbit_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/orbit_plot.png)
 
 ---
 
@@ -685,7 +685,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying Julian date calculations and their impact on planetary positions.
   - Demonstrating the accuracy of heliocentric position and velocity computations.
 
-![planet_elements_and_sv_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/planet_elements_and_sv_plot.png)
+![planet_elements_and_sv_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/planet_elements_and_sv_plot.png)
 
 ---
 
@@ -701,7 +701,7 @@ Space-Sciences-and-Astrodynamics/
   - Printing and comparing the computed quaternions to expected results.
   - Demonstrating the function's accuracy and reliability for practical rotation matrix conversions.
 
-![q_from_dcm_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/q_from_dcm_plot.png)
+![q_from_dcm_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/q_from_dcm_plot.png)
 
 ---
 
@@ -725,7 +725,7 @@ Space-Sciences-and-Astrodynamics/
 
 - These scripts replicate MATLAB's behavior, enabling seamless transition for MATLAB users moving to Python environments. They are utilized in functions such as `quat_rotate` for quaternion-based calculations.
 
-![quat_rotate_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/quat_rotate_plot.png)
+![quat_rotate_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/quat_rotate_plot.png)
 
 ---
 
@@ -741,7 +741,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing the results to expected values to ensure accuracy.
   - Demonstrating the practical application of the function in orbital mechanics.
 
-![ra_and_dec_from_r_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/ra_and_dec_from_r_plot.png)
+![ra_and_dec_from_r_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/ra_and_dec_from_r_plot.png)
 
 ---
 
@@ -757,7 +757,7 @@ Space-Sciences-and-Astrodynamics/
   - Representation of the relative trajectory of the chaser in the co-moving frame of the target.
   - Incorporation of orbital parameters, including angular momentum, eccentricity, and mean motion, to accurately model the relative dynamics.
 
-![relative_motion_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/relative_motion_plot.png)
+![relative_motion_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/relative_motion_plot.png)
 
 ---
 
@@ -773,7 +773,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing numerical solutions to the exact analytical response.
   - Demonstrating the relative accuracy and stability of the four Runge-Kutta methods.
 
-![rk1_4_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rk1_4_plot.png)
+![rk1_4_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rk1_4_plot.png)
 
 ---
 
@@ -789,9 +789,9 @@ Space-Sciences-and-Astrodynamics/
   - Demonstrating the function's application to satellite motion and spacecraft trajectory analysis.
   - Comparing numerical results to analytical expectations and ensuring adaptive step control.
 
-![rkf45_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rkf45_plot.png)
+![rkf45_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rkf45_plot.png)
 
-![rkf45_lunar_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rkf45_lunar_plot.png)
+![rkf45_lunar_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rkf45_lunar_plot.png)
 
 ---
 
@@ -807,7 +807,7 @@ Space-Sciences-and-Astrodynamics/
   - Applying the state vectors to derive orbital elements such as angular momentum, eccentricity, and inclination.
   - Comparing results to known values to ensure correctness and demonstrating the function's utility in orbit determination tasks.
 
-![rv_from_observe_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rv_from_observe_plot.png)
+![rv_from_observe_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rv_from_observe_plot.png)
 
 ---
 
@@ -823,7 +823,7 @@ Space-Sciences-and-Astrodynamics/
   - Calculating and echoing the final state vector for accuracy validation.
   - Demonstrating the function's utility in dynamic orbit propagation tasks.
 
-![rv_from_r0v0_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rv_from_r0v0_plot.png)
+![rv_from_r0v0_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rv_from_r0v0_plot.png)
 
 ---
 
@@ -839,7 +839,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing the computed results to expected values for accuracy verification.
   - Demonstrating the function's utility in practical orbital mechanics scenarios.
 
-![rv_from_r0v0_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rv_from_r0v0_ta_plot.png)
+![rv_from_r0v0_ta_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rv_from_r0v0_ta_plot.png)
 
 ---
 
@@ -855,7 +855,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing outputs to expected values derived from analytical solutions.
   - Demonstrating its application in dynamic simulation scenarios.
 
-![rva_relative_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/rva_relative_plot.png)
+![rva_relative_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/rva_relative_plot.png)
 
 ---
 
@@ -871,7 +871,7 @@ Space-Sciences-and-Astrodynamics/
   - Displaying the position and velocity vectors for inspection.
   - Demonstrating the function's application in lunar ephemeris modeling.
 
-![simpsons_lunar_ephemeris_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/simpsons_lunar_ephemeris_plot1.png)
+![simpsons_lunar_ephemeris_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/simpsons_lunar_ephemeris_plot1.png)
 
 ---
 
@@ -887,9 +887,9 @@ Space-Sciences-and-Astrodynamics/
   - Utilizes advanced integration techniques to achieve high accuracy.
   - Visualizes the impact of solar perturbations on orbital elements through detailed plots.
 
-![solar_perturbation_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_perturbation_plot1.png)
+![solar_perturbation_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/solar_perturbation_plot1.png)
 
-![solar_perturbation_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_perturbation_plot2.png)
+![solar_perturbation_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/solar_perturbation_plot2.png)
 
 ---
 
@@ -905,7 +905,7 @@ Space-Sciences-and-Astrodynamics/
   - Displaying results, including the apparent ecliptic longitude, obliquity of the ecliptic, and geocentric position vector.
   - Demonstrating the function's utility for solar ephemeris computations.
 
-![solar_position_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_position_plot.png)
+![solar_position_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/solar_position_plot.png)
 
 ---
 
@@ -921,9 +921,9 @@ Space-Sciences-and-Astrodynamics/
   - Visualize results through plots of key orbital parameters.
   - Highlight differences between initial and perturbed orbital states.
 
-![solar_radiation_pressure_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_radiation_pressure_plot.png)
+![solar_radiation_pressure_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/solar_radiation_pressure_plot.png)
 
-![solar_radiation_pressure_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/solar_radiation_pressure_plot2.png)
+![solar_radiation_pressure_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/solar_radiation_pressure_plot2.png)
 
 ---
 
@@ -941,11 +941,11 @@ Space-Sciences-and-Astrodynamics/
   - Precession, nutation, and spin angles over time.
   - Corresponding angular rates and visualizations to highlight dynamic changes.
 
-![spinning_top_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/spinning_top_plot1.png)
+![spinning_top_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/spinning_top_plot1.png)
 
-![spinning_top_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/spinning_top_plot2.png)
+![spinning_top_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/spinning_top_plot2.png)
 
-![spinning_top_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/spinning_top_plot3.png)
+![spinning_top_plot3.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/spinning_top_plot3.png)
 
 ---
 
@@ -961,7 +961,7 @@ Space-Sciences-and-Astrodynamics/
   - Verifying known outcomes for specific cases to ensure accuracy.
   - Displaying results in a structured format for interpretation and comparison.
 
-![stumpC_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/stumpC_plot.png)
+![stumpC_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/stumpC_plot.png)
 
 ---
 
@@ -977,7 +977,7 @@ Space-Sciences-and-Astrodynamics/
   - Comparing results against known outcomes for specific values.
   - Ensuring robust and accurate implementation for all cases.
 
-![stumpS_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/stumpS_plot.png)
+![stumpS_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/stumpS_plot.png)
 
 ---
 
@@ -992,7 +992,7 @@ Space-Sciences-and-Astrodynamics/
   - Test the function with predefined orbital element sets to ensure accuracy.
   - Evaluate the generated state vectors for correctness against theoretical expectations.
 
-![sv_from_coe_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/sv_from_coe_plot.png)
+![sv_from_coe_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/sv_from_coe_plot.png)
 
 ---
 
@@ -1007,9 +1007,9 @@ Space-Sciences-and-Astrodynamics/
   - The trajectories of the bodies in an inertial frame and relative to the center of mass.
   - Useful for studying three-body problems in celestial mechanics, such as planetary motion or gravitational dynamics in a triple star system.
 
-![threebody_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/threebody_plot1.png)
+![threebody_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/threebody_plot1.png)
 
-![threebody_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/threebody_plot2.png)
+![threebody_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/threebody_plot2.png)
 
 ---
 
@@ -1024,11 +1024,11 @@ Space-Sciences-and-Astrodynamics/
   - The motion of the second body and the center of mass relative to the first body.
   - The motion of both bodies relative to the center of mass.
 
-![twobody3d_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/twobody3d_plot1.png)
+![twobody3d_plot1.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/twobody3d_plot1.png)
 
-![twobody3d_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/twobody3d_plot2.png)
+![twobody3d_plot2.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/twobody3d_plot2.png)
 
-![twobody3d_plo3t.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/Plots/twobody3d_plot3.png)
+![twobody3d_plo3t.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/twobody3d_plot3.png)
 
 ---
 
