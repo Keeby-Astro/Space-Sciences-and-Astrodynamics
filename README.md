@@ -125,7 +125,7 @@ Space-Sciences-and-Astrodynamics/
   - Evaluate performance on quadrants to ensure correct angle normalization.
   - Demonstrate the function's application in common scenarios.
 
-![atan2d_0_360_plot.png]((https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/atan2d_0_360_plot.png))
+![atan2d_0_360_plot.png](https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics/blob/main/plots/atan2d_0_360_plot.png)
 
 ---
 
