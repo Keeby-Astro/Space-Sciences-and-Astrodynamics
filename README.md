@@ -61,6 +61,30 @@ The toolkit is designed for educational and research purposes and is a resource 
 
 ## Files and Modules
 
+### Repository Structure
+```
+Space-Sciences-and-Astrodynamics/
+├── .github/workflows/
+├── doc/source/
+├── plots/
+├── curtis_scripts/
+│   ├── python/
+│   ├── cpp/
+│   └── matlab/
+├── course_scripts/
+├── tests/
+│   ├── python/
+│   ├── cpp/
+│   └── matlab/
+├── Algorithm_Number_Reference.md
+├── CHANGELOG.md
+├── CMakeLists.txt
+├── LICENSE
+├── pyproject.toml
+├── CHANGELOG.md
+└── README.md
+```
+
 ### Course Code Modules
 
 ---
@@ -1009,15 +1033,18 @@ The toolkit is designed for educational and research purposes and is a resource 
 ---
 
 ## Usage
+- Build Python: `pip install .`
+- Build C++: `cmake -S . -B build && cmake --build build`
+- Run tests: `pytest` or C++/MATLAB equivalents
 
 ### MATLAB
-Clone the repository and navigate to the MATLAB files directory. Navigate to the .m files and execute scripts as needed.
+Clone the repository and navigate to the matlab files directory. Navigate to the .m files and execute scripts as needed.
 
 ### Python
-Clone the repository and navigate to the Python files directory. Install the required .py packages and run scripts directly.
+Clone the repository and navigate to the python files directory. Install the required .py packages and run scripts directly.
 
 ### C++
-Clone the repository and navigate to the C++ and C Header files directory. Navigate to the .cpp and .h files and execute scripts as needed.
+Clone the repository and navigate to the cpp files directory. Navigate to the .cpp and .h files and execute scripts as needed.
 
 ## Installation
 
@@ -1032,5 +1059,3 @@ git clone https://github.com/Keeby-Astro/Space-Sciences-and-Astrodynamics.git
 Actively working on extending functionality to other programming languages, including:
 - **Fortran**: Integration with legacy systems and specialized scientific computations.
 - **Plot Scripts**: Will add the Python Plot Scripts in the near future for replicating/modifying plots displayed in README.
-
-Additionally, ongoing improvements will be made to enhance existing modules, improve usability, and incorporate new features as needed.

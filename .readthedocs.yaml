@@ -1,0 +1,13 @@
+# .readthedocs.yaml
+version: 2
+build:
+  os: ubuntu-22.04
+  tools:
+    python: "3.11"
+  jobs:
+    pre_install:
+      - pip install .[dev]
+    post_install:
+      - pip install sphinx sphinx-autodoc-typehints sphinx-rtd-theme
+sphinx:
+  configuration: doc/source/conf.py
