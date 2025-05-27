@@ -1,0 +1,66 @@
+# GLOBAL (operating-system & editor artefacts)
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+*.swp
+*.swo
+
+# ------------------------------------------------------------------------------
+# PYTHON
+__pycache__/
+*.py[cod]
+*$py.class
+# Virtual-env and packaging folders
+.env/
+.venv/
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# ------------------------------------------------------------------------------
+# MATLAB
+*.asv
+*.autosave
+*.bak
+*.mex*
+*.slx
+*.mdl
+*.fig
+*.mat
+slprj/
+sfunctions/
+codegen/
+
+# ------------------------------------------------------------------------------
+# C / C++
+*.o
+*.obj
+*.lo
+*.la
+*.dll
+*.so
+*.dylib
+*.exe
+*.out
+*.app
+# CMake / Make artefacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.ncb
+*.sdf
+*.opensdf
+*.vcxproj*
+*.user
+# Ninja
+.build/
+
+# ------------------------------------------------------------------------------
+# VISUALISATION
+*.log
