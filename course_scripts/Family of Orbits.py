@@ -14,6 +14,7 @@ theta_0 = 0
 orbit = np.zeros((numDataPoints + 1, 2))
 
 def f(a, e):
+    orbit = np.zeros((numDataPoints + 1, 2))
     for i in range(0, numDataPoints + 1):
         theta = theta_0 + float(i)*2*np.pi/numDataPoints
     
@@ -28,7 +29,6 @@ def f(a, e):
     return orbit
 
 ###### Animated plot
-
 a = 40000.0
 
 def animate_func(num):

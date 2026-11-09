@@ -37,21 +37,11 @@ initial_state = init_sc
 # -------------#### Event Functions to control the integration ####--------------
 critical = 0
 
-
 def event1(t, f):
-    r = np.sqrt(f[0] ** 2 + f[1] ** 2 + f[2] ** 2)
-    if r <= Re:
-        col = 0
-        print(f"Collision: t = {t} s, r = {r} km")
-    else:
-        col = 42
+    return np.linalg.norm(f[:3]) - Re
 
-    return col
-
-
-event1.direction = 1
+event1.direction = -1
 event1.terminal = True
-
 
 # -----------------#### Function with derivatives (model) ####-------------------
 def Derivs(t, f):
@@ -76,9 +66,7 @@ def Derivs(t, f):
 
     return [dxdt, dydt, dzdt, ddxdt, ddydt, ddzdt]
 
-
 # -------------------------------------------------------------------------------
-
 # Integration process
 # inital time t0 = 0 seconds
 tf = 20 * 24 * 3600  # final time in seconds
@@ -89,9 +77,11 @@ tspan = np.arange(0.0, tf + dt, dt)
 start = timeit.default_timer()
 print('\nRunning...\n')
 
-solution = solve_ivp(Derivs, [0.0, tf + dt], initial_state, events=[event1], method='DOP853', \
+solution = solve_ivp(Derivs, [0.0, tf], initial_state, events=[event1], method='DOP853', \
                      t_eval=tspan, rtol=1e-8, atol=1e-8)
 
+if not solution.success:
+    raise RuntimeError(solution.message)
 
 state = solution.y
 times = solution.t
@@ -122,15 +112,13 @@ else:
 
 ################################################################################
 # Data analysis
-
 plt.plot(state[0, :], state[1, :])
 # plt.plot(state[6, :], state[7, :])
 plt.show()
 
 # Save trajectories in file
-
-file_name_1 = "20240207-001-state.dat"
-file_name_2 = "20240207-001-orbital.csv"
+file_name_1 = "course-state.dat"
+file_name_2 = "course-orbital.csv"
 
 isExist = os.path.exists(file_name_1)
 if isExist:
@@ -140,33 +128,17 @@ with open(file_name_1, "a") as file1:
     np.savetxt(file1, np.transpose(state))
 file1.close()
 
-# Spaceraft: State vector --> orbital elements AND write the results in a file
+# Spacecraft: state vector to orbital elements and CSV output
 orb = []
-for i in range(0, len(times)):
-
-    # Convert to orbital elements
-    set = xyz2orb(mu, state[0:3, i], state[3:6, i])
-    orb.append(set)
-
-    # Check if the file already exists
-    if i == 0:
-        isExist = os.path.exists(file_name_2)
-        if isExist:
-            print(file_name_2, "already exists. Overwriting.")
-            os.remove(file_name_2)
-    # Write time and orbital elements in a CSV file
-    with open(file_name_2, 'a') as csvfile:
-        csvwriter = csv.writer(csvfile)
-        if i == 0:
-            header = ['Time (sec)', 'a (km)', 'e', 'i', 'w (deg)', \
-                      'OM (deg)', 'theta (deg)']
-            csvwriter.writerow(header)
-        # Adding time in the first column
-        aux = [times[i]] + set
-        csvwriter.writerow(aux)
+with open(file_name_2, 'w', newline='') as csvfile:
+    csvwriter = csv.writer(csvfile)
+    csvwriter.writerow(['Time (sec)', 'a (km)', 'e', 'i (deg)', 'w (deg)', 'OM (deg)', 'theta (deg)'])
+    for j in range(len(times)):
+        elements = xyz2orb(mu, state[0:3, j], state[3:6, j])
+        orb.append(elements)
+        csvwriter.writerow([times[j]] + elements)
 
 orbit = np.array(orb)
-
 
 # Creating a 3D plot
 fig = plt.figure(figsize=(8, 6))
