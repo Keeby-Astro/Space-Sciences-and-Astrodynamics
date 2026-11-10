@@ -34,6 +34,10 @@ function heun_test
 %}
 % ---------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; close all; clc
 
 %...System properties:
@@ -101,4 +105,3 @@ legend('h = 1.0','h = 0.1')
 end %output
 
 end % heun_test
-% 

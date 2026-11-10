@@ -9,7 +9,9 @@ function c = stumpC(z)
     User M-functions required: none
 %}
 % ----------------------------------------------
-if z > 0
+if abs(z) < 1.e-3
+    c = 1/2 - z/24 + z^2/720 - z^3/40320 + z^4/3628800;
+elseif z > 0
     c = (1 - cos(sqrt(z)))/z;
 elseif z < 0
     c = (cosh(sqrt(-z)) - 1)/(-z);

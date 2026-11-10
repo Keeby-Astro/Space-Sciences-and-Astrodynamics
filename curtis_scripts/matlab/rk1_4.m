@@ -70,12 +70,23 @@ end
 
 t0 = tspan(1);
 tf = tspan(2);
+if ~all(isfinite(tspan)) || tf < t0 || isempty(y0) || ~isvector(y0) || any(~isfinite(y0(:)))
+    error('Finite forward times and a finite initial vector are required.')
+end
+if ~isscalar(h) || ~isfinite(h) || h <= 0
+    error('Step must be finite and positive.')
+end
+
 t = t0;
-y = y0;
+y = y0(:);
 tout = t;
 yout = y';
 
 while t < tf
+    h = min(h,tf-t);
+    if h <= 0 || t+h == t
+        error('Integration step cannot advance time.')
+    end
     ti = t;
     yi = y;
     %...Evaluate the time derivative(s) at the ’n_stages’ points within the
@@ -87,9 +98,11 @@ while t < tf
             y_inner = y_inner + h*b(i,j)*f(:,j);
         end
         f(:,i) = feval(ode_function, t_inner, y_inner);
+        if any(~isfinite(f(:,i)))
+            error('Derivative must be finite.')
+        end
     end
 
-    h = min(h, tf-t);
     t = t + h;
     y = yi + h*f*c';
     tout = [tout;t]; % adds t to the bottom of the column vector tout

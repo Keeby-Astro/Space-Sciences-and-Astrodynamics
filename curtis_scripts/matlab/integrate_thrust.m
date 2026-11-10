@@ -59,7 +59,7 @@ Isp     = 300;
 
 %...Integrate the equations of motion over the burn time:
 y0    = [r0 v0 m0]';
-[t,y] = rkf45(@rates, [t0 t_burn], y0, 1.e-16);
+[t,y] = rkf45(@rates, [t0 t_burn], y0, 1.e-10);
 
 %...Compute the state vector and mass after the burn:
 r1  = [y(end,1) y(end,2) y(end,3)];

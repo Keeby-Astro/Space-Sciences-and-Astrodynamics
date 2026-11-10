@@ -42,6 +42,10 @@ function rk1_4_test
 %}
 % -------------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; close all; clc
 
 %...Input data:
@@ -113,7 +117,7 @@ wd  = wn*sqrt(1 - z^2);
 den = (wn^2 - w^2)^2 + (2*w*wn*z)^2;
 C1  = (wn^2 - w^2)/den*Fo/m;
 C2  = -2*w*wn*z/den*Fo/m;
-A   = x0*wn/wd + x_dot0/wd +(w^2 + (2*z^2 - 1)*wn^2)/den*w/wd*Fo/m;
+A   = x0*z*wn/wd + x_dot0/wd +(w^2 + (2*z^2 - 1)*wn^2)/den*w/wd*Fo/m;
 B   = x0 + 2*w*wn*z/den*Fo/m;
 
 t   = linspace(t0, tf, 5000);

@@ -9,7 +9,9 @@ function s = stumpS(z)
     User M-functions required: none
 %}
 % ----------------------------------------------
-if z > 0
+if abs(z) < 1.e-3
+    s = 1/6 - z/120 + z^2/5040 - z^3/362880 + z^4/39916800;
+elseif z > 0
     s = (sqrt(z) - sin(sqrt(z)))/(sqrt(z))^3;
 elseif z < 0
     s = (sinh(sqrt(-z)) - sqrt(-z))/(sqrt(-z))^3;

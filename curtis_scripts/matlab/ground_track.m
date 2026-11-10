@@ -111,8 +111,8 @@ for i               = 1:length(times)
     TA              = 2*atan(tan(E/2)*sqrt((1+e)/(1-e)));
     r               = h^2/mu/(1 + e*cos(TA))*[cos(TA) sin(TA) 0]';
 
-    W               = Wo + Wdot*t;
-    wp              = wpo + wpdot*t;
+    W               = Wo + Wdot*(t-to);
+    wp              = wpo + wpdot*(t-to);
 
     R1              = [ cos(W) sin(W) 0
                        -sin(W) cos(W) 0

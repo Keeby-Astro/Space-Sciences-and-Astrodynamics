@@ -8,6 +8,10 @@
     User M-functions required: fDot_and_gDot
 %}
 % --------------------------------------------------
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 global mu;
 mu = 398600;
 

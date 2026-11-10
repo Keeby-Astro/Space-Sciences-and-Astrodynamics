@@ -1,6 +1,6 @@
 [build-system]
-requires = ["scikit-build-core>=0.8", "setuptools", "wheel"]
-build-backend = "scikit_build_core.build"
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
 
 [project]
 name = "space-science-and-astrodynamics"
@@ -10,3 +10,10 @@ authors = [{name = "Keeby Astro"}]
 license = {text = "MIT"}
 requires-python = ">=3.10"
 dependencies = ["numpy", "scipy", "matplotlib"]
+
+[project.optional-dependencies]
+dev = ["sphinx", "sphinx-autodoc-typehints", "sphinx-rtd-theme"]
+
+[tool.setuptools]
+package-dir = {"" = "curtis_scripts/python"}
+py-modules = ["J0", "J2_perturbation", "LST", "atan2d_0_360", "atmosisa", "atmosphere", "bisect_root", "coe_from_sv", "cowell", "dcm_from_q", "dcm_to_euler", "dcm_to_ypr", "encke", "fDot_and_gDot", "fDot_and_gDot_ta", "f_and_g", "f_and_g_ta", "gauss", "gibbs", "gravity_turn", "ground_track", "heun", "integrate_thrust", "interplanetary", "kepler_E", "kepler_H", "kepler_U", "lambert", "los", "lunar_perturbation", "lunar_position", "lunar_trajectory", "month_planet_names", "orbit", "planet_elements_and_sv", "plots", "q_from_dcm", "quat_rotate", "quatinv", "quatmultiply", "ra_and_dec_from_r", "relative_motion", "rk1_4", "rkf45", "rsmooth", "rv_from_observe", "rv_from_r0v0", "rv_from_r0v0_ta", "rva_relative", "simpsons_lunar_ephemeris", "solar_perturbation", "solar_position", "solar_radiation_pressure", "spinning_top", "stumpC", "stumpS", "sv_from_coe", "threebody", "twobody3d"]

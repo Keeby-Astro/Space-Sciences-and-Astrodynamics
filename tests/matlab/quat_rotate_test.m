@@ -9,6 +9,11 @@
 
     User M-functions required: quat_rotate
 %}
+
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 q1 = [sqrt(2)/2, 0, 0, sqrt(2)/2]; % Quaternion for 90-degree Z-rotation
 q2 = [0, 0, 1, 0];                 % Quaternion for 180-degree Y-rotation
 q3 = [1, 0, 0, 0];                 % Identity quaternion (no rotation)

@@ -1,6 +1,6 @@
 function [V1, V2] = lambert(R1, R2, t, string)
 %{
-    This function solves Lambert's problem.
+    This function solves the zero-revolution Lambert problem.
 
     mu      - gravitational parameter (km^3/s^2)
     R1, R2  - initial and final position vectors (km)
@@ -17,10 +17,6 @@ function [V1, V2] = lambert(R1, R2, t, string)
     y(z)    - a function of z given by Equation 5.38
     F(z,t)  - a function of the variable z and constant t,
             - given by Equation 5.40
-    dFdz(z) - the derivative of F(z,t), given by Equation 5.43
-    ratio   - F/dFdz
-    tol     - tolerance on precision of convergence
-    nmax    - maximum number of iterations of Newton's procedure
     f, g    - Lagrange coefficients
     gdot    - time derivative of g
               C(z), S(z) - Stumpff functions
@@ -31,109 +27,109 @@ function [V1, V2] = lambert(R1, R2, t, string)
 % ----------------------------------------------
 
 global mu
-mu = 398600;
+if nargin < 4
+    string = 'pro';
+end
+if isempty(mu) || ~isscalar(mu) || ~isfinite(mu) || mu <= 0 || ~isfinite(t) || t <= 0
+    error('Set global mu to a positive value and supply a positive flight time.')
+end
+R1 = R1(:)';
+R2 = R2(:)';
+if numel(R1) ~= 3 || numel(R2) ~= 3 || any(~isfinite([R1 R2]))
+    error('Lambert requires finite position three-vectors.')
+end
+if ~strcmp(string,'pro') && ~strcmp(string,'retro')
+    error('Orbit type must be pro or retro.')
+end
 
 %...Magnitudes of R1 and R2:
 r1 = norm(R1);
 r2 = norm(R2);
-
-c12   = cross(R1, R2);
-theta = acos(dot(R1,R2)/r1/r2);
-
-%...Determine whether the orbit is prograde or retrograde:
-if nargin < 4 jj (strcmp(string,'retro') & (strcmp(string,'pro')))
-    string = 'pro';
-    fprintf('\n ** Prograde trajectory assumed.\n')
+c12 = cross(R1,R2);
+if r1 == 0 || r2 == 0 || norm(c12) <= 1.e-12*r1*r2
+    error('Collinear or zero vectors require a separate Lambert formulation.')
 end
 
-if strcmp(string,'pro')
-    if c12(3) <= 0
-        theta = 2*pi - theta;
-    end
-elseif strcmp(string,'retro')
-    if c12(3) >= 0
-        theta = 2*pi - theta;
-    end
+%...Determine whether the orbit is prograde or retrograde:
+theta = acos(max(-1,min(1,dot(R1,R2)/(r1*r2))));
+if (strcmp(string,'pro') && c12(3) <= 0) || (strcmp(string,'retro') && c12(3) >= 0)
+    theta = 2*pi-theta;
 end
 
 %...Equation 5.35:
-A = sin(theta)*sqrt(r1*r2/(1 - cos(theta)));
+A = sin(theta)*sqrt(r1*r2/(1-cos(theta)));
 
-%...Determine approximately where F(z,t) changes sign, and
-%...use that value of z as the starting value for Equation 5.45:
-z = -100;
-while F(z,t) < 0
-    z = z + 0.1;
+%...Bracket the zero-revolution branch, z < 4*pi^2.
+lo = -1;
+hi = 4*pi^2*(1-1.e-7);
+for n = 1:100
+    value = F(lo);
+    if ~isfinite(value)
+        error('Lambert lower bracket overflowed.')
+    end
+    if value <= 0
+        break
+    end
+    lo = 2*lo;
+end
+if value > 0
+    error('Could not bracket Lambert solution.')
+end
+if ~isfinite(F(hi)) || F(hi) <= 0
+    error('Flight time exceeds this solver zero-revolution bracket.')
 end
 
-%...Set an error tolerance and a limit on the number of iterations:
-tol  = 1.e-8;
-nmax = 5000;
-
-%...Iterate on Equation 5.45 until z is determined to within the
-%...error tolerance:
-ratio = 1;
-n = 0;
-while (abs(ratio) > tol) & (n <= nmax)
-    n = n + 1;
-    ratio = F(z,t)/dFdz(z);
-    z = z - ratio;
+%...Bisect the bracket until the time-of-flight residual satisfies the tolerance:
+for n = 1:200
+    z = (lo+hi)/2;
+    value = F(z);
+    if ~isfinite(value)
+        error('Lambert iteration is nonfinite.')
+    end
+    if abs(value) <= 1.e-11*sqrt(mu)*t
+        break
+    end
+    if value > 0
+        hi = z;
+    else
+        lo = z;
+    end
 end
-
-%...Report if the maximum number of iterations is exceeded:
-if n >= nmax
-    fprintf('\n\n **Number of iterations exceeds %g \n\n ',nmax)
+if n == 200 && abs(value) > 1.e-11*sqrt(mu)*t
+    error('Lambert solver failed to converge.')
+end
+yz = y(z);
+if yz <= 0
+    error('Lambert solution is outside the physical domain.')
 end
 
 %...Equation 5.46a:
-f    = 1 - y(z)/r1;
+f = 1-yz/r1;
 
 %...Equation 5.46b:
-g    = A*sqrt(y(z)/mu);
+g = A*sqrt(yz/mu);
 
 %...Equation 5.46d:
-gdot = 1 - y(z)/r2;
+gdot = 1-yz/r2;
 
 %...Equation 5.28:
-V1   = 1/g*(R2 - f*R1);
+V1 = (R2-f*R1)/g;
 
 %...Equation 5.29:
-V2   = 1/g*(gdot*R2 - R1);
+V2 = (gdot*R2-R1)/g;
 
-return
-
-% 
-% Subfunctions used in the main body:
-% 
-
-%...Equation 5.38:
-function dum = y(z)
-    dum = r1 + r2 + A*(z*S(z) - 1)/sqrt(C(z));
-end
-
-%...Equation 5.40:
-function dum = F(z,t)
-    dum = (y(z)/C(z))^1.5*S(z) + A*sqrt(y(z)) - sqrt(mu)*t;
-end
-
-%...Equation 5.43:
-function dum = dFdz(z)
-    if z == 0
-        dum = sqrt(2)/40*y(0)^1.5 + A/8*(sqrt(y(0)) + A*sqrt(1/2/y(0)));
-    else
-        dum = (y(z)/C(z))^1.5*(1/2/z*(C(z) - 3*S(z)/2/C(z)) ...
-        + 3*S(z)^2/4/C(z)) + A/8*(3*S(z)/C(z)*sqrt(y(z)) ...
-        + A*sqrt(C(z)/y(z)));
+    %...Equation 5.38:
+    function yz = y(z)
+        yz = r1+r2+A*(z*stumpS(z)-1)/sqrt(stumpC(z));
     end
-end
 
-%...Stumpff functions:
-function dum = C(z)
-    dum = stumpC(z);
-end
-
-function dum = S(z)
-    dum = stumpS(z);
-end
-
+    %...Equation 5.40:
+    function value = F(z)
+        yz = y(z);
+        if yz <= 0
+            value = -sqrt(mu)*t;
+        else
+            value = (yz/stumpC(z))^1.5*stumpS(z)+A*sqrt(yz)-sqrt(mu)*t;
+        end
+    end
 end %lambert

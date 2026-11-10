@@ -8,6 +8,10 @@
 %}
 % ----------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 %...Inputs
 inputs = [ 0, 0; 1, 0;   0, 1; -1, 0;
           0, -1; 1, 1; -1, -1; 1, -1;
@@ -19,5 +23,5 @@ for i = 1:size(inputs, 1)
     x = inputs(i, 2);
     result = atan2d_0_360(y, x);
 
-    fprintf('Test case %d: atan2d_0_360(%f, %f)\n', i, y, x);
+    fprintf('Test case %d: atan2d_0_360(%f, %f) = %.10g deg\n', i, y, x, result);
 end

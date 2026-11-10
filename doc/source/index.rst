@@ -6,13 +6,11 @@ Space-Sciences-and-Astrodynamics
    :caption: Contents:
 
    modules
-   course_scripts/index
-   Algorithm_Number_Reference
 
 Overview
 --------
 
-Space-Sciences-and-Astrodynamics is a comprehensive, open-source toolkit for modeling, simulating, and analyzing orbital mechanics and astrodynamics problems. It provides MATLAB, Python, and C++ implementations of core algorithms, numerical methods, and visualization tools, based on foundational principles and extending concepts from *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
+Space-Sciences-and-Astrodynamics is a collection of standalone educational and research scripts for orbital mechanics and astrodynamics. It provides MATLAB, Python, and C++ implementations of core algorithms, numerical methods, and visualization tools, based on foundational principles and extending concepts from *Orbital Mechanics for Engineering Students* by Howard D. Curtis.
 
 Key Features
 ------------
@@ -26,7 +24,7 @@ Getting Started
 ---------------
 - For installation and build instructions, see the project README.
 - For API usage, see the modules section below.
-- For course and example scripts, see the course_scripts section.
+- For course and example scripts, see the course examples described in the script reference.
 
 Repository Structure
 --------------------

@@ -53,6 +53,10 @@ function rkf45_test_lunar
 %}
 % ---------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; close all; clc
 
 days   = 24*3600;
@@ -63,13 +67,13 @@ r12    = 384400;
 m1     = 5974e21;
 m2     = 7348e19;
 
-M      = m1 + m2;;
-pi_1   = m1/M;
-pi_2   = m2/M;
+M      = m1 + m2;
 
 mu1    = 398600;
 mu2    = 4903.02;
 mu     = mu1 + mu2;
+pi_1   = mu1/mu;
+pi_2   = mu2/mu;
 
 W      = sqrt(mu/r12^3);
 x1     = -pi_2*r12;
@@ -210,4 +214,3 @@ end %circle
 end %output
 
 end %rkf45_test_lunar
-%

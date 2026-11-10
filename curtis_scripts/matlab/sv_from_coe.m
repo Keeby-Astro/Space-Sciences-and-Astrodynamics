@@ -35,6 +35,13 @@ incl = coe(4);
 w    = coe(5);
 TA   = coe(6);
 
+if any(~isfinite([h e RA incl w TA mu])) || mu <= 0 || h <= 0 || e < 0
+    error('Finite elements, positive h and mu, and nonnegative e are required.')
+end
+if 1 + e*cos(TA) <= 0
+    error('True anomaly lies outside the physical conic branch.')
+end
+
 %...Equations 4.45 and 4.46 (rp and vp are column vectors):
 rp = (h^2/mu) * (1/(1 + e*cos(TA))) * (cos(TA)*[1;0;0] + sin(TA)*[0;1;0]);
 vp = (mu/h) * (-sin(TA)*[1;0;0] + (e + cos(TA))*[0;1;0]);

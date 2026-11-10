@@ -49,7 +49,7 @@ r0 = norm(R0); v0 = norm(V0);    % Magnitudes of T0 and V0
  
  
 del_t = T0/100;                 % Time step for Encke procedure
-options = odeset('maxstep', del_t);
+options = odeset('maxstep', del_t, 'RelTol', 1.e-9, 'AbsTol', 1.e-10);
  
 %...Begin the Encke integration;
 t      = t0;                    % Initialize the time scalar
@@ -57,10 +57,11 @@ tsave  = t0;                    % Initialize the vector of solution times
 y      = [R0 V0];               % Initialize the state vector
 del_y0 = zeros(6,1);            % Initialize the state vector perturbation
  
-t = t + del_t;                  % First time step
+t = min(t0 + del_t,tf);
+% First time step
  
 %   Loop over the time interval [t0, tf] with equal increments del_t:
-while t <= tf + del_t/2
+while t0 < tf
     
 %   Integrate Equation 12.7 over the time increment del_t:
     [dum,z] = ode45(@rates, [t0 t], del_y0, options);
@@ -76,7 +77,7 @@ while t <= tf + del_t/2
 %   Prepare for next time step:
     tsave  = [tsave;t];
     y      = [y; [R0 V0]];
-    t      = t + del_t;
+    t      = min(t0 + del_t,tf);
     del_y0 = zeros(6,1); 
 end
 %   End the loop

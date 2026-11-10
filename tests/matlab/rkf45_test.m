@@ -30,6 +30,10 @@ function rkf45_test
 %}
 % -------------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; close all; clc
 
 mu      = 398600;

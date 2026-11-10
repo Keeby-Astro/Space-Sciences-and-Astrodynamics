@@ -12,6 +12,14 @@ function j0 = J0(year, month, day)
 %}
 % ----------------------------------
 
+if any(~isfinite([year month day])) || any(fix([year month day]) ~= [year month day]) ...
+        || year < 1901 || year > 2099 || month < 1 || month > 12
+    error('Use an integer calendar date in 1901..2099.')
+end
+month_days = [31 28+(mod(year,4)==0) 31 30 31 30 31 31 30 31 30 31];
+if day < 1 || day > month_days(month)
+    error('Invalid calendar day.')
+end
 j0 = 367*year - fix(7*(year + fix((month + 9)/12))/4) ...
     + fix(275*month/9) + day + 1721013.5;
 

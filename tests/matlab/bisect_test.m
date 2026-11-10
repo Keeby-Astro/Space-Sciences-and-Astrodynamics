@@ -16,6 +16,10 @@ function bisect_test
 %}
 % ----------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; clc
 
 %...Input data:
@@ -24,7 +28,7 @@ m2 = 7.348e22;
 r12 = 3.844e5;
 
 xl = [-1.1 0.5 1.0];
-xu = [-0.9 1.0 1.5];
+xu = [-0.9 0.9 1.5];
 %...End input data
 
 p = m2/(m1 + m2);

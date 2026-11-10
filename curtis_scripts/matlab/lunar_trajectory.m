@@ -151,7 +151,7 @@ tf       = ttt + 2.667*days;
 %...End data declaration
 
 %...State vector of moon at target date:
-jd0         = juliandate(year, month, day, hour, minute, second);
+jd0         = J0(year,month,day) + (hour + minute/60 + second/3600)/24;
 [rm0_,vm0_] = simpsons_lunar_ephemeris(jd0);
 %[rm0_,vm0] = planetEphemeris(jd0, 'Earth', 'Moon', '430');
 [RA, Dec]   = ra_and_dec_from_r(rm0_);
@@ -330,7 +330,7 @@ fprintf('\n Right ascension                 = %11g deg' ,RA_at_perilune)
 fprintf('\n Declination                     = %11g deg' ,Dec_at_perilune)
 fprintf('\n Target error                    = %11g km'  , target_error)
 
-fprintf('\n\nThe probe at perilune:')
+fprintf('\n\nThe probe at sampled perilune:')
 fprintf('\n Altitude                        = %11g km'  , dist_min - Rm)
 fprintf('\n Speed                           = %11g km/s',norm(v_atdmin_))
 fprintf('\n Relative speed                  = %11g km/s',rel_speed)
@@ -409,7 +409,7 @@ vZ      = y(6);
 
 r_      = [X Y Z]';
 r       = norm(r_);
-[rm_,]  = simpsons_lunar_ephemeris(jd);
+rm_     = simpsons_lunar_ephemeris(jd);
 %[rm_,] = planetEphemeris(jd0, 'Earth', 'Moon', '430');
 rm      = norm(rm_);
 rms_    = rm_ - r_;

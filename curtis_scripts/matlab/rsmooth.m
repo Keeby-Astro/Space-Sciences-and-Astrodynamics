@@ -13,6 +13,17 @@ function z = rsmooth(y)
 %         and source when using this code.
 % -----------------------------------------------------------------------------
 
+if isempty(y)
+    z = y;
+    return
+end
+if ~ismatrix(y) || any(~isfinite(y(:)))
+    error('Input must be a finite vector or matrix; missing data are unsupported.')
+end
+if numel(y) < 3 || max(y(:))-min(y(:)) <= 100*eps*max(1,max(abs(y(:))))
+    z = y;
+    return
+end
 [n1,n2] = size(y); n = n1*n2;
 N = sum([n1,n2]~=1);
 Lambda = bsxfun(@plus,repmat(-2+2*cos((0:n2-1)*pi/n2),n1,1),...
@@ -23,10 +34,16 @@ s = [];
 
 for k = 1:6
     tol = Inf;
+    iter = 0;
     while tol>1e-5
+        iter = iter+1;
+        if iter > 200
+            error('Smoothing iteration failed to converge.')
+        end
         DCTy = dct2(W.*(y-zz)+zz);
-        fminbnd(@GCVscore,-15,38);
-        tol = norm(zz(:)-z(:))/norm(z(:));
+        p = fminbnd(@GCVscore,-15,38);
+        GCVscore(p);
+        tol = norm(zz(:)-z(:))/max(norm(z(:)),eps);
         zz = z;
     end
     tmp = sqrt(1+16*s);
@@ -40,12 +57,16 @@ end
         z = idct2(Gamma.*DCTy);
         RSS = norm(sqrt(W(:)).*(y(:)-z(:)))^2;
         TrH = sum(Gamma(:));
-        GCVs = RSS/n/(1-TrH/n)^2;
+        GCVs = RSS/n/max(1-TrH/n,eps)^2;
     end
 end
 
 function W = bisquare(r,h)
     MAD = median(abs(r(:)-median(r(:))));
-    u = abs(r/(1.4826*MAD)/sqrt(1-h));
+    if MAD <= eps*max(1,max(abs(r(:))))
+        W = ones(size(r));
+        return
+    end
+    u = abs(r/(1.4826*MAD)/sqrt(max(1-h,eps)));
     W = (1-(u/4.685).^2).^2.*((u/4.685)<1);
 end

@@ -16,6 +16,10 @@ function fDot_and_gDot_ta_test()
 %}
 % --------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Inputs
 r0 = [7000, 0, 0];        % Initial position vector (km)
 v0 = [0, 7.546, 0];       % Initial velocity vector (km/s)

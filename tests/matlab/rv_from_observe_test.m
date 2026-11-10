@@ -41,6 +41,11 @@
 %
 % User M-functions required: rv_from_observe, coe_from_sv
 % --------------------------------------------------------------------
+
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; clc
 global f Re wE
 
@@ -74,7 +79,7 @@ RA   = coe(3);
 incl = coe(4);
 w    = coe(5);
 TA   = coe(6);
-a    = coe(7);
+a_orbit = coe(7);
 
 %...Equation 2.40:
 rp = h^2/mu/(1 + e);
@@ -109,11 +114,11 @@ fprintf('\n   Inclination (deg)           = %g', incl/deg)
 fprintf('\n   RA of ascending node (deg)  = %g', RA/deg)
 fprintf('\n   Argument of perigee (deg)   = %g', w/deg)
 fprintf('\n   True anomaly (deg)          = %g\n', TA/deg)
-fprintf('\n   Semimajor axis (km)         = %g', a)
+fprintf('\n   Semimajor axis (km)         = %g', a_orbit)
 fprintf('\n   Perigee radius (km)         = %g', rp)
 %...If the orbit is an ellipse, output its period:
 if e < 1
-    T = 2*pi/sqrt(mu)*a^1.5;
+    T = 2*pi/sqrt(mu)*a_orbit^1.5;
     fprintf('\n   Period:')
     fprintf('\n     Seconds = %g', T)
     fprintf('\n     Minutes = %g', T/60)

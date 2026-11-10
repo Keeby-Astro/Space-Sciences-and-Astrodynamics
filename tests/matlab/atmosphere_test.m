@@ -4,6 +4,10 @@ function atmosphere_test
     as a function of altitude from sea level through 1000 km.
 %}
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 %...Geometric altitudes (km):
 z = linspace(0, 1000, 500); % Generate 500 points from 0 to 1000 km
 

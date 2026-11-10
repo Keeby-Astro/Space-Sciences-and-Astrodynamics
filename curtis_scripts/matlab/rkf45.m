@@ -68,13 +68,24 @@ end
 
 t0      = tspan(1);
 tf      = tspan(2);
+if ~all(isfinite(tspan)) || tf < t0 || isempty(y0) || ~isvector(y0) || any(~isfinite(y0(:)))
+    error('Finite forward times and a finite initial vector are required.')
+end
+if ~isscalar(tol) || ~isfinite(tol) || tol <= 0
+    error('Tolerance must be finite and positive.')
+end
+
 t       = t0;
-y       = y0;
+y       = y0(:);
 tout    = t;
 yout    = y';
 h       = (tf - t0)/100; % Assumed initial time step.
 
 while t < tf
+    h = min(h,tf-t);
+    if h <= 0 || t+h == t
+        error('Integration step cannot advance time.')
+    end
     hmin = 16*eps(t);
     ti = t;
     yi = y;
@@ -87,6 +98,9 @@ while t < tf
             y_inner = y_inner + h*b(i,j)*f(:,j);
         end
         f(:,i) = feval(ode_function, t_inner, y_inner);
+        if any(~isfinite(f(:,i)))
+            error('Derivative must be finite.')
+        end
     end
 
     %...Compute the maximum truncation error:
@@ -99,11 +113,15 @@ while t < tf
     te_allowed  = tol*max(ymax,1.0);
 
     %...Compute the fractional change in step size:
-    delta = (te_allowed/(te_max + eps))^(1/5);
+    if te_max == 0
+        delta = 4;
+    else
+        delta = 0.9*(te_allowed/te_max)^(1/5);
+    end
 
     %...If the truncation error is in bounds, then update the solution:
     if te_max <= te_allowed
-        h       = min(h, tf-t);
+
         t       = t + h;
         y       = yi + h*f*c5';
         tout    = [tout;t];
@@ -112,9 +130,7 @@ while t < tf
 
     %...Update the time step:
     h = min(delta*h, 4*h);
-    if h < hmin
-        fprintf(['\n\n Warning: Step size fell below its minimum\n'...
-                 ' allowable value (%g) at time %g.\n\n'], hmin, t)
-        return
+    if t < tf && h < hmin
+        error('Required step is below floating-point resolution.')
     end
 end

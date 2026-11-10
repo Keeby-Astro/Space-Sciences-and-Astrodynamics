@@ -22,19 +22,41 @@ function root = bisect(fun, xl, xu)
 % ----------------------------------------------
 
 tol = 1.e-6;
-n = ceil(log(abs(xu - xl)/tol)/log(2));
-
-for i = 1:n
-    xm = (xl + xu)/2;
-    fxl = feval(fun, xl);
-    fxm = feval(fun, xm);
-    if fxl*fxm > 0
+if ~all(isfinite([xl xu])) || xl > xu
+    error('Bounds must be finite and ordered.')
+end
+fxl = fun(xl);
+fxu = fun(xu);
+if ~all(isfinite([fxl fxu]))
+    error('Function values must be finite.')
+end
+if fxl == 0
+    root = xl;
+    return
+end
+if fxu == 0
+    root = xu;
+    return
+end
+if sign(fxl) == sign(fxu)
+    error('Bounds must bracket a root.')
+end
+while xu - xl > 2*tol
+    xm = xl + (xu - xl)/2;
+    fxm = fun(xm);
+    if ~isfinite(fxm)
+        error('Function values must be finite.')
+    end
+    if fxm == 0
+        root = xm;
+        return
+    end
+    if sign(fxl) == sign(fxm)
         xl = xm;
+        fxl = fxm;
     else
         xu = xm;
     end
 end
-
-root = xm;
-
+root = xl + (xu - xl)/2;
 end

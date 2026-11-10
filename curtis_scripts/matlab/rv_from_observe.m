@@ -26,11 +26,9 @@ adot, theta, phi, H)
     Adot    - time rate of change of azimuth (degrees/s)
     a       - elevation angle (degrees) of object relative to observation site
     adot    - time rate of change of elevation angle (degrees/s)
-    dec     - topocentric equatorial declination of object (rad)
-    decdot  - declination rate (rad/s)
-    h       - hour angle of object (rad)
-    RA      - topocentric equatorial right ascension of object (rad)
-    RAdot   - right ascension rate (rad/s)
+    East    - local east unit vector in the geocentric equatorial frame
+    North   - local north unit vector in the geocentric equatorial frame
+    Up      - local up unit vector in the geocentric equatorial frame
     Rho     - unit vector from site to object
     Rhodot  - time rate of change of Rho (1/s)
     r       - geocentric equatorial position vector of object (km)
@@ -60,40 +58,17 @@ R = [(Re/sqrt(1-(2*f - f*f)*sin(phi)^2) + H)*cos(phi)*cos(theta), ...
 %...Equation 5.66:
 Rdot = cross(omega, R);
 
-%...Equation 5.83a:
-dec = asin(cos(phi)*cos(A)*cos(a) + sin(phi)*sin(a));
-
-%...Equation 5.83b:
-h = acos((cos(phi)*sin(a) - sin(phi)*cos(A)*cos(a))/cos(dec));
-if (A > 0) & (A < pi)
-    h = 2*pi - h;
-end
-
-%...Equation 5.83c:
-RA = theta - h;
-
-%...Equations 5.57:
-Rho = [cos(RA)*cos(dec) sin(RA)*cos(dec) sin(dec)];
-
-%...Equation 5.63:
-r = R + rho*Rho;
-
-%...Equation 5.84:
-decdot = (-Adot*cos(phi)*sin(A)*cos(a) + adot*(sin(phi)*cos(a) ...
-          - cos(phi)*cos(A)*sin(a)))/cos(dec);
-
-%...Equation 5.85:
-RAdot = wE ...
-        + (Adot*cos(A)*cos(a) - adot*sin(A)*sin(a) ...
-        + decdot*sin(A)*cos(a)*tan(dec)) ...
-        /(cos(phi)*sin(a) - sin(phi)*cos(A)*cos(a));
+%...Resolve and differentiate the sight line in the east, north and up basis
+East = [-sin(theta) cos(theta) 0];
+North = [-sin(phi)*cos(theta) -sin(phi)*sin(theta) cos(phi)];
+Up = [cos(phi)*cos(theta) cos(phi)*sin(theta) sin(phi)];
+Rho = cos(a)*sin(A)*East + cos(a)*cos(A)*North + sin(a)*Up;
+Rhodot = cross(omega,Rho) + Adot*cos(a)*(cos(A)*East-sin(A)*North) ...
+    + adot*(-sin(a)*sin(A)*East-sin(a)*cos(A)*North+cos(a)*Up);
 
 %...Equations 5.69 and 5.72:
-Rhodot = [-RAdot*sin(RA)*cos(dec) - decdot*cos(RA)*sin(dec),...
-           RAdot*cos(RA)*cos(dec) - decdot*sin(RA)*sin(dec),...
-           decdot*cos(dec)];
+r = R + rho*Rho;
 
 %...Equation 5.64:
 v = Rdot + rhodot*Rho + rho*Rhodot;
-
 end

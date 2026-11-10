@@ -14,6 +14,10 @@
 %}
 % ---------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; clc
 global mu
 mu = 398600;
@@ -29,7 +33,7 @@ a = -19655;
 %...(Universal Kepler's requires the reciprocal of semimajor axis):
 x = kepler_U(dt, ro, vro, 1/a);
 
-...Echo the input data and output the results to the command window:
+%...Echo the input data and output the results to the command window:
 fprintf('-----------------------------------------------------')
 fprintf('\n Initial radial coordinate (km) = %g',ro)
 fprintf('\n Initial radial velocity (km/s) = %g',vro)

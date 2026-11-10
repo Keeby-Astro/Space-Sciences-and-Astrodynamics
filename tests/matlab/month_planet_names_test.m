@@ -10,6 +10,10 @@
 %}
 % -------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 disp('Month and Planet Names Test');
 disp('---------------------------');
 

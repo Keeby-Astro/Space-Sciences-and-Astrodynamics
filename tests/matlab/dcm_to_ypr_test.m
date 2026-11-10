@@ -9,11 +9,15 @@
 %}
 % ---------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Input Matrices
 input_matrices = {
     eye(3), ...                            % Identity matrix (no rotation)
     [ 0 -1  0; 1  0  0; 0  0  1], ...      % 90-degree rotation about Z-axis
-    [ 0  0 -1; 0  1  0; 1  0  0], ...      % 90-degree rotation about X-axis
+    [ 0  0 -1; 0  1  0; 1  0  0], ...      % 90-degree rotation about Y-axis
     [ 0  1  0; -1  0  0; 0  0  1], ...     % -90-degree rotation about Z-axis
     [ cosd(45) -sind(45) 0; ...            % 45-degree rotation about Z-axis
       sind(45)  cosd(45) 0; ...

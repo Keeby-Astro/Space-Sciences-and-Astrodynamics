@@ -39,7 +39,7 @@ gst = g0 + 360.98564724*ut/24;
 lst = gst + EL;
 
 %...Reduce lst to the range 0 - 360 degrees:
-lst = lst - 360*fix(lst/360);
+lst = mod(lst,360);
 
 return
 
@@ -53,13 +53,7 @@ return
         y - The reduced value
     %}
     % -------------------------
-    if (x >= 360)
-        x = x - fix(x/360)*360;
-    elseif (x < 0)
-        x = x - (fix(x/360) - 1)*360;
-    end
-    
-    y = x;
+    y = mod(x,360);
     end %zeroTo360
 
 end %LST

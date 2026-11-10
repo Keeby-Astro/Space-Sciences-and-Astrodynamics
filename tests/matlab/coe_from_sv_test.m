@@ -20,6 +20,11 @@
     User M-function required: coe_from_sv
 %}
 % ----------------------------------------------
+
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; clc
 deg = pi/180;
 mu = 398600;

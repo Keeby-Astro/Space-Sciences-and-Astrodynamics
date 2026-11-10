@@ -62,6 +62,10 @@
 %}
 % ---------------------------------------------
  
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; clc
 global mu
 mu  = 1.327124e11;
@@ -117,13 +121,16 @@ coe2 = coe_from_sv(R2, V2, mu);
 vinf1 = V1 - Vp1;
 vinf2 = V2 - Vp2;
  
+%...Convert the departure planet_id and month numbers into names for output:
+[month_name, planet_name] = month_planet_names(depart(3), depart(1));
+ 
 %...Echo the input data and output the solution to
 %   the command window:
 fprintf('-----------------------------------------------------')
 fprintf('\n\n Departure:\n');
-fprintf('\n   Planet: %s', planet_name(depart(1)))
+fprintf('\n   Planet: %s', planet_name)
 fprintf('\n   Year  : %g', depart(2))
-fprintf('\n   Month : %s', month_name(depart(3)))
+fprintf('\n   Month : %s', month_name)
 fprintf('\n   Day   : %g', depart(4))
 fprintf('\n   Hour  : %g', depart(5))
 fprintf('\n   Minute: %g', depart(6))
@@ -151,10 +158,13 @@ fprintf('\n   Magnitude                      = %g\n', norm(vinf1))
  
 fprintf('\n\n Time of flight = %g days\n', tof)
  
+%...Convert the arrival planet_id and month numbers into names for output:
+[month_name, planet_name] = month_planet_names(arrive(3), arrive(1));
+ 
 fprintf('\n\n Arrival:\n');
-fprintf('\n   Planet: %s', planet_name(arrive(1)))
+fprintf('\n   Planet: %s', planet_name)
 fprintf('\n   Year  : %g', arrive(2))
-fprintf('\n   Month : %s', month_name(arrive(3)))
+fprintf('\n   Month : %s', month_name)
 fprintf('\n   Day   : %g', arrive(4))
 fprintf('\n   Hour  : %g', arrive(5))
 fprintf('\n   Minute: %g', arrive(6))
@@ -163,7 +173,7 @@ fprintf('\n\n   Julian day: %11.3f\n', jd2)
 fprintf('\n   Planet position vector (km)   = [%g  %g  %g]', ...
                                               R2(1), R2(2), R2(3))
  
-fprintf('\n   Magnitude                     = %g\n', norm(R1))
+fprintf('\n   Magnitude                     = %g\n', norm(R2))
  
 fprintf('\n   Planet velocity (km/s)        = [%g  %g  %g]', ...
                                   Vp2(1), Vp2(2), Vp2(3))

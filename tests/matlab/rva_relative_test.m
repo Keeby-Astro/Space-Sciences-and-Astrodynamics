@@ -28,6 +28,10 @@
 %}
 % -----------------------------------------------------------
  
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 clear all; clc
 global mu
 mu  = 398600;

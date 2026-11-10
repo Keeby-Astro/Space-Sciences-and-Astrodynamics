@@ -47,16 +47,30 @@ itermax = 100;
 
 t0 = tspan(1);
 tf = tspan(2);
+if ~all(isfinite(tspan)) || tf < t0 || isempty(y0) || ~isvector(y0) || any(~isfinite(y0(:)))
+    error('Finite forward times and a finite initial vector are required.')
+end
+if ~isscalar(h) || ~isfinite(h) || h <= 0
+    error('Step must be finite and positive.')
+end
+
 t = t0;
-y = y0;
+y = y0(:);
 tout = t;
 yout = y';
 
 while t < tf
     h = min(h, tf-t);
+    if t+h == t
+        error('Integration step cannot advance time.')
+    end
     t1 = t;
     y1 = y;
     f1 = feval(ode_function, t1, y1);
+    f1 = f1(:);
+    if numel(f1) ~= numel(y) || any(~isfinite(f1))
+        error('Derivative must match the state and be finite.')
+    end
     y2 = y1 + f1*h;
     t2 = t1 + h;
     err = tol + 1;
@@ -64,6 +78,10 @@ while t < tf
     while err > tol && iter <= itermax
         y2p = y2;
         f2 = feval(ode_function, t2, y2p);
+        f2 = f2(:);
+        if numel(f2) ~= numel(y) || any(~isfinite(f2))
+            error('Derivative must match the state and be finite.')
+        end
         favg = (f1 + f2)/2;
         y2 = y1 + favg*h;
         err = max(abs((y2 - y2p)./(y2 + eps)));
@@ -71,10 +89,7 @@ while t < tf
     end
 
     if iter > itermax
-        fprintf('\n Maximum no. of iterations (%g)',itermax)
-        fprintf('\n exceeded at time = %g',t)
-        fprintf('\n in function ''heun.''\n\n')
-        return
+        error('Heun corrector failed to converge.')
     end
 
     t = t + h;

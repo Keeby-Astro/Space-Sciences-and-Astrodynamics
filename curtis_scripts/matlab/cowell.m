@@ -16,7 +16,8 @@ deg      = pi/180;                 % Degrees to radians
 %...Constants;
 mu       = 398600;                 % Gravitational parameter (km^3/s^2)
 RE       = 6378;                   % Earth's radius (km)
-wE       = [ 0 0 7.2921159e-5]';   % Earth's angular velocity (rad/s)
+wE       = [ 0 0 7.2921159e-5];
+% Earth's angular velocity (rad/s)
  
 %...Satellite data:                  
 CD       = 2.2;                    % Drag codfficient
@@ -57,7 +58,7 @@ options  = odeset('reltol',      1.e-8, ...
                   'abstol',      1.e-8, ...
                   'initialstep', T/10000,    ...
                   'events',      @terminate);
-global alt %Altitude             
+%Altitude             
 [t,y]    = ode45(@rates, tspan, y0,options); % t is the solution times
                                              % y is the state vector history
  
@@ -79,7 +80,7 @@ apogee   = sortrows(maxima,1);      % Maxima sorted with time
 perigee  = sortrows(minima,1);      % Minima sorted with time
  
 figure(1)
-apogee(1,2) = NaN;
+% Apogee extrema are retained without discarding the first valid value.
 %...Plot perigee and apogee history on the same figure:
 plot(apogee(:,1)/days, apogee(:,2),'b','linewidth',2)
 hold on
@@ -104,7 +105,11 @@ rho  = atmosphere(alt);    % Air density from US Standard Model (kf/m^3)
 V    = f(4:6)';            % Velocity vector (km/s)
 Vrel = V - cross(wE,R);    % Velocity relative to the atmosphere (km/s)
 vrel = norm(Vrel);         % Speed relative to the atmosphere (km/s)
-uv   = Vrel/vrel;          % Relative velocity unit vector
+if vrel > 0
+    uv = Vrel/vrel;
+else
+    uv = zeros(1,3);
+end          % Relative velocity unit vector
 ap   = -CD*A/m*rho*...     % Acceleration due to drag (m/s^2)
        (1000*vrel)^2/2*uv; % (converting units of vrel from km/s to m/s)
 a0   = -mu*R/r^3;          % Gravitational ecceleration (km/s^2)      
@@ -116,7 +121,8 @@ function [lookfor stop direction] = terminate(t,y)
 %
 % This function specifies the event at which ode45 terminates.
 % ------------------------------------------------------------------------
-lookfor   = alt - 100; % = 0 when altitude = 100 km
+lookfor   = norm(y(1:3)) - RE - 100;
+% = 0 when altitude = 100 km
 stop      = 1;         %  1 means terminate at lookfor = 0; Otherwise 0
 direction = -1;        % -1 means zero crossing is from above
 end %terminate

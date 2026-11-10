@@ -14,7 +14,7 @@ rsat = norm(r_sat);
 rsun = norm(r_sun);
 
 %...Angle between sun and satellite position vectore:
-theta = acosd(dot(r_sat, r_sun)/rsat/rsun);
+theta = acosd(max(-1,min(1,dot(r_sat,r_sun)/rsat/rsun)));
 
 %...Angle between the satellite position vector and the radial to the point
 % of tangency with the earth of a line from the satellite:

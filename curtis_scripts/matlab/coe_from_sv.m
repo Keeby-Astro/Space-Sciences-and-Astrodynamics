@@ -17,7 +17,7 @@ function coe = coe_from_sv(R,V,mu)
     RA      - right ascension of the ascending node (rad)
     E       - eccentricity vector
     e       - eccentricity (magnitude of E)
-    eps     - a small number below which the eccentricity is considered
+    tol     - a small number below which the eccentricity is considered
               to be zero
     w       - argument of perigee (rad)
     TA      - true anomaly (rad)
@@ -29,67 +29,65 @@ function coe = coe_from_sv(R,V,mu)
 %}
 % ---------------------------------------------
 
-eps = 1.e-10;
-
+tol = 1.e-10;
+R = R(:)';
+V = V(:)';
+if numel(R) ~= 3 || numel(V) ~= 3 || any(~isfinite([R V mu])) || ~isscalar(mu) || mu <= 0
+    error('Finite three-vectors and a positive mu are required.')
+end
 r = norm(R);
 v = norm(V);
-vr = dot(R,V)/r;
-
 H = cross(R,V);
 h = norm(H);
+if r == 0 || h == 0
+    error('Classical elements require nonzero position and angular momentum.')
+end
+vr = dot(R,V)/r;
 
 %...Equation 4.7:
-incl = acos(H(3)/h);
+incl = atan2(hypot(H(1),H(2)),H(3));
 
 %...Equation 4.8:
 N = cross([0 0 1],H);
 n = norm(N);
 
-%...Equation 4.9:
-if n ~= 0
-    RA = acos(N(1)/n);
-    if N(2) < 0
-        RA = 2*pi - RA;
-    end
-else
-    RA = 0;
-end
-
 %...Equation 4.10:
-E = 1/mu*((v^2 - mu/r)*R - r*vr*V);
+E = ((v^2 - mu/r)*R - r*vr*V)/mu;
 e = norm(E);
 
-%...Equation 4.12 (incorporating the case e = 0):
-if n ~= 0
-    if e > eps
-        w = acos(dot(N,E)/n/e);
-        if E(3) < 0
-            w = 2*pi - w;
-        end
-    else
-        w = 0;
-    end
-else
-    w = 0;
+%...Equation 4.9:
+RA = 0;
+if n > tol*h
+    RA = mod(atan2(N(2),N(1)),2*pi);
 end
 
-%...Equation 4.13a (incorporating the case e = 0):
-if e > eps
-    TA = acos(dot(E,R)/e/r);
-    if vr < 0
-        TA = 2*pi - TA;
-    end
-else
-    cp = cross(N,R);
-    if cp(3) >= 0
-        TA = acos(dot(N,R)/n/r);
+%...Undefined angles are set to zero; the remaining angle retains the orientation.
+
+%...Equation 4.12 (incorporating the case e = 0):
+if e > tol
+    if n > tol*h
+        w = mod(atan2(dot(cross(N,E),H)/h,dot(N,E)),2*pi);
     else
-        TA = 2*pi - acos(dot(N,R)/n/r);
+        w = mod(atan2(sign(H(3))*E(2),E(1)),2*pi);
+    end
+
+    %...Equation 4.13a:
+    TA = mod(atan2(dot(cross(E,R),H)/h,dot(E,R)),2*pi);
+else
+    w = 0;
+    if n > tol*h
+        TA = mod(atan2(dot(cross(N,R),H)/h,dot(N,R)),2*pi);
+    else
+        TA = mod(atan2(sign(H(3))*R(2),R(1)),2*pi);
     end
 end
 
 %...Equation 4.62 (a < 0 for a hyperbola):
-a = h^2/mu/(1 - e^2);
+den = 1 - e^2;
+if abs(den) <= 32*eps
+    a = Inf;
+else
+    a = h^2/mu/den;
+end
 coe = [h e RA incl w TA a];
-
 end

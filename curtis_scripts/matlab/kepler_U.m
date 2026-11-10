@@ -16,36 +16,81 @@ function x = kepler_U(dt, ro, vro, a)
     C    - value of Stumpff function C(z)
     S    - value of Stumpff function S(z)
     n    - number of iterations for convergence
-    nMax - maximum allowable number of iterations
+    lo, hi - lower and upper bounds on the signed anomaly magnitude
 
     User M-functions required: stumpC, stumpS
 %}
 % ---------------------------------------------
 global mu
 
-%...Set an error tolerance and a limit on the number of iterations:
-error = 1.e-8;
-nMax = 1000;
-
-%...Starting value for x:
-x = sqrt(mu)*abs(a)*dt;
-
-%...Iterate on Equation 3.65 until until convergence occurs within
-%...the error tolerance:
-n     = 0;
-ratio = 1;
-while abs(ratio) > error && n <= nMax
-    n     = n + 1;
-    C     = stumpC(a*x^2);
-    S     = stumpS(a*x^2);
-    F     = ro*vro/sqrt(mu)*x^2*C + (1 - a*ro)*x^3*S + ro*x - sqrt(mu)*dt;
-    dFdx  = ro*vro/sqrt(mu)*x*(1 - a*x^2*S) + (1 - a*ro)*x^2*C + ro;
-    ratio = F/dFdx;
-    x     = x - ratio;
+%...Check the supplied orbital parameters:
+if ~all(isfinite([dt ro vro a mu])) || ro <= 0 || isempty(mu) || mu <= 0
+    error('Universal propagation requires finite inputs and positive ro and mu.')
+end
+if dt == 0
+    x = 0;
+    return
 end
 
-%...Deliver a value for x, but report that nMax was reached:
-if n > nMax
-    fprintf('\n **No. iterations of Kepler equation = %g', n)
-    fprintf('\n F/dFdx = %g\n', F/dFdx)
+%...Bracket the universal anomaly in the direction of propagation:
+direction = sign(dt);
+target = sqrt(mu)*abs(dt);
+lo = 0;
+if a < 0
+    scale = sqrt(-1/a);
+    hi = max(1,scale*log1p(target/(ro*scale)));
+else
+    hi = max(1,target*max(a,1/ro));
+end
+for n = 1:100
+    [value,~] = equation(hi);
+    if ~isfinite(value)
+        error('Universal anomaly bracket overflowed.')
+    end
+    if value >= 0
+        break
+    end
+    hi = 2*hi;
+end
+if value < 0
+    error('Could not bracket the universal anomaly.')
+end
+
+%...Iterate on Equation 3.65 with a safeguarded Newton step
+%...until the residual or bracket width satisfies the error tolerance:
+u = (lo+hi)/2;
+for n = 1:200
+    [value,derivative] = equation(u);
+    if ~all(isfinite([value derivative]))
+        error('Universal anomaly iteration is nonfinite.')
+    end
+    if abs(value) <= 1.e-12*max(target,1)
+        x = direction*u;
+        return
+    end
+    if value > 0
+        hi = u;
+    else
+        lo = u;
+    end
+    trial = u-value/derivative;
+    if derivative <= 0 || ~isfinite(trial) || trial <= lo || trial >= hi
+        trial = (lo+hi)/2;
+    end
+    if hi-lo <= 1.e-12*max(1,abs(u))
+        x = direction*trial;
+        return
+    end
+    u = trial;
+end
+error('Universal Kepler equation failed to converge.')
+
+    %...Universal Kepler equation and its derivative:
+    function [F,dFdx] = equation(u)
+        xx = direction*u;
+        C     = stumpC(a*xx^2);
+        S     = stumpS(a*xx^2);
+        F     = direction*(ro*vro/sqrt(mu)*xx^2*C + (1-a*ro)*xx^3*S + ro*xx - sqrt(mu)*dt);
+        dFdx  = ro*vro/sqrt(mu)*xx*(1-a*xx^2*S) + (1-a*ro)*xx^2*C + ro;
+    end
 end

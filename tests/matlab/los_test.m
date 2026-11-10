@@ -7,6 +7,10 @@ function los_test()
 %}
 % -----------------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Scenario 1: Satellite in sunlight
 r_sat1 = [7000, 0, 0]; % Satellite position vector (ECI, km)
 r_sun1 = [1.496e8, 0, 0]; % Sun position vector (ECI, km)

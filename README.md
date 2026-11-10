@@ -1038,7 +1038,7 @@ Space-Sciences-and-Astrodynamics/
 - Run tests: `pytest` or C++/MATLAB equivalents
 
 ### MATLAB
-Clone the repository and navigate to the matlab files directory. Navigate to the .m files and execute scripts as needed.
+Clone the repository and open a `.m` example in `curtis_scripts/matlab` or a test in `tests/matlab`. Run the whole file from the MATLAB Editor, changing to its folder or adding that folder to the path if prompted. Tests locate the companion functions in `curtis_scripts/matlab` automatically using paths relative to their own files. Keep the repository's folder structure intact; no installation or permanent MATLAB path setup is required. See the [MATLAB test instructions](tests/matlab/README.md) for command-window examples and dependency troubleshooting.
 
 ### Python
 Clone the repository and navigate to the python files directory. Install the required .py packages and run scripts directly.

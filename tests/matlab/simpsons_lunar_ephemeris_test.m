@@ -16,8 +16,12 @@
     User M-functions required: simpsons_lunar_ephemeris
 %}
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Define a sample Julian date (e.g., January 1, 2024, at 12:00 TT)
-jd_sample = 2460271.0; % Julian date
+jd_sample = 2460311.0; % Julian date
 
 % Call the simpsons_lunar_ephemeris function
 [pos, vel] = simpsons_lunar_ephemeris(jd_sample);

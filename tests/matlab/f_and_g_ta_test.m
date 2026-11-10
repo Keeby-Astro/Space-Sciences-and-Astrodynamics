@@ -18,6 +18,10 @@ function f_and_g_ta_test()
 %}
 % -------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Define input parameters:
 mu = 398600;               % Gravitational parameter for Earth (km^3/s^2)
 r0 = [7000, 0, 0];         % Initial position vector (km)

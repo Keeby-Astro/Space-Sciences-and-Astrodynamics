@@ -1,7 +1,7 @@
 # Sphinx configuration for Space-Sciences-and-Astrodynamics
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../curtis_scripts/python'))
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../../curtis_scripts/python')))
 
 project = 'Space-Sciences-and-Astrodynamics'
 author = 'Keeby Astro'
@@ -9,7 +9,7 @@ release = '0.1.0a0'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'sphinx.ext.autodoc_typehints',
+    'sphinx_autodoc_typehints',
 ]
 html_theme = 'sphinx_rtd_theme'
 
@@ -35,5 +35,15 @@ napoleon_google_docstring = True
 napoleon_numpy_docstring = True
 
 # -- Paths for static and templates ----------------------------------------
-html_static_path = ['_static']
-templates_path = ['_templates']
+html_static_path = []
+templates_path = []
+
+
+def preserve_script_docstrings(app, what, name, obj, options, lines):
+    # The educational parameter descriptions use aligned, fixed-width text.
+    if lines:
+        lines[:] = ['::', ''] + ['    ' + line for line in lines]
+
+
+def setup(app):
+    app.connect('autodoc-process-docstring', preserve_script_docstrings, priority=100)

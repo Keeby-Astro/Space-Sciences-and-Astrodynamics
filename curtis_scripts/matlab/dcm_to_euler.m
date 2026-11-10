@@ -16,7 +16,12 @@ function [alpha beta gamma] = dcm_to_euler(Q)
 % -----------------------------------------------
 
 alpha = atan2d_0_360(Q(3,1), -Q(3,2));
-beta  = acosd(Q(3,3));
+beta  = acosd(max(-1,min(1,Q(3,3))));
 gamma = atan2d_0_360(Q(1,3), Q(2,3));
+
+if hypot(Q(3,1),Q(3,2)) < 1.e-12
+    alpha = atan2d_0_360(Q(1,2),Q(1,1));
+    gamma = 0;
+end
 
 end

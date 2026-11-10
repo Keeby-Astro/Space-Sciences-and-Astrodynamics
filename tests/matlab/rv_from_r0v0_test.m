@@ -11,7 +11,11 @@
 % t  - elapsed time (s)
 %
 % User m-functions required: rv_from_r0v0
-% ---------------------------------------------
+% ---------------------------------------------s
+
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
 
 clear all; clc
 global mu

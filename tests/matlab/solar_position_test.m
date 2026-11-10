@@ -7,8 +7,12 @@ function solar_position_test()
 %}
 % -------------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
     % Julian date for 2023-12-21 00:00:00 UTC (Winter Solstice)
-    jd_test = 2460271.5; % Julian date
+    jd_test = 2460299.5; % Julian date
 
     % Call the solar_position function
     [lamda, eps, r_S] = solar_position(jd_test);

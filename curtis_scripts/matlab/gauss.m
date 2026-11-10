@@ -74,6 +74,9 @@ p3 = cross(Rho1,Rho2);
 
 %...Equation 5.108:
 Do = dot(Rho1,p1);
+if abs(Do) < 1.e-14 || ~(t1 < t2 && t2 < t3)
+    error('Gauss requires independent sight lines and increasing times.')
+end
 
 %...Equations 5.109b, 5.110b and 5.111b:
 D = [[dot(R1,p1) dot(R1,p2) dot(R1,p3)]
@@ -144,7 +147,7 @@ nmax = 1000;
 tol  = 1.e-8;
 
 %...Iterative improvement loop:
-while ((diff1 > tol) & (diff2 > tol) & (diff3 > tol)) & (n < nmax)
+while (diff1 > tol || diff2 > tol || diff3 > tol) && n < nmax
     n = n+1;
 
     %...Compute quantities required by universal kepler's equation:
@@ -200,7 +203,7 @@ end
 fprintf('\n( **Number of Gauss improvement iterations = %g)\n\n',n)
 
 if n >= nmax
-    fprintf('\n\n **Number of iterations exceeds %g \n\n ',nmax);
+    error('Gauss improvement failed to converge.')
 end
 
 %...Return the state vector for the central observation:
@@ -231,8 +234,7 @@ return
     
     %...Exit if no positive roots exist:
     if npositive == 0
-        fprintf('\n\n ** There are no positive roots. \n\n')
-        return
+        error('No positive real Gauss roots were found.')
     end
     
     %...If there is more than one positive root, output the

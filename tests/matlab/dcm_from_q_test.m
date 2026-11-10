@@ -8,10 +8,15 @@ function dcm_from_q_test()
     User M-functions required: dcm_from_q
 %}
 % ----------------------------------------------
-q1 = [1, 0, 0, 0];  % Identity quaternion
-q2 = [0, 1, 0, 0];  % 180-degree rotation about x-axis
-q3 = [0, 0, 1, 0];  % 180-degree rotation about y-axis
-q4 = [0, 0, 0, 1];  % 180-degree rotation about z-axis
+
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
+q1 = [0, 0, 0, 1]; % Identity quaternion
+q2 = [1, 0, 0, 0]; % 180-degree rotation about x-axis
+q3 = [0, 1, 0, 0]; % 180-degree rotation about y-axis
+q4 = [0, 0, 1, 0]; % 180-degree rotation about z-axis
 
 % Calculate the direction cosine matrices using the function
 Q1 = dcm_from_q(q1);

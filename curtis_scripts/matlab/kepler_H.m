@@ -17,18 +17,46 @@ function F = kepler_H(e, M)
 %}
 % --------------------------------------------
 
-%...Set an error tolerance:
-error = 1.e-8;
-
-%...Starting value for F:
-F = M;
-
-%...Iterate on Equation 3.45 until F is determined to within
-%...the error tolerance:
-ratio = 1;
-while abs(ratio) > error
-    ratio = (e*sinh(F) - F - M)/(e*cosh(F) - 1);
-    F = F - ratio;
+%...Check the supplied orbital parameters:
+if ~all(isfinite([e M])) || e <= 1
+    error('Hyperbolic Kepler equation requires e > 1 and finite M.')
+end
+if M == 0
+    F = 0;
+    return
 end
 
+%...Starting value for F and an upper bound on the root:
+m = abs(M);
+lo = 0;
+hi = asinh(m/e)+1;
+while e*sinh(hi)-hi < m
+    hi = 2*hi;
+end
+F = asinh(m/e);
+
+%...Iterate on Equation 3.45, using bisection when a Newton step leaves
+%...the bracket. Limit the iteration count and test the error tolerance:
+for n = 1:100
+    residual = e*sinh(F)-F-m;
+    if residual == 0
+        F = sign(M)*F;
+        return
+    end
+    if residual > 0
+        hi = F;
+    else
+        lo = F;
+    end
+    trial = F-residual/(e*cosh(F)-1);
+    if trial <= lo || trial >= hi
+        trial = (lo+hi)/2;
+    end
+    if abs(trial-F) <= 1.e-13*max(1,abs(F))
+        F = sign(M)*trial;
+        return
+    end
+    F = trial;
+end
+error('Hyperbolic Kepler equation failed to converge.')
 end

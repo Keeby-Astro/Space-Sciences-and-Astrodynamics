@@ -47,6 +47,10 @@
 % User M-functions required: planet_elements_and_sv, month_planet_names
 % --------------------------------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 global mu
 mu  = 1.327124e11;
 deg = pi/180;

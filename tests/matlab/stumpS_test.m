@@ -9,6 +9,10 @@ function stumpS_test()
 %}
 % ----------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
     % Define a range of test values for z
     z_values = [-10, -1, -0.1, 0, 0.1, 1, 10];
 

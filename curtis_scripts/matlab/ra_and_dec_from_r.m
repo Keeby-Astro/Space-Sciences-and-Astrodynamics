@@ -12,14 +12,9 @@ function [ra dec] = ra_and_dec_from_r(r)
     dec     - declination (degrees)
 %}
 % ------------------------------------------------
-l = r(1)/norm(r);
-m = r(2)/norm(r);
-n = r(3)/norm(r);
-
-dec = asind(n);
-
-if m > 0
-    ra = acosd(l/cosd(dec));
-else
-    ra = 360 - acosd(l/cosd(dec));
+if numel(r) ~= 3 || any(~isfinite(r(:))) || norm(r) == 0
+    error('Position must be a finite, nonzero three-vector.')
+end
+dec = atan2d(r(3),hypot(r(1),r(2)));
+ra = mod(atan2d(r(2),r(1)),360);
 end

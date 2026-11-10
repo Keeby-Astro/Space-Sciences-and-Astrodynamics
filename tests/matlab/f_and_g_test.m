@@ -6,6 +6,10 @@ function f_and_g_test()
     User M-functions required: f_and_g, stumpC, stumpS
 %}
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Define the global variable mu (gravitational parameter)
 global mu;
 mu = 398600; % km^3/s^2, standard for Earth

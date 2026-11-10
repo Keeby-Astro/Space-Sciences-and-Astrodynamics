@@ -10,6 +10,10 @@ function q_from_dcm_test()
 %}
 % ----------------------------------------------
 
+% Locate companion functions relative to this test file
+addpath(fullfile(fileparts(mfilename('fullpath')), '..', '..', ...
+    'curtis_scripts', 'matlab'));
+
 % Define test direction cosine matrices
 Q1 = eye(3); % Identity matrix
 Q2 = [1,  0,  0;

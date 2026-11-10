@@ -38,6 +38,9 @@ c23 = cross(R2,R3);
 c31 = cross(R3,R1);
 
 %...Check that R1, R2 and R3 are coplanar; if not set error flag:
+if min([r1 r2 r3 norm(c23)]) == 0
+    error('Gibbs requires nonzero, noncollinear positions.')
+end
 if abs(dot(R1,c23)/r1/norm(c23)) > tol
     ierr = 1;
 end
@@ -52,6 +55,9 @@ D = c12 + c23 + c31;
 S = R1*(r2 - r3) + R2*(r3 - r1) + R3*(r1 - r2);
 
 %...Equation 5.22:
+if norm(N) == 0 || norm(D) == 0
+    error('Gibbs geometry is degenerate.')
+end
 V2 = sqrt(mu/norm(N)/norm(D))*(cross(D,R2)/r2 + S);
 
 end
