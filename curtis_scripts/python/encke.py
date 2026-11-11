@@ -1,14 +1,3 @@
-import sys
-import os
-import importlib.util
-
-std_lib_dir = os.path.dirname(os.__file__)  
-std_bisect_path = os.path.join(std_lib_dir, 'bisect.py')
-spec = importlib.util.spec_from_file_location("bisect", std_bisect_path)
-real_bisect = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(real_bisect)
-sys.modules["bisect"] = real_bisect
-
 import numpy as np
 from scipy.integrate import solve_ivp
 from sv_from_coe import sv_from_coe
@@ -18,7 +7,7 @@ import matplotlib.pyplot as plt
 
 def encke():
     '''
-    This function use Encke's method together with MATLAB's ode45
+    This function uses Encke's method together with SciPy's solve_ivp
     to integrate Equation 10.2 for a J2 gravitational perturbation 
     given by Equation 10.30.
     
@@ -72,10 +61,10 @@ def encke():
     y = [np.concatenate((R0, V0))] # Initialize the state vector
     del_y0 = np.zeros(6)           # Initialize the state vector perturbation
 
-    t += del_t                     # First time step
+    t = min(t0 + del_t, tf)         # First time step
 
     # Loop over the time interval [t0, tf] with equal increments del_t:
-    while t <= tf + del_t / 2:
+    while t0 < tf:
 
         def rates(t, f):
             '''
@@ -110,7 +99,9 @@ def encke():
 
             return np.concatenate((del_v, del_a))
 
-        sol = solve_ivp(rates, [t0, t], del_y0, max_step=del_t)
+        sol = solve_ivp(rates, [t0, t], del_y0, max_step=del_t, rtol=1.e-9, atol=1.e-10)
+        if not sol.success:
+            raise RuntimeError(sol.message)
         z = sol.y[:, -1]
 
         # Compute the osculating state vector at time t:
@@ -124,7 +115,7 @@ def encke():
         # Prepare for next time step:
         tsave.append(t)
         y.append(np.concatenate((R0, V0)))
-        t += del_t
+        t = min(t0 + del_t, tf)
         del_y0 = np.zeros(6)
 
     # Extract the orbital elements from the state vector:

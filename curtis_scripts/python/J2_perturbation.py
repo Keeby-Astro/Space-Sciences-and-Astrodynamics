@@ -1,21 +1,10 @@
-import sys
-import os
-import importlib.util
-
-std_lib_dir = os.path.dirname(os.__file__)  
-std_bisect_path = os.path.join(std_lib_dir, 'bisect.py')
-spec = importlib.util.spec_from_file_location("bisect", std_bisect_path)
-real_bisect = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(real_bisect)
-sys.modules["bisect"] = real_bisect
-
 import numpy as np
 from scipy.integrate import solve_ivp
 import matplotlib.pyplot as plt
 
 def J2_perturbation():
     '''
-    This function use MATLAB's ode45 to numerically integrate Equations 10.89
+    This function uses SciPy's solve_ivp to numerically integrate Equations 10.89
     (the Gauss planetary equations) to determine the J2 perturbation of 
     the orbital elements.
     
@@ -23,30 +12,30 @@ def J2_perturbation():
     User subfunctions required: rates    
     '''
     #...Conversion factors:
-    hours = 3600        # Hours to seconds
-    days  = 24 * hours  # Days to seconds
-    deg   = np.pi / 180 # Degrees to radians
+    hours = 3600                     # Hours to seconds
+    days  = 24 * hours               # Days to seconds
+    deg   = np.pi / 180              # Degrees to radians
 
     #...Constants:
-    mu = 398600.4418 # Gravitational parameter (km^3/s^2)
-    RE = 6378.14     # Earth's radius (km)
-    J2 = 1082.63e-6  # Earth's J2
+    mu = 398600.4418                 # Gravitational parameter (km^3/s^2)
+    RE = 6378.14                     # Earth's radius (km)
+    J2 = 1082.63e-6                  # Earth's J2
 
     #...Initial orbital parameters (given):
-    rp0 = RE + 300  # Perigee radius (km)
-    ra0 = RE + 3062 # Apogee radius (km)
-    RA0 = 45 * deg  # Right ascension of the node (radians)
-    i0  = 28 * deg  # Inclination (radians)
-    w0  = 30 * deg  # Argument of perigee (radians)
-    TA0 = 40 * deg  # True anomaly (radians)
+    rp0 = RE + 300                   # Perigee radius (km)
+    ra0 = RE + 3062                  # Apogee radius (km)
+    RA0 = 45 * deg                   # Right ascension of the node (radians)
+    i0  = 28 * deg                   # Inclination (radians)
+    w0  = 30 * deg                   # Argument of perigee (radians)
+    TA0 = 40 * deg                   # True anomaly (radians)
 
     #...Initial orbital parameters (inferred):
-    e0 = (ra0 - rp0) / (ra0 + rp0)           # Eccentricity
-    h0 = np.sqrt(rp0 * mu * (1 + e0))        # Angular momentum (km^2/s)
-    a0 = (rp0 + ra0) / 2                     # Semi-major axis (km)
-    T0 = 2 * np.pi / np.sqrt(mu) * a0 ** 1.5 # Period (s)
+    e0 = (ra0-rp0)/(ra0+rp0)         # Eccentricity
+    h0 = np.sqrt(rp0*mu*(1+e0))      # Angular momentum (km^2/s)
+    a0 = (rp0+ra0)/2                 # Semi-major axis (km)
+    T0 = 2*np.pi/np.sqrt(mu)*a0**1.5 # Period (s)
 
-    #...Store initial orbital elements in the vector coe0:
+    #...Store initial orbital elements (from above) in the vector coe0:
     coe0 = [h0, e0, RA0, i0, w0, TA0]
 
     #...Use solve_ivp to integrate the Gauss variational equations:
@@ -93,6 +82,8 @@ def J2_perturbation():
         return [hdot, edot, RAdot, idot, wdot, TAdot]
 
     sol = solve_ivp(rates, [t0, tf], coe0, t_eval=tspan, rtol=1e-8, atol=1e-8)
+    if not sol.success:
+        raise RuntimeError(sol.message)
 
     #...Assign the time histories mnemonic variable names:
     t = sol.t

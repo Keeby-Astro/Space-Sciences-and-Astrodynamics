@@ -10,6 +10,8 @@ def stumpC(z):
 
     User py-functions required: none
     '''  
+    if abs(z) < 1.e-3:
+        return 1/2 - z/24 + z**2/720 - z**3/40320 + z**4/3628800
     if z > 0:
         c = (1 - np.cos(np.sqrt(z))) / z
     elif z < 0:

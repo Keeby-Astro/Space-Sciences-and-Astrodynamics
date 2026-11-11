@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import fDot_and_gDot
 
 def fDot_and_gDot_test():
@@ -9,13 +17,13 @@ def fDot_and_gDot_test():
 
     User py-functions required: fDot_and_gDot
     '''
-    mu = 398600.4418
+    mu = 398600
 
     # Inputs
-    x = 1.5      # Universal anomaly (km^0.5)
-    r = 7000     # Radial position after time t (km)
-    ro = 6878    # Radial position at time to (km)
-    a = 1 / 8000 # Reciprocal of semimajor axis (1/km)
+    x = 1.5    # Universal anomaly (km^0.5)
+    r = 7000   # Radial position after time t (km)
+    ro = 6878  # Radial position at time to (km)
+    a = 1/8000 # Reciprocal of semimajor axis (1/km)
 
     fdot, gdot = fDot_and_gDot.fDot_and_gDot(x, r, ro, a, mu)
 

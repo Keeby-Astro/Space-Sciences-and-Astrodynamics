@@ -35,6 +35,11 @@ def sv_from_coe(coe, mu):
     w    = coe[4]
     TA   = coe[5]
 
+    if not np.isfinite([h, e, RA, incl, w, TA, mu]).all() or mu <= 0 or h <= 0 or e < 0:
+        raise ValueError("Finite elements, positive h and mu, and nonnegative e are required.")
+    if 1 + e * np.cos(TA) <= 0:
+        raise ValueError("True anomaly lies outside the physical conic branch.")
+
     #...Equations 4.45 and 4.46 (rp and vp are column vectors):
     rp = (h**2/mu) * (1/(1 + e*np.cos(TA))) * (np.cos(TA)*np.array([1, 0, 0]) + np.sin(TA)*np.array([0, 1, 0]))
     vp = (mu/h) * (-np.sin(TA)*np.array([1, 0, 0]) + (e + np.cos(TA))*np.array([0, 1, 0]))

@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import rv_from_r0v0
@@ -12,8 +20,8 @@ def rva_relative_test_plot():
     User py-functions required: rv_from_r0v0, sv_from_coe, rva_relative
     '''
     #...Gravitational parameter and Earth radius:
-    mu = 398600.4418
-    RE = 6378.14
+    mu = 398600
+    RE = 6378
 
     #...Conversion factor from degrees to radians:
     deg = np.pi / 180
@@ -109,7 +117,6 @@ def rva_relative_test_plot():
     ax.set_ylabel('Y (km)')
     ax.set_zlabel('Z (km)')
     ax.grid(True)
-    plt.legend()
     plt.show()
 
 if __name__ == '__main__':

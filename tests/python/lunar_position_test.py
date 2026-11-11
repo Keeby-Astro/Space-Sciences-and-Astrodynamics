@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import lunar_position
 
 def lunar_position_test():
@@ -9,7 +17,7 @@ def lunar_position_test():
     '''
     jd_1 = 2451545.0  # Julian Date for J2000 epoch
     result_1 = lunar_position.lunar_position(jd_1)
-    jd_2 = 2459200.5  # Julian Date for September 22, 2020
+    jd_2 = 2459200.5  # Julian Date for December 17, 2020
     result_2 = lunar_position.lunar_position(jd_2)
     jd_3 = 2440587.5  # Julian Date for January 1, 1970
     result_3 = lunar_position.lunar_position(jd_3)

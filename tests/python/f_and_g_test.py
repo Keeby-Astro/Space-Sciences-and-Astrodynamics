@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+    
 import f_and_g
 
 def f_and_g_test():
@@ -7,13 +15,13 @@ def f_and_g_test():
 
     User py-functions required: f_and_g, stumpC, stumpS
     '''
-    mu = 398600.4418 # km^3/s^2, standard for Earth
+    mu = 398600 # km^3/s^2, standard for Earth
 
     #...Inputs
     ro = 7000   # km, radial position at time to
     t = 500     # s, time elapsed
     x = 1.5     # universal anomaly
-    a = 1 / 100 # 1/km, reciprocal of the semimajor axis
+    a = 1/10000 # 1/km, reciprocal of the semimajor axis
 
     # Call the f_and_g function
     f, g = f_and_g.f_and_g(x, t, ro, a, mu)

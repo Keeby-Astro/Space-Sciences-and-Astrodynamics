@@ -14,18 +14,18 @@ def los(r_sat, r_sun):
     rsat = np.linalg.norm(r_sat)
     rsun = np.linalg.norm(r_sun)
 
-    # Angle between sun and satellite position vectors:
-    theta = np.degrees(np.arccos(np.dot(r_sat, r_sun) / (rsat * rsun)))
+    #...Angle between sun and satellite position vectors:
+    theta = np.degrees(np.arccos(np.clip(np.dot(r_sat, r_sun) / (rsat * rsun), -1, 1)))
 
-    # Angle between the satellite position vector and the radial to the point
+    #...Angle between the satellite position vector and the radial to the point
     # of tangency with the earth of a line from the satellite:
     theta_sat = np.degrees(np.arccos(RE / rsat))
 
-    # Angle between the sun position vector and the radial to the point
+    #...Angle between the sun position vector and the radial to the point
     # of tangency with the earth of a line from the sun:
     theta_sun = np.degrees(np.arccos(RE / rsun))
 
-    # Determine whether a line from the sun to the satellite
+    #...Determine whether a line from the sun to the satellite
     # intersects the earth:
     if theta_sat + theta_sun <= theta:
         return 0  # yes

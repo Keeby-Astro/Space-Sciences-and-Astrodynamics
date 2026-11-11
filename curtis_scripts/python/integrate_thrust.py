@@ -35,32 +35,33 @@ def integrate_thrust():
     coe     - orbital elements of the post-burn trajectory
             (h e RA incl w TA a)
     ra      - position vector vector at apogee (km)
-    va      - velocity vector at apogee (km)
+    va      - velocity vector at apogee (km/s)
     rmax    - apogee radius (km)
 
     User py-functions required: rkf45, coe_from_sv, rv_from_r0v0_ta
     User subfunctions required: rates, output
     '''
-    #...Constants
+    #...Preliminaries:
     deg = np.pi / 180
-    mu = 398600.1148 # gravitational parameter (km^3/s^2)
-    RE = 6378.14     # earth radius (km)
-    g0 = 9.807       # sea level acceleration of gravity (m/s^2)
+    mu = 398600.4418
+    RE = 6378.14
+    g0 = 9.807
 
-    #...Input data
-    r0 = np.array([RE + 480, 0, 0])  # initial position vector (km)
-    v0 = np.array([0, 7.7102, 0])    # initial velocity vector (km/s)
-    t0 = 0                           # initial time (s)
-    t_burn = 261.1127                # burn time (s)
-    m0 = 2000                        # initial mass (kg)
-    T = 10                           # thrust (kN)
-    Isp = 300                        # specific impulse (s)
+    #...Input data:
+    r0 = np.array([RE + 480, 0, 0])
+    v0 = np.array([0, 7.7102, 0])
+    t0 = 0
+    t_burn = 261.1127
+    m0 = 2000
+    T = 10
+    Isp = 300
+    #...end Input data
 
-    # Initial state vector
+    #...Integrate the equations of motion over the burn time:
     y0 = np.hstack((r0, v0, m0))
-    t, y = rkf45.rkf45(rates, [t0, t_burn], y0, 1.e-16)
+    t, y = rkf45.rkf45(lambda t, f: rates(t, f, mu, g0, Isp, T), [t0, t_burn], y0, 1.e-10)
 
-    # State vector and mass after the burn
+    #...Compute the state vector and mass after the burn:
     r1 = y[-1, 0:3]
     v1 = y[-1, 3:6]
     m1 = y[-1, 6]
@@ -69,7 +70,7 @@ def integrate_thrust():
     TA = coe[5]   # true anomaly (radians)
     a = coe[6]    # semimajor axis (km)
 
-    # Find state vector at apogee of the post-burn trajectory
+    #...Find the state vector at apogee of the post-burn trajectory:
     if TA <= np.pi:
         dtheta = np.pi - TA
     else:
@@ -77,11 +78,12 @@ def integrate_thrust():
     ra, va = rv_from_r0v0_ta.rv_from_r0v0_ta(r1, v1, np.degrees(dtheta), mu)
     rmax = np.linalg.norm(ra)
 
-    # Output results
     output(r0, v0, m0, T, t_burn, m1, r1, v1, e, a, ra, va)
 
+#...Subfunctions:
+
 # ––––––––––––––––––––––––
-def rates(t, f):
+def rates(t, f, mu=398600.4418, g0=9.807, Isp=300, T=10):
     '''
     This function calculates the acceleration vector using Equation 6.26.
 
@@ -98,11 +100,6 @@ def rates(t, f):
     dfdt        - column vector containing the velocity and acceleration
                   components and the mass rate
     '''
-    mu = 398600  # gravitational parameter (km^3/s^2)
-    g0 = 9.807   # sea level acceleration of gravity (m/s^2)
-    Isp = 300    # specific impulse (s)
-    T = 10       # thrust (kN)
-    
     x, y, z = f[0], f[1], f[2]
     vx, vy, vz = f[3], f[4], f[5]
     m = f[6]
@@ -110,11 +107,10 @@ def rates(t, f):
     r = np.linalg.norm([x, y, z])
     v = np.linalg.norm([vx, vy, vz])
     
-    # Acceleration components
     ax = -mu * x / r**3 + T / m * vx / v
     ay = -mu * y / r**3 + T / m * vy / v
     az = -mu * z / r**3 + T / m * vz / v
-    mdot = -T * 1000 / g0 / Isp  # Rate of change of mass (kg/s)
+    mdot = -T * 1000 / g0 / Isp
 
     return np.array([vx, vy, vz, ax, ay, az, mdot])
 

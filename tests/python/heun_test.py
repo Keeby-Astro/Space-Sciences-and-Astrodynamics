@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import heun
@@ -36,34 +44,48 @@ def heun_test():
     User py-functions required: heun
     User py-subfunctions required: rates
     '''
-    # System properties
+    #...System properties:
     m = 1
     z = 0.03
     wn = 1
     Fo = 1
     w = 0.4 * wn
 
-    # Time range
+    #...Time range:
     t0 = 0
     tf = 110
     tspan = [t0, tf]
 
-    # Initial conditions
+    #...Initial conditions:
     x0 = 0
     Dx0 = 0
     f0 = np.array([x0, Dx0])
 
-    # Calculate and plot the solution for h = 1.0
+    #...Calculate and plot the solution for h = 1.0:
     h = 1.0
     t1, f1 = heun.heun(lambda t, f: rates(t, f, m, z, wn, Fo, w), tspan, f0, h)
 
-    # Calculate and plot the solution for h = 0.1
+    #...Calculate and plot the solution for h = 0.1:
     h = 0.1
     t2, f2 = heun.heun(lambda t, f: rates(t, f, m, z, wn, Fo, w), tspan, f0, h)
 
     output(t1, f1, t2, f2)
 
 def rates(t, f, m, z, wn, Fo, w):
+    '''
+    This function calculates first and second time derivatives of x
+    for the forced vibration of a damped single degree of freedom
+    system represented by the 2nd order differential equation
+    
+    x'' + 2*z*wn*x' + wn^2*x = (Fo/m)*sin(w*t)
+    
+    Dx   - velocity
+    D2x  - acceleration
+    f    - column vector containing x and Dx at time t
+    dfdt - column vector containing Dx and D2x at time t
+    
+    User py-functions required: none
+    '''
     x = f[0]
     Dx = f[1]
     D2x = (Fo / m) * np.sin(w * t) - 2 * z * wn * Dx - wn**2 * x

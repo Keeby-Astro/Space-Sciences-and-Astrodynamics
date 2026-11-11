@@ -55,13 +55,13 @@ def twobody3d():
     y0 = np.hstack((R1_0, R2_0, V1_0, V2_0))
 
     #...Integrate the equations of motion
-    t, y = rkf45.rkf45(rates, [t0, tf], y0)
+    t, y = rkf45.rkf45(lambda t, y: rates(t, y, m1, m2), [t0, tf], y0)
 
     #...Output the results
     output(t, y, m1, m2)
 
 # ––––––––––––––
-def rates(_, y):
+def rates(_, y, m1=1.e26, m2=1.e26):
 # ––––––––––––––
     '''
     This function calculates the accelerations in Equations 2.19.
@@ -77,9 +77,6 @@ def rates(_, y):
               vectors of the system at time t
     '''
     G = 6.67259e-20 
-    m1 = 1.e26
-    m2 = 1.e26
-
     R1 = y[0:3]
     R2 = y[3:6]
 
@@ -117,25 +114,25 @@ def output(_, y, m1, m2):
     ZG = (m1 * Z1 + m2 * Z2) / (m1 + m2)
 
     #...Plot the trajectories:
-    plt.figure(1)
+    ax = plt.figure(1).add_subplot(projection='3d')
     plt.title('Figure 2.3: Motion relative to the inertial frame')
-    plt.plot(X1, Y1, Z1, '-r', label="m1")
-    plt.plot(X2, Y2, Z2, '-g', label="m2")
-    plt.plot(XG, YG, ZG, '-b', label="Center of Mass")
+    ax.plot(X1, Y1, Z1, '-r', label="m1")
+    ax.plot(X2, Y2, Z2, '-g', label="m2")
+    ax.plot(XG, YG, ZG, '-b', label="Center of Mass")
     plt.legend()
     common_axis_settings()
 
-    plt.figure(2)
+    ax = plt.figure(2).add_subplot(projection='3d')
     plt.title('Figure 2.4a: Motion of m2 and G relative to m1')
-    plt.plot(X2 - X1, Y2 - Y1, Z2 - Z1, '-g', label="m2 relative to m1")
-    plt.plot(XG - X1, YG - Y1, ZG - Z1, '-b', label="G relative to m1")
+    ax.plot(X2 - X1, Y2 - Y1, Z2 - Z1, '-g', label="m2 relative to m1")
+    ax.plot(XG - X1, YG - Y1, ZG - Z1, '-b', label="G relative to m1")
     plt.legend()
     common_axis_settings()
 
-    plt.figure(3)
+    ax = plt.figure(3).add_subplot(projection='3d')
     plt.title('Figure 2.4b: Motion of m1 and m2 relative to G')
-    plt.plot(X1 - XG, Y1 - YG, Z1 - ZG, '-r', label="m1 relative to G")
-    plt.plot(X2 - XG, Y2 - YG, Z2 - ZG, '-g', label="m2 relative to G")
+    ax.plot(X1 - XG, Y1 - YG, Z1 - ZG, '-r', label="m1 relative to G")
+    ax.plot(X2 - XG, Y2 - YG, Z2 - ZG, '-g', label="m2 relative to G")
     plt.legend()
     common_axis_settings()
     plt.show()
@@ -146,7 +143,7 @@ def common_axis_settings():
     '''
     This function establishes axis properties common to the several plots.
     '''
-    ax = plt.figure().add_subplot(projection='3d')
+    ax = plt.gca()
     ax.text(0, 0, 0, 'o')
     ax.set_box_aspect([1,1,1])
     ax.view_init(elev=24, azim=60)

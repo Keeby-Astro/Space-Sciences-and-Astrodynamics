@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import month_planet_names
 
 def month_planet_names_test():
@@ -21,6 +29,5 @@ def month_planet_names_test():
             # Output
             print(f'Month ID: {month_id:2d}, Month: {month.strip()} | Planet ID: {planet_id:2d}, Planet: {planet.strip()}')
 
-# Call the test function if this script is run directly
 if __name__ == "__main__":
     month_planet_names_test()

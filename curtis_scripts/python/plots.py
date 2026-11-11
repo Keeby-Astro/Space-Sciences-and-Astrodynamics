@@ -5,4 +5,4 @@ def save_plot(fig, name):
     import os
     outdir = os.path.join(os.path.dirname(__file__), '../../plots')
     os.makedirs(outdir, exist_ok=True)
-    fig.savefig(os.path.join(outdir, f"{name}.png"), dpi=150)
+    fig.savefig(os.path.join(outdir, f"{name}.png"), dpi=300)

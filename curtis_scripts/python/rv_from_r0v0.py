@@ -20,7 +20,8 @@ def rv_from_r0v0(R0, V0, t, mu):
 
     % User py-functions required: kepler_U, f_and_g, fDot_and_gDot
     '''
-    mu = 398600.4418
+    R0 = np.asarray(R0, dtype=float)
+    V0 = np.asarray(V0, dtype=float)
 
     #...Magnitudes of R0 and V0:
     r0 = np.linalg.norm(R0)

@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import q_from_dcm
 
 def q_from_dcm_test():
@@ -10,6 +18,7 @@ def q_from_dcm_test():
 
     User py-functions required: q_from_dcm
     '''
+    # Define test direction cosine matrices
     Q1 = [[1, 0, 0],
           [0, 1, 0],
           [0, 0, 1]]  # Identity matrix

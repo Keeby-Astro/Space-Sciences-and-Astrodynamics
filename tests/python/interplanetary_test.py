@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 from interplanetary import interplanetary
 from coe_from_sv import coe_from_sv
@@ -65,11 +73,12 @@ def interplanetary_test():
     User py-functions required: interplanetary, coe_from_sv,
                                month_planet_names
     '''
-    # Define constants
-    mu = 1.327124e11  # Gravitational parameter of the Sun (km^3/s^2)
+    mu = 1.327124e11
     deg = np.pi / 180
 
-    # Departure data
+    #...Data declaration:
+
+    #...Departure
     depart = [
         3,     # planet_id (Earth)
         1996,  # year
@@ -80,7 +89,7 @@ def interplanetary_test():
         0      # second
     ]
 
-    # Arrival data
+    #...Arrival
     arrive = [
         4,     # planet_id (Mars)
         1997,  # year
@@ -91,28 +100,31 @@ def interplanetary_test():
         0      # second
     ]
 
-    # Algorithm 8.2: Compute planetary states and trajectory
+    # Algorithm 8.2:
     planet1, planet2, trajectory = interplanetary(depart, arrive, mu)
 
-    # Extract state vectors and Julian dates
     Rp1, Vp1, jd1 = planet1
     Rp2, Vp2, jd2 = planet2
     V1, V2 = trajectory
 
-    # Time of flight (days)
     tof = jd2 - jd1
 
-    # Orbital elements of the spacecraft
+    #...Use Algorithm 4.2 to find the orbital elements of the
+   #   spacecraft trajectory based on [Rp1, V1]...
     coe_depart = coe_from_sv(Rp1, V1, mu)
+    #   ... and [R2, V2]
     coe_arrive = coe_from_sv(Rp2, V2, mu)
 
-    # Hyperbolic excess velocities
+    #...Equations 8.94 and 8.95:
     vinf1 = np.array(V1) - np.array(Vp1)
     vinf2 = np.array(V2) - np.array(Vp2)
 
-    # Departure details
-    print("-----------------------------------------------------")
+    #...Convert the departure planet_id and month numbers into names for output:
     month, planet = month_planet_names(depart[2], depart[0])
+
+    #...Echo the input data and output the solution to
+    #   the console:
+    print("-----------------------------------------------------")
     print("\n\n Departure:")
     print(f"\n   Planet: {planet}")
     print(f"   Year  : {depart[1]}")
@@ -131,11 +143,11 @@ def interplanetary_test():
     print(f"\n   v-infinity at departure (km/s) = {vinf1}")
     print(f"   Magnitude                      = {np.linalg.norm(vinf1):.3f}")
 
-    # Time of flight
     print(f"\n\n Time of flight = {tof:.3f} days")
 
-    # Arrival details
+    #...Convert the arrival planet_id and month numbers into names for output:
     month, planet = month_planet_names(arrive[2], arrive[0])
+
     print("\n\n Arrival:")
     print(f"\n   Planet: {planet}")
     print(f"   Year  : {arrive[1]}")
@@ -154,7 +166,6 @@ def interplanetary_test():
     print(f"\n   v-infinity at arrival (km/s)  = {vinf2}")
     print(f"   Magnitude                     = {np.linalg.norm(vinf2):.3f}")
 
-    # Orbital elements
     print("\n\n\n Orbital elements of flight trajectory:")
     print(f"\n  Angular momentum (km^2/s)                   = {coe_depart[0]:.3e}")
     print(f"  Eccentricity                                = {coe_depart[1]:.6f}")
@@ -165,15 +176,12 @@ def interplanetary_test():
     print(f"  True anomaly at arrival (deg)               = {coe_arrive[5] / deg:.3f}")
     print(f"  Semimajor axis (km)                         = {coe_depart[6]:.3e}")
 
-    if coe_depart[1] < 1:  # If orbit is an ellipse, output the period
+    # If orbit is an ellipse, output the period:
+    if coe_depart[1] < 1:
         period = 2 * np.pi / np.sqrt(mu) * coe_depart[6]**1.5 / 24 / 3600
         print(f"  Period (days)                               = {period:.3f}")
 
     print("-----------------------------------------------------")
 
-# Call the function
-def main():
-    interplanetary_test()
-
 if __name__ == "__main__":
-    main()
+    interplanetary_test()

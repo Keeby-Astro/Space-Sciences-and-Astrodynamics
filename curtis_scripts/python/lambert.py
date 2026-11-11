@@ -4,7 +4,7 @@ import stumpS
 
 def lambert(R1, R2, t, orbit_type, mu):
     '''
-    This function solves Lambert's problem.
+    This function solves the zero-revolution Lambert problem.
 
     mu      - gravitational parameter (km^3/s^2)
     R1, R2  - initial and final position vectors (km)
@@ -21,10 +21,8 @@ def lambert(R1, R2, t, orbit_type, mu):
     y(z)    - a function of z given by Equation 5.38
     F(z,t)  - a function of the variable z and constant t,
             - given by Equation 5.40
-    dFdz(z) - the derivative of F(z,t), given by Equation 5.43
-    ratio   - F/dFdz
-    tol     - tolerance on precision of convergence
-    nmax    - maximum number of iterations of Newton's procedure
+    tol     - relative tolerance on the time-of-flight residual
+    nmax    - maximum number of bisection iterations
     f, g    - Lagrange coefficients
     gdot    - time derivative of g
               C(z), S(z) - Stumpff functions
@@ -32,17 +30,23 @@ def lambert(R1, R2, t, orbit_type, mu):
 
     User py-functions required: stumpC and stumpS
     '''
+    R1 = np.asarray(R1, dtype=float)
+    R2 = np.asarray(R2, dtype=float)
+    if R1.shape != (3,) or R2.shape != (3,) or not np.isfinite(np.r_[R1, R2, t, mu]).all() or mu <= 0 or t <= 0:
+        raise ValueError("Lambert requires finite three-vectors and positive time and mu.")
+
     #...Magnitudes of R1 and R2:
     r1 = np.linalg.norm(R1)
     r2 = np.linalg.norm(R2)
 
     c12 = np.cross(R1, R2)
-    theta = np.arccos(np.dot(R1, R2) / (r1 * r2))
+    if r1 == 0 or r2 == 0 or np.linalg.norm(c12) <= 1.e-12 * r1 * r2:
+        raise ValueError("Collinear or zero position vectors require a separate Lambert formulation.")
+    theta = np.arccos(np.clip(np.dot(R1, R2) / (r1 * r2), -1, 1))
 
     #...Determine whether the orbit is prograde or retrograde:
     if orbit_type not in ["pro", "retro"]:
-        orbit_type = "pro"
-        print("** Prograde trajectory assumed. **")
+        raise ValueError("Orbit type must be 'pro' or 'retro'.")
 
     if orbit_type == "pro":
         if c12[2] <= 0.0:
@@ -51,10 +55,9 @@ def lambert(R1, R2, t, orbit_type, mu):
         if c12[2] >= 0.0:
             theta = 2.0 * np.pi - theta
 
-    # Equation 5.35
+    #...Equation 5.35
     A = np.sin(theta) * np.sqrt(r1 * r2 / (1.0 - np.cos(theta)))
 
-    #...Stumpff functions:
     def C(z):
         '''Stumpff C function.'''
         return stumpC.stumpC(z)
@@ -63,73 +66,67 @@ def lambert(R1, R2, t, orbit_type, mu):
         '''Stumpff S function.'''
         return stumpS.stumpS(z)
 
-    # Equation 5.38
+    #...Equation 5.38
     def y(z):
-        if C(z) <= 0:
-            return np.inf
         return r1 + r2 + A * ((z * S(z)) - 1.0) / np.sqrt(C(z))
 
-    # Equation 5.40:
+    #...Equation 5.40:
     def F(z, t_):
-        if C(z) <= 0 or y(z) <= 0:
-            return np.inf  # Return a large value to signal an invalid state
-        return ((y(z) / C(z)) ** 1.5) * S(z) + A * np.sqrt(y(z)) - np.sqrt(mu) * t_
+        yz = y(z)
+        if yz <= 0:
+            return -np.sqrt(mu) * t_
+        return ((yz / C(z)) ** 1.5) * S(z) + A * np.sqrt(yz) - np.sqrt(mu) * t_
 
-    # Equation 5.43:
-    def dFdz(z):
-        if abs(z) < 1.e-12:
-            z = 1.e-12 
-        term1 = ((y(z) / C(z)) ** 1.5) * (
-            (1.0 / (2.0 * z)) * (C(z) - (3.0 * S(z) / (2.0 * C(z)))) 
-            + 3.0 * (S(z) ** 2) / (4.0 * C(z))
-        )
-        term2 = (A / 8.0) * (
-            3.0 * (S(z) / C(z)) * np.sqrt(y(z))
-            + A * np.sqrt(C(z) / y(z))
-        )
-
-        return term1 + term2
-
-    #...Determine approximately where F(z,t) changes sign, and
-    #...use that value of z as the starting value for Equation 5.45:
-    z = -100.0
-    while F(z, t) < 0.0:
-        z += 0.1
-        # If z gets too big, break to avoid infinite loop
-        if z > 1.e6:
-            print("** F(z,t) did not become positive. Possibly no single-rev solution. **")
+    #...Bracket the zero-revolution branch, z < 4*pi^2:
+    lo = -1.0
+    hi = 4 * np.pi**2 * (1 - 1.e-7)
+    for n in range(100):
+        value = F(lo, t)
+        if not np.isfinite(value):
+            raise RuntimeError("Lambert lower bracket overflowed.")
+        if value <= 0:
             break
+        lo = 2 * lo
+    else:
+        raise RuntimeError("Could not bracket Lambert's solution.")
+    if not np.isfinite(F(hi, t)) or F(hi, t) <= 0:
+        raise RuntimeError("Time of flight exceeds this solver's zero-revolution bracket.")
 
-    #...Set an error tolerance and a limit on the number of iterations:
-    tol = 1.0e-8
-    nmax = 5000
+    tol = 1.e-11
+    nmax = 200
 
-    #...Iterate on Equation 5.45 until z is determined to within the
-    #...error tolerance:
-    n = 0
-    z = abs(z)
-    ratio = 1.0
-    while (abs(ratio) > tol) and (n < nmax):
-        n += 1
-        ratio = F(z, t) / dFdz(z)
-        z = z - ratio
+    #...Bisect the bracket until the time-of-flight residual satisfies the tolerance:
+    for n in range(nmax):
+        z = (lo + hi) / 2
+        value = F(z, t)
+        if not np.isfinite(value):
+            raise RuntimeError("Lambert iteration is nonfinite.")
+        if abs(value) <= tol * np.sqrt(mu) * t:
+            break
+        if value > 0:
+            hi = z
+        else:
+            lo = z
+    else:
+        raise RuntimeError("Lambert solver failed to converge.")
 
-    if n >= nmax:
-        print(f"** Number of iterations ({nmax}) exceeded **")
+    yz = y(z)
+    if yz <= 0:
+        raise RuntimeError("Lambert solution lies outside the physical domain.")
 
-    # Equation 5.46a
-    f    = 1.0 - (y(z) / r1)
+    #...Equation 5.46a
+    f    = 1.0 - (yz / r1)
 
-    # Equation 5.46b
-    g    = A * np.sqrt(y(z) / mu)
+    #...Equation 5.46b
+    g    = A * np.sqrt(yz / mu)
 
-    # Equation 5.46d
-    gdot = 1.0 - (y(z) / r2)
+    #...Equation 5.46d
+    gdot = 1.0 - (yz / r2)
 
-    # Equation 5.28
+    #...Equation 5.28
     V1 = (1.0 / g) * (R2 - f * R1)
 
-    # Equation 5.29
+    #...Equation 5.29
     V2 = (1.0 / g) * (gdot * R2 - R1)
 
     return V1, V2

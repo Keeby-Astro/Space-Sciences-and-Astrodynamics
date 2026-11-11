@@ -11,47 +11,48 @@ def gravity_turn():
     User py-functions required: rkf45, atmosisa
     User subfunction required:  rates
     '''
-    deg = np.pi / 180  # Convert degrees to radians
-    g0 = 9.81  # Sea-level acceleration of gravity (m/s)
-    Re = 6378.14e3  # Radius of the earth (m)
-    hscale = 7.5e3  # Density scale height (m)
-    rho0 = 1.225  # Sea level density of atmosphere (kg/m^3)
+    deg = np.pi/180         # Convert degrees to radians
+    g0 = 9.81               # Sea-level acceleration of gravity (m/s)
+    Re = 6378.14e3          # Radius of the earth (m)
+    hscale = 7.5e3          # Density scale height (m)
+    rho0 = 1.225            # Sea level density of atmosphere (kg/m^3)
 
-    diam = 196.85 / 12 * 0.3048  # Vehicle diameter (m)
-    A = np.pi / 4 * (diam) ** 2  # Frontal area (m^2)
-    CD = 0.5  # Drag coefficient (assumed constant)
-    m0 = 149912 * 0.4536  # Lift-off mass (kg)
-    n = 7  # Mass ratio
-    T2W = 1.4  # Thrust to weight ratio
-    Isp = 390  # Specific impulse (s)
+    diam = 196.85/12*0.3048 # Vehicle diameter (m)
+    A = np.pi/4*(diam)**2   # Frontal area (m^2)
+    CD = 0.5                # Drag coefficient (assumed constant)
+    m0 = 149912 * 0.4536    # Lift-off mass (kg)
+    n = 7                   # Mass ratio
+    T2W = 1.4               # Thrust to weight ratio
+    Isp = 390               # Specific impulse (s)
 
-    mfinal = m0 / n  # Burnout mass (kg)
-    Thrust = T2W * m0 * g0  # Rocket thrust (N)
-    m_dot = Thrust / Isp / g0  # Propellant mass flow rate (kg/s)
-    mprop = m0 - mfinal  # Propellant mass (kg)
-    tburn = mprop / m_dot  # Burn time (s)
-    hturn = 130  # Height at which pitchover begins (m)
+    mfinal = m0/n           # Burnout mass (kg)
+    Thrust = T2W*m0*g0      # Rocket thrust (N)
+    m_dot = Thrust/Isp/g0   # Propellant mass flow rate (kg/s)
+    mprop = m0-mfinal       # Propellant mass (kg)
+    tburn = mprop/m_dot     # Burn time (s)
+    hturn = 130             # Height at which pitchover begins (m)
 
-    t0 = 0  # Initial time for the numerical integration
-    tf = tburn  # Final time for the numerical integration
-    tspan = [t0, tf]  # Range of integration
+    t0 = 0                  # Initial time for the numerical integration
+    tf = tburn              # Final time for the numerical integration
+    tspan = [t0, tf]        # Range of integration
 
-    # Initial conditions:
-    v0 = 0  # Initial velocity (m/s)
-    gamma0 = 89.85 * deg  # Initial flight path angle (rad)
-    x0 = 0  # Initial downrange distance (km)
-    h0 = 0  # Initial altitude (km)
-    vD0 = 0  # Initial velocity loss due to drag (m/s)
-    vG0 = 0  # Initial velocity loss due to gravity (m/s)
+    # ...Initial conditions:
+    v0 = 0                  # Initial velocity (m/s)
+    gamma0 = 89.85*deg      # Initial flight path angle (rad)
+    x0 = 0                  # Initial downrange distance (km)
+    h0 = 0                  # Initial altitude (km)
+    vD0 = 0                 # Initial velocity loss due to drag (m/s)
+    vG0 = 0                 # Initial velocity loss due to gravity (m/s)
 
-    # Initial conditions vector:
+    #...Initial conditions vector:
     f0 = [v0, gamma0, x0, h0, vD0, vG0]
 
-    # Call to Runge-Kutta numerical integrator 'rkf45'
-    # rkf45 solves the system of equations df/dt = f(t):
-    t, f = rkf45.rkf45(rates, tspan, f0)
+    #...Call to Runge-Kutta numerical integrator 'rkf45'
+    #   rkf45 solves the system of equations df/dt = f(t):
 
-    # Solution f(t) returned on the time interval [t0, tf]:
+    t, f = rkf45.rkf45(lambda t, y: rates(t, y, g0, Re, hscale, rho0, A, CD, m0, m_dot, tburn, Thrust, hturn), tspan, f0)
+
+    # ...Solution f(t) returned on the time interval [t0, tf]:
     v = f[:, 0] * 1.e-3  # Velocity (km/s)
     gamma = f[:, 1] / deg  # Flight path angle (degrees)
     x = f[:, 2] * 1.e-3  # Downrange distance (km)
@@ -59,7 +60,7 @@ def gravity_turn():
     vD = -f[:, 4] * 1.e-3  # Velocity loss due to drag (km/s)
     vG = -f[:, 5] * 1.e-3  # Velocity loss due to gravity (km/s)
 
-    # Dynamic pressure vs time:
+    #...Dynamic pressure vs time:
     q = []
     M = []
     for i in range(len(t)):
@@ -68,16 +69,16 @@ def gravity_turn():
         _, a, _, _ = atmosisa.atmosisa(h[i] * 1000)  # Speed of sound (m/s)
         M.append(1000 * v[i] / a)  # Mach number
 
-    # Maximum dynamic pressure and corresponding parameters:
-    maxQ = max(q)  # qMax
+    #...Maximum dynamic pressure and corresponding time, speed, altitude and
+    #   Mach number:
+    maxQ = max(q)                                 # qMax
     imax = q.index(maxQ)
-    tQ = t[imax]  # Time
-    vQ = v[imax]  # Speed
-    hQ = h[imax]  # Altitude
-    _, aQ, _, _ = atmosisa.atmosisa(h[imax] * 1000)  # Speed of sound at altitude
+    tQ = t[imax]                                  # Time
+    vQ = v[imax]                                  # Speed
+    hQ = h[imax]                                  # Altitude
+    _, aQ, _, _ = atmosisa.atmosisa(h[imax]*1000) # Speed of sound at altitude
     MQ = 1000 * vQ / aQ
 
-    # Output results:
     print("\n\n -----------------------------------")
     print(f"\n Initial flight path angle = {gamma0 / deg:.3f} deg ")
     print(f"\n Pitchover altitude        = {hturn:.3f} m   ")
@@ -96,10 +97,7 @@ def gravity_turn():
     print(f"    Gravity loss           = {vG[-1]:.3f} km/s")
     print("\n\n -----------------------------------")
 
-    # Plot Trajectory and Dynamic Pressure
     plt.figure(figsize=(10, 8))
-
-    # Subplot 1: Altitude vs Downrange Distance
     plt.subplot(2, 1, 1)
     plt.plot(x, h, label='Trajectory')
     plt.title('(a) Altitude vs Downrange Distance')
@@ -108,7 +106,6 @@ def gravity_turn():
     plt.axis('equal')
     plt.grid(True)
 
-    # Subplot 2: Dynamic Pressure vs Altitude
     plt.subplot(2, 1, 2)
     plt.plot(h, np.array(q) * 9.869e-6, label='Dynamic Pressure', color='r')
     plt.title('(b) Dynamic Pressure vs Altitude')
@@ -120,36 +117,18 @@ def gravity_turn():
     plt.show()
 
 # Define rates function
-def rates(t, y):
+def rates(t, y, g0, Re, hscale, rho0, A, CD, m0, m_dot, tburn, Thrust, hturn):
     '''
-    Calculates the time derivatives dy/dt for the gravity turn trajectory.
+    Calculates the time rates dy/dt of the variables y(t)
+    in the equations of motion of a gravity turn trajectory.
     '''
-    # Constants
-    deg = np.pi / 180  # Convert degrees to radians
-    g0 = 9.81  # Sea-level acceleration of gravity (m/s)
-    Re = 6378.14e3  # Radius of the earth (m)
-    hscale = 7.5e3  # Density scale height (m)
-    rho0 = 1.225  # Sea level density of atmosphere (kg/m^3)
-
-    diam = 196.85 / 12 * 0.3048  # Vehicle diameter (m)
-    A = np.pi / 4 * (diam) ** 2  # Frontal area (m^2)
-    CD = 0.5
-    m0 = 149912 * 0.4536  # Lift-off mass (kg)
-    n = 7  # Mass ratio
-    T2W = 1.4  # Thrust to weight ratio
-    Isp = 390  # Specific impulse (s)
-
-    mfinal = m0 / n  # Burnout mass (kg)
-    Thrust = T2W * m0 * g0  # Rocket thrust (N)
-    m_dot = Thrust / Isp / g0  # Propellant mass flow rate (kg/s)
-    mprop = m0 - mfinal  # Propellant mass (kg)
-    tburn = mprop / m_dot  # Burn time (s)
-    hturn = 130  # Height at which pitchover begins (m)
-
+    #...Initialize dydt as a column vector:
     dydt = np.zeros(6)
 
     v, gamma, x, h, vD, vG = y
 
+    #...When time t exceeds the burn time, set the thrust
+    #   and the mass flow rate equal to zero:
     if t < tburn:
         m = m0 - m_dot * t  # Current vehicle mass
         T = Thrust  # Current thrust
@@ -161,6 +140,7 @@ def rates(t, y):
     rho = rho0 * np.exp(-h / hscale)  # Exponential density variation with altitude
     D = 0.5 * rho * v ** 2 * A * CD  # Drag
 
+    #...Start the gravity turn when h = hturn:
     if h <= hturn:
         gamma_dot = 0
         v_dot = T / m - D / m - g
@@ -176,6 +156,7 @@ def rates(t, y):
 
     vD_dot = -D / m
 
+    #...Load the first derivatives of y(t) into the vector dydt:
     dydt[0] = v_dot
     dydt[1] = gamma_dot
     dydt[2] = x_dot

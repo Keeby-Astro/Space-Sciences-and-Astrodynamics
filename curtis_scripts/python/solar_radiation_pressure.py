@@ -1,18 +1,6 @@
-import sys
-import os
-import importlib.util
-
-std_lib_dir = os.path.dirname(os.__file__)  
-std_bisect_path = os.path.join(std_lib_dir, 'bisect.py')
-spec = importlib.util.spec_from_file_location("bisect", std_bisect_path)
-real_bisect = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(real_bisect)
-sys.modules["bisect"] = real_bisect
-
 import numpy as np
 from scipy.integrate import solve_ivp
-from scipy.fftpack import dct, idct
-from scipy.optimize import minimize_scalar
+from rsmooth import rsmooth
 import matplotlib.pyplot as plt
 import sv_from_coe
 import los
@@ -23,9 +11,9 @@ def solar_radiation_pressure():
     This function solves the Gauss planetary equations for
     solar radiation pressure (Equations 10.106).
     
-    User M-functions required:  sv_from_coe, los, solar_position
+    User py-functions required:  sv_from_coe, los, solar_position, rsmooth
     User subfunctions required: rates
-    The M-function rsmooth may be found in Garcia, D: Robust Smoothing of Gridded Data in One
+    The smoothing method is described in Garcia, D: Robust Smoothing of Gridded Data in One
     and Higher Dimensions with Missing Values, Computational Statistics and Data Analysis,
     5 Vol. 54, 1167-1178, 2010.
     '''
@@ -37,8 +25,8 @@ def solar_radiation_pressure():
     deg = np.pi / 180              # Degrees to radians
 
     #...Constants:
-    mu = 398600.4418               # Gravitational parameter (km^3/s^2)
-    RE = 6378.14                   # Earth's radius (km)
+    mu = 398600                    # Gravitational parameter (km^3/s^2)
+    RE = 6378                      # Earth's radius (km)
     c = 2.998e8                    # Speed of light (m/s)
     S = 1367                       # Solar constant (W/m^2)
     Psr = S / c                    # Solar pressure (Pa)
@@ -128,7 +116,9 @@ def solar_radiation_pressure():
 
         return [hdot, edot, RAdot, idot, wdot, TAdot]
 
-    sol = solve_ivp(rates, [t0, tf], coe0, t_eval=t_eval, method='RK45', rtol=1e-8, atol=1e-8)
+    sol = solve_ivp(rates, [t0, tf], coe0, t_eval=t_eval, method='RK45', rtol=1e-8, atol=1e-8, max_step=T0/100)
+    if not sol.success:
+        raise RuntimeError(sol.message)
 
     #...Extract the solution:
     t = sol.t
@@ -179,30 +169,6 @@ def solar_radiation_pressure():
 
     plt.tight_layout()
     plt.show()
-
-def rsmooth(y):
-    '''
-    Apply recursive smoothing to the data.
-    '''
-    y = np.asarray(y)
-    n = len(y)
-    Lambda = -2 + 2 * np.cos(np.arange(n) * np.pi / n)
-    Lambda_sq = Lambda**2 
-    W = np.ones(n)
-    z = y.copy()
-
-    for _ in range(6):
-        tol = float('inf')
-        while tol > 1e-5:
-            DCTy = dct(W * (y - z) + z, norm='ortho')
-            GCVscore = lambda p: np.sum((W * (y - idct(1 / (1 + 10**p * Lambda_sq) * DCTy, norm='ortho')))**2)
-            result = minimize_scalar(GCVscore, bounds=(-15, 38), method='bounded')
-            s = 10**result.x
-            Gamma = 1 / (1 + s * Lambda_sq)
-            new_z = idct(Gamma * DCTy, norm='ortho') 
-            tol = np.linalg.norm(new_z - z) / max(np.linalg.norm(z), 1e-10)
-            z = new_z
-    return z
 
 if __name__ == '__main__':
     solar_radiation_pressure()

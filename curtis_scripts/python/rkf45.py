@@ -48,7 +48,6 @@ def rkf45(ode_function, tspan, y0, tolerance=1.e-8):
 
     User py-function required: ode_function
     '''
-    # Fehlberg coefficients
     a = np.array([0, 1/4, 3/8, 12/13, 1, 1/2])
 
     b = np.array([
@@ -63,6 +62,12 @@ def rkf45(ode_function, tspan, y0, tolerance=1.e-8):
     c5 = np.array([16/135, 0, 6656/12825, 28561/56430, -9/50, 2/55])
 
     t0, tf = tspan
+    if not np.isfinite([t0, tf]).all() or tf < t0:
+        raise ValueError("Integration requires finite times with tf >= t0.")
+    if np.asarray(y0).ndim != 1 or len(y0) == 0 or not np.isfinite(y0).all():
+        raise ValueError("Initial state must be a finite, nonempty vector.")
+    if not np.isfinite(tolerance) or tolerance <= 0:
+        raise ValueError("Tolerance must be finite and positive.")
     t = t0
     y = np.array(y0, dtype=float)
     tout = [t]
@@ -70,16 +75,23 @@ def rkf45(ode_function, tspan, y0, tolerance=1.e-8):
     h = (tf - t0) / 100  # Assumed initial time step.
 
     while t < tf:
-        hmin = 16 * np.finfo(float).eps * abs(t)
+        h = min(h, tf - t)
+        if h <= 0 or t + h == t:
+            raise RuntimeError("Integration step cannot advance time.")
+        hmin = 16 * abs(np.spacing(t))
         ti = t
         yi = y.copy()
 
-        #...Evaluate the time derivatives at six points within the current interval:
+        #...Evaluate the time derivatives at six points within the current 
+        # interval:
         f = np.zeros((len(y), 6))
         for i in range(6):
             t_inner = ti + a[i] * h
             y_inner = yi + h * sum(b[i, j] * f[:, j] for j in range(i))
-            f[:, i] = ode_function(t_inner, y_inner)
+            fi = np.asarray(ode_function(t_inner, y_inner), dtype=float)
+            if fi.shape != y.shape or not np.isfinite(fi).all():
+                raise ValueError("Derivative must match the state and be finite.")
+            f[:, i] = fi
 
         #...Compute the maximum truncation error:
         te = h * f @ (c4 - c5)  # Difference between 4th and 
@@ -91,11 +103,10 @@ def rkf45(ode_function, tspan, y0, tolerance=1.e-8):
         te_allowed = tolerance * max(ymax, 1.0)
 
         #...Compute the fractional change in step size:
-        delta = (te_allowed / (te_max + np.finfo(float).eps))**(1/5)
+        delta = 4.0 if te_max == 0 else 0.9 * (te_allowed / te_max)**(1/5)
 
         #...If the truncation error is in bounds, update the solution:
         if te_max <= te_allowed:
-            h = min(h, tf - t)
             t += h
             y = yi + h * f @ c5
             tout.append(t)
@@ -103,8 +114,7 @@ def rkf45(ode_function, tspan, y0, tolerance=1.e-8):
 
         #...Update the time step
         h = min(delta * h, 4 * h)
-        if h < hmin:
-            print(f"\n\nWarning: Step size fell below its minimum allowable value ({hmin}) at time {t}.\n\n")
-            break
+        if t < tf and h < hmin:
+            raise RuntimeError("Required step size is below floating-point resolution.")
 
     return np.array(tout), np.array(yout)

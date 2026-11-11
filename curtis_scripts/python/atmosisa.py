@@ -4,12 +4,12 @@ def atmosisa(h_m):
     '''
     Returns standard atmosphere properties using an approximation
     to the International Standard Atmosphere (ISA) model for a
-    given geometric altitude h_m (meters).
+    given geopotential altitude h_m (meters).
 
     T   - Temperature (K)
     a   - Speed of sound (m/s)
     P   - Pressure (Pa)
-    rho - Density (g/m^3)
+    rho - Density (kg/m^3)
 
     User py-function required: none
     '''
@@ -64,6 +64,8 @@ def atmosisa(h_m):
     ]
 
     # Clip altitudes to valid range
+    if not np.isfinite(h_m):
+        raise ValueError("Altitude must be finite.")
     if h_m < 0.0:
         raise ValueError("Altitude cannot be negative for this standard model.")
     if h_m > 84852.0:

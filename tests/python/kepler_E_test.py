@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import kepler_E
 
 def kepler_E_test():
@@ -11,15 +19,15 @@ def kepler_E_test():
 
     User function required: kepler_E
     '''
-    # ...Data declaration:
+    #...Data declaration:
     e = 0.37255
     M = 3.6029
-    # ...
+    #...
 
-    # ...Pass the input data to the function kepler_E, which returns E:
+    #...Pass the input data to the function kepler_E, which returns E:
     E = kepler_E.kepler_E(e, M)
 
-    # ...Echo the input data and output to the command window:
+    #...Echo the input data and output to the console:
     print('---------------------------------------------------')
     print(f'\n Eccentricity                = {e}')
     print(f'\n Mean anomaly (radians)      = {M}')

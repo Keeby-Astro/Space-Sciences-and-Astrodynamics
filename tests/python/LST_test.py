@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import LST
 
 def LST_test():
@@ -28,30 +36,30 @@ def LST_test():
     seconds = 0
 
     #   Date:
-    year = 2004
+    year  = 2004
     month = 3
-    day = 3
+    day   = 3
 
     #   Universal time:
-    hour = 4
+    hour   = 4
     minute = 30
     second = 0
 
-    # Convert negative (west) longitude to east longitude:
+    #...Convert negative (west) longitude to east longitude:
     if degrees < 0:
         degrees += 360
 
-    # Express the longitudes as decimal numbers:
+    #...Express the longitudes as decimal numbers:
     EL = degrees + minutes / 60 + seconds / 3600
     WL = 360 - EL
 
-    # Express universal time as a decimal number:
+    #...Express universal time as a decimal number:
     ut = hour + minute / 60 + second / 3600
 
-    # Algorithm 5.3:
+    #...Algorithm 5.3:
     lst = LST.LST(year, month, day, ut, EL)
 
-    # Echo the input data and output the results to the console:
+    #...Echo the input data and output the results to the console:
     print('-----------------------------------------------------')
     print('\nInput data:')
     print(f'Year                      = {year}')
@@ -60,7 +68,9 @@ def LST_test():
     print(f'UT (hr)                   = {ut:.1f}')
     print(f'West Longitude (deg)      = {WL:.3f}')
     print(f'East Longitude (deg)      = {EL:.3f}')
+
     print('\nSolution:')
+    
     print(f'\nLocal Sidereal Time (deg) = {lst:.6f}')
     print(f'Local Sidereal Time (hr)  = {lst / 15:.6f}')
     print('-----------------------------------------------------')

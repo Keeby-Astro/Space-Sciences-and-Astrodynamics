@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import solar_position
 
 def solar_position_test():
@@ -8,7 +16,7 @@ def solar_position_test():
     User py-functions required: None
     '''
     # Julian date for 2023-12-21 00:00:00 UTC (Winter Solstice)
-    jd_test = 2460271.5  # Julian date
+    jd_test = 2460299.5  # Julian date
 
     # Call the solar_position function
     lamda, eps, r_S = solar_position.solar_position(jd_test)

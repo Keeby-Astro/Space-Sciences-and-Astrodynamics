@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import kepler_U
 
 def kepler_U_test():
@@ -14,19 +22,19 @@ def kepler_U_test():
 
     User py-function required: kepler_U
     '''
-    mu = 398600.4418
+    mu = 398600
 
-    # Data declaration:
+    #...Data declaration:
     ro = 10000
     vro = 3.0752
     dt = 3600
     a = -19655
 
-    # Pass the input data to the function kepler_U, which returns x
-    # (Universal Kepler's requires the reciprocal of semimajor axis):
+    #...Pass the input data to the function kepler_U, which returns x
+    #...(Universal Kepler's requires the reciprocal of semimajor axis):
     x = kepler_U.kepler_U(dt, ro, vro, 1/a, mu)
 
-    # Echo the input data and output the results to the console:
+    #...Echo the input data and output the results to the console:
     print('-----------------------------------------------------')
     print(f'Initial radial coordinate (km) = {ro}')
     print(f'Initial radial velocity (km/s) = {vro}')

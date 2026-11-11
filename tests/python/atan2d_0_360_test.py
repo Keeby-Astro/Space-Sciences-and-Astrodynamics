@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import atan2d_0_360
 
@@ -9,7 +17,7 @@ def atan2d_0_360_test():
 
     User py-function required: atan2d_0_360
     '''
-    # Inputs
+    #...Inputs
     inputs = [
         [0, 0], [1, 0], [0, 1], [-1, 0],
         [0, -1], [1, 1], [-1, -1], [1, -1],

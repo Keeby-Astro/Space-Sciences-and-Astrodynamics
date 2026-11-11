@@ -6,7 +6,7 @@ def threebody():
     This program presents the graphical solution of the motion of three
     bodies in the plane for data provided in the input definitions below.
 
-    Python's ode45 Runge-Kutta solver is used.
+    A fourth-order Runge-Kutta integration loop is used.
 
     G                           - gravitational constant (km^3/kg/s^2)
     t0, tf                      - initial and final times (s)
@@ -38,7 +38,7 @@ def threebody():
     m1, m2, m3 = 1.e29, 1.e29, 1.e29
 
     t0, tf = 0, 67000
-    dt = 1  # Time step for Euler method
+    dt = 1  # Time step for fourth-order Runge-Kutta
 
     X1, Y1 = 0, 0
     X2, Y2 = 300000, 0
@@ -52,18 +52,21 @@ def threebody():
     m = m1 + m2 + m3
     y0 = [X1, Y1, X2, Y2, X3, Y3, VX1, VY1, VX2, VY2, VX3, VY3]
 
-    # Pass the initial conditions and time interval to the ODE using Euler method, which
-    # calculates the position and velocity of each particle at discrete
-    # times t, returning the solution in the column vector y. The ODE using Euler method use
-    # the subfunction 'rates' below to evaluate the accelerations at each
-    # integration time step.
-    t = np.arange(t0, tf, dt)
+    #...Pass the initial conditions and time interval to the Runge-Kutta loop,
+    # which calculates the position and velocity of each particle at discrete
+    # times t, returning the solution in the array y. The loop uses the
+    # subfunction 'rates' below to evaluate the accelerations at each stage.
+    t = np.append(np.arange(t0, tf, dt), tf)
     y = np.zeros((len(t), len(y0)))
     y[0] = y0
 
     for i in range(1, len(t)):
-        dydt = rates(t[i-1], y[i-1], G, m1, m2, m3)
-        y[i] = y[i-1] + np.array(dydt) * dt
+        step = t[i] - t[i-1]
+        k1 = np.array(rates(t[i-1], y[i-1], G, m1, m2, m3))
+        k2 = np.array(rates(t[i-1] + step/2, y[i-1] + step*k1/2, G, m1, m2, m3))
+        k3 = np.array(rates(t[i-1] + step/2, y[i-1] + step*k2/2, G, m1, m2, m3))
+        k4 = np.array(rates(t[i], y[i-1] + step*k3, G, m1, m2, m3))
+        y[i] = y[i-1] + step/6 * (k1 + 2*k2 + 2*k3 + k4)
 
     X1, Y1 = y[:, 0], y[:, 1]
     X2, Y2 = y[:, 2], y[:, 3]

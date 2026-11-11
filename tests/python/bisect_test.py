@@ -1,4 +1,12 @@
-import bisect
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
+import bisect_root as bisect
 
 def bisect_test():
     '''
@@ -22,7 +30,7 @@ def bisect_test():
     r12 = 3.844e5
 
     xl = [-1.1, 0.5, 1.0]
-    xu = [-0.9, 1.0, 1.5]
+    xu = [-0.9, 0.9, 1.5]
     #...End input data
 
     p = m2 / (m1 + m2)

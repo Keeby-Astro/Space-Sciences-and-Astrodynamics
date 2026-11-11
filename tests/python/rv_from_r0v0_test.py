@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import rv_from_r0v0
 
@@ -16,10 +24,11 @@ def rv_from_r0v0_test():
     User py-functions required: rv_from_r0v0
     '''
     #...Data declaration:
-    mu = 398600.4418  
+    mu = 398600
     R0 = np.array([7000, -12124, 0]) 
     V0 = np.array([2.6679, 4.6210, 0])
     t = 3600 
+    #...
 
     #...Algorithm 3.4:
     R, V = rv_from_r0v0.rv_from_r0v0(R0, V0, t, mu)

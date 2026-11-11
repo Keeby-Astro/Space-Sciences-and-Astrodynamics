@@ -34,6 +34,8 @@ def month_planet_names(month_id, planet_id):
                'Neptune',
                'Pluto  ']
 
+    if not isinstance(month_id, int) or not 1 <= month_id <= 12 or not isinstance(planet_id, int) or not 1 <= planet_id <= 9:
+        raise ValueError("Month and planet identifiers must be integers in 1..12 and 1..9.")
     month = months[month_id - 1]
     planet = planets[planet_id - 1]
 

@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import rkf45
@@ -55,7 +63,6 @@ def rkf45_test_lunar():
     User py-functions required: rkf45
     User subfunctions required: rates, circle
     '''
-    # Constants and input data:
     days   = 24 * 3600
     G      = 6.6742e-20
     rmoon  = 1737
@@ -65,12 +72,12 @@ def rkf45_test_lunar():
     m2     = 7.348e22
 
     M    = m1 + m2
-    pi_1 = m1 / M
-    pi_2 = m2 / M
 
     mu1 = 398600
     mu2 = 4903.02
     mu  = mu1 + mu2
+    pi_1 = mu1 / mu
+    pi_2 = mu2 / mu
 
     W  = np.sqrt(mu / r12**3)
     x1 = -pi_2 * r12
@@ -93,7 +100,7 @@ def rkf45_test_lunar():
     f0 = [x, y, vx, vy]
 
     #...Compute the trajectory:
-    t, f = rkf45.rkf45(rates, [t0, tf], f0)
+    t, f = rkf45.rkf45(lambda t, f: rates(t, f, mu1, mu2, r12), [t0, tf], f0)
     x    = f[:, 0]
     y    = f[:, 1]
     vx   = f[:, 2]
@@ -112,7 +119,7 @@ def rkf45_test_lunar():
     output(d0, phi, gamma, tf, days, df, vf, x, y, x1, x2, rearth, rmoon)
 
 # --------------
-def rates(t, f):
+def rates(t, f, mu1=398600, mu2=4903.02, r12=384400):
 # --------------
     '''
     This subfunction calculates the components of the relative acceleration
@@ -128,22 +135,13 @@ def rates(t, f):
 
     User py-functions required: none
     '''
-    m1 = 5.974e24
-    m2 = 7.348e22
+    mu   = mu1 + mu2
+    pi_1 = mu1 / mu
+    pi_2 = mu2 / mu
 
-    M    = m1 + m2
-    pi_1 = m1 / M
-    pi_2 = m2 / M
-
-    mu1 = 398600
-    mu2 = 4903.02
-    mu  = mu1 + mu2
-
-    W  = np.sqrt(mu / 384400**3)
-    x1 = -pi_2 * 384400
-    x2 = pi_1 * 384400
-    
-    r12 = 384400
+    W  = np.sqrt(mu / r12**3)
+    x1 = -pi_2 * r12
+    x2 = pi_1 * r12
 
     x  = f[0]
     y  = f[1]
@@ -198,7 +196,7 @@ def output(d0, phi, gamma, tf, days, df, vf, x, y, x1, x2, rearth, rmoon):
     earth = circle(x1, 0, rearth)
     moon  = circle(x2, 0, rmoon)
     plt.fill(earth[:, 0], earth[:, 1], 'b')
-    plt.fill(moon[:, 0], moon[:, 1], 'grey')
+    plt.fill(moon[:, 0], moon[:, 1], 'g')
     plt.show()
 
 # -------------------------

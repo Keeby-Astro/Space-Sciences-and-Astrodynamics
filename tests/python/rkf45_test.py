@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import rkf45
@@ -31,7 +39,7 @@ def rkf45_test():
     User py-function required: rkf45
     User py-subfunction required: rates
     '''
-    mu      = 398600.4418
+    mu      = 398600
     minutes = 60  # Conversion from minutes to seconds
 
     x0 = 6500
@@ -42,7 +50,6 @@ def rkf45_test():
     tspan = [t0, tf]
 
     t, f = rkf45.rkf45(rates, tspan, y0)
-
     plotit(t, f, minutes)
 
 def rates(t, f):
@@ -59,7 +66,7 @@ def rates(t, f):
     
     User py-functions required: none
     '''
-    mu   = 398600.4418
+    mu   = 398600
     x    = f[0]
     Dx   = f[1]
     D2x  = -mu / x**2
@@ -83,7 +90,6 @@ def plotit(t, f, minutes):
     plt.ylabel('velocity, km/s')
     plt.grid(True)
     plt.axis([t[0] / minutes, t[-1] / minutes, -10, 10])
-
     plt.tight_layout()
     plt.show()
 

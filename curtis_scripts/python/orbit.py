@@ -48,29 +48,29 @@ def orbit():
 
     #...Input data:
     #   Earth:
-    m1 = 5.974e24  # Mass of Earth (kg)
-    R  = 6378.14   # Radius of Earth (km)
-    m2 = 1000      # Mass of spacecraft (kg)
+    m1 = 5.974e24
+    R  = 6378.14
+    m2 = 1000
 
-    r0 = np.array([8000, 0, 6000])  # Initial position vector (km)
-    v0 = np.array([0, 7, 0])        # Initial velocity vector (km/s)
+    r0 = np.array([8000, 0, 6000])
+    v0 = np.array([0, 7, 0])
 
     t0 = 0
     tf = 4 * hours
     #...End input data
 
     #...Numerical integration:
-    mu = G * (m1 + m2)  # Gravitational parameter (km^3/s^2)
+    mu = G * (m1 + m2)
     y0 = np.concatenate((r0, v0))
     # t, y = rkf45(rates, [t0, tf], y0)
-    t, y = rkf45.rkf45(rates, [t0, tf], y0)
+    t, y = rkf45.rkf45(lambda t, f: rates(t, f, mu), [t0, tf], y0)
     #...Output the results:
     output(t, y, mu, R, r0, v0, tf, hours)
 
     return
 
 
-def rates(_, f):
+def rates(_, f, mu=6.6742e-20*(5.974e24+1000)):
     '''
     This function calculates the acceleration vector using Equation 2.22.
     
@@ -84,12 +84,6 @@ def rates(_, f):
     dydt       - column vector containing the velocity and acceleration
                  components
     '''
-    G = 6.6742e-20
-    m1 = 5.974e24
-    m2 = 1000
-
-    mu = G * (m1 + m2)
-        
     x, y, z = f[0], f[1], f[2]
     vx, vy, vz = f[3], f[4], f[5]
 
@@ -119,7 +113,7 @@ def output(t, y_data, _, R, r0, v0, tf, hours):
     v_at_rmax = np.linalg.norm(y_data[imax, 3:])
     v_at_rmin = np.linalg.norm(y_data[imin, 3:])
 
-    # Output to command window
+    #...Output to command window:
     print("\n\n--------------------------------------------------------------")
     print("\n Earth Orbit")
     print(f" {datetime.now()}")
@@ -134,7 +128,7 @@ def output(t, y_data, _, R, r0, v0, tf, hours):
     print(f" The speed at that point is {v_at_rmax} km/s.")
     print("\n--------------------------------------------------------------\n")
 
-    # Plot the results
+    #...Plot the results:
     fig = plt.figure()
     ax = fig.add_subplot(111, projection='3d')
 

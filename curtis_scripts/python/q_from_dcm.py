@@ -19,7 +19,7 @@ def q_from_dcm(Q):
         [Q[1, 2] - Q[2, 1], Q[2, 0] - Q[0, 2], Q[0, 1] - Q[1, 0], Q[0, 0] + Q[1, 1] + Q[2, 2]]
     ]) / 3
 
-    eigval, eigvec = np.linalg.eig(K3)
+    eigval, eigvec = np.linalg.eigh(K3)
 
     i = np.argmax(eigval)
     q = eigvec[:, i]

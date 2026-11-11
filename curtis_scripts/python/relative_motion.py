@@ -39,8 +39,8 @@ def relative_motion():
     mu = 398600.4418
     RE = 6378.14
 
-    # Input data:
-    # Prescribed initial orbital parameters of target A:
+    #...Input data:
+    #   Prescribed initial orbital parameters of target A:
     rp = RE + 300
     e = 0.1
     i = 0
@@ -48,33 +48,34 @@ def relative_motion():
     omega = 0
     theta = 0
 
-    # Additional computed parameters:
+    #   Additional computed parameters:
     ra = rp * (1 + e) / (1 - e)
     h = np.sqrt(2 * mu * rp * ra / (ra + rp))
     a = (rp + ra) / 2
     T = 2 * np.pi / np.sqrt(mu) * a**1.5
     n = 2 * np.pi / T
 
-    # Prescribed initial state vector of chaser B in the co-moving frame:
+    #   Prescribed initial state vector of chaser B in the co-moving frame:
     dr0 = np.array([-1, 0, 0])
     dv0 = np.array([0, -2 * n * dr0[0], 0])
     t0 = 0
     tf = 5 * T
+    #...End input data
 
-    # Calculate the target's initial state vector using sv_from_coe:
+    #...Calculate the target's initial state vector using Algorithm 4.5:
     R0, V0 = sv_from_coe.sv_from_coe([h, e, RA, i, omega, theta], mu)
 
-    # Initial state vector of B's orbit relative to A:
+    #...Initial state vector of B's orbit relative to A
     y0 = np.concatenate((dr0, dv0))
 
-    # Integrate Equations using rkf45:
-    t, y = rkf45.rkf45(rates, [t0, tf], y0)
+    #...Integrate Equations 7.34 using Algorithm 1.3:
+    t, y = rkf45.rkf45(lambda t, f: rates(t, f, R0, V0, mu), [t0, tf], y0)
 
     plotit(t, y)
 
     return
 
-def rates(t, f):
+def rates(t, f, R0, V0, mu):
     '''
     This function computes the components of f(t,y).
 
@@ -96,28 +97,7 @@ def rates(t, f):
 
     User py-function required: rv_from_r0v0
     '''
-    global R0, V0
-
-    mu = 398600.4418
-    RE = 6378.14
-
-    # Input data:
-    # Prescribed initial orbital parameters of target A:
-    rp = RE + 300
-    e = 0.1
-    i = 0
-    RA = 0
-    omega = 0
-    theta = 0
-
-    # Additional computed parameters:
-    ra = rp * (1 + e) / (1 - e)
-    h = np.sqrt(2 * mu * rp * ra / (ra + rp))
-
-    # Calculate the target's initial state vector using sv_from_coe:
-    R0, V0 = sv_from_coe.sv_from_coe([h, e, RA, i, omega, theta], mu)
-
-    # Update the state vector of the target orbit using rv_from_r0v0:
+    #...Update the state vector of the target orbit using Algorithm 3.4:
     R, V = rv_from_r0v0.rv_from_r0v0(R0, V0, t, mu)
 
     X, Y, Z = R
@@ -151,7 +131,7 @@ def plotit(t, y):
     plt.grid(True)
     plt.box(True)
 
-    # Label the start of B's trajectory relative to A:
+    #...Label the start of B's trajectory relative to A:
     plt.text(y[0, 1], y[0, 0], 'o')
     plt.show()
 

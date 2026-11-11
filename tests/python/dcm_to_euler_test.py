@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+    
 import numpy as np
 import dcm_to_euler
 
@@ -14,7 +22,7 @@ def dcm_to_euler_test():
     input_matrices = [
         np.eye(3),                                                      # Identity matrix (no rotation)
         np.array([[0, -1,  0], [1,  0,  0], [0,  0,  1]]),              # 90-degree rotation about Z-axis
-        np.array([[0,  0, -1], [0,  1,  0], [1,  0,  0]]),              # 90-degree rotation about X-axis
+        np.array([[0,  0, -1], [0,  1,  0], [1,  0,  0]]),              # 90-degree rotation about Y-axis
         np.array([[0,  1,  0], [-1,  0,  0], [0,  0,  1]]),             # -90-degree rotation about Z-axis
         np.array([[np.cos(np.radians(45)), -np.sin(np.radians(45)), 0], # 45-degree rotation about Z-axis
                   [np.sin(np.radians(45)),  np.cos(np.radians(45)), 0],

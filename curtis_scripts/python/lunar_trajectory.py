@@ -1,14 +1,4 @@
-import sys
-import os
-import importlib.util
 import datetime
-
-std_lib_dir = os.path.dirname(os.__file__)  
-std_bisect_path = os.path.join(std_lib_dir, 'bisect.py')
-spec = importlib.util.spec_from_file_location("bisect", std_bisect_path)
-real_bisect = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(real_bisect)
-sys.modules["bisect"] = real_bisect
 
 from scipy.integrate import solve_ivp
 import numpy as np
@@ -22,7 +12,7 @@ def lunar_trajectory():
     This program presents the graphical solution of the motion of a
     spacecraft in the gravity fields of both the earth and the moon for
     the initial data provided in the input declaration below.
-    MATLAB's ode45 Runge-Kutta solver is used.
+    SciPy's solve_ivp Runge-Kutta solver is used.
 
     deg                         - conversion factor, degrees to radians
     days                        - conversion factor, days to seconds
@@ -186,10 +176,8 @@ def lunar_trajectory():
     J_ = np.array([0.0, 1.0, 0.0])
     K_ = np.cross(I_, J_)
     r0 = Re + z0
-    # In radians:
     alpha0_rad = alpha0*deg
     dec0_rad   = dec0*deg
-
     r0_ = r0*(np.cos(alpha0_rad)*np.cos(dec0_rad)*I_ +
               np.sin(alpha0_rad)*np.cos(dec0_rad)*J_ +
               np.sin(dec0_rad)*K_)
@@ -202,7 +190,6 @@ def lunar_trajectory():
     ur_    = r0_/np.linalg.norm(r0_)
     uperp_ = np.cross(w0_, ur_)
     uperp_ = uperp_/np.linalg.norm(uperp_)
-
     gamma0_rad = gamma0*deg
     vr    = v0*np.sin(gamma0_rad)
     vperp = v0*np.cos(gamma0_rad)
@@ -210,8 +197,7 @@ def lunar_trajectory():
     uv0_  = v0_/v0
 
     #...Initial state vector of the probe:
-    y0 = np.array([r0_[0], r0_[1], r0_[2],
-                   v0_[0], v0_[1], v0_[2]])
+    y0 = np.array([r0_[0], r0_[1], r0_[2], v0_[0], v0_[1], v0_[2]])
 
     def rates(t, y, jd0, days, mu_m, mu_e, ttt):
         '''
@@ -276,6 +262,8 @@ def lunar_trajectory():
                     rtol=1.e-10,
                     atol=1.e-10,
                     dense_output=True)
+    if not sol.success:
+        raise RuntimeError(sol.message)
 
     # Extract solution times and states
     t = sol.t
@@ -438,7 +426,7 @@ def lunar_trajectory():
     print(' Declination                     = {:11g} deg'.format(Dec_at_perilune))
     print(' Target error                    = {:11g} km'.format(target_error))
 
-    print('\n\nThe probe at perilune:')
+    print('\n\nThe probe at sampled perilune:')
     print(' Altitude                        = {:11g} km'.format(dist_min - Rm))
     print(' Speed                           = {:11g} km/s'.format(np.linalg.norm(v_atdmin_)))
     print(' Relative speed                  = {:11g} km/s'.format(rel_speed))

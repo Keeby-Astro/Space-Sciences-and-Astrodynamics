@@ -56,14 +56,14 @@ def ground_track():
 
     User py-functions required: sv_from_coe, kepler_E, ra_and_dec_from_r
     '''
-    # Constants
+    #...Constants
     deg = np.pi / 180
     mu = 398600.4418
     J2 = 0.00108263
     Re = 6378.14
     we = (2 * np.pi + 2 * np.pi / 365.26) / (24 * 3600)
 
-    # Data declaration for Example 4.12:
+    #...Data declaration for Example 4.12:
     rP = 6700
     rA = 10000
     TAo = 230 * deg
@@ -71,9 +71,9 @@ def ground_track():
     incl = 60 * deg
     wpo = 45 * deg
     n_periods = 3.25
-    # End data declaration
+    #...End data declaration
 
-    # Compute the initial time (since perigee) and
+    #...Compute the initial time (since perigee) and
     # the rates of node regression and perigee advance
     a = (rA + rP) / 2
     T = 2 * np.pi / np.sqrt(mu) * a**(3 / 2)
@@ -97,7 +97,7 @@ def find_ra_and_dec(to, tf, T, h, e, mu, Wo, Wdot, incl, wpo, wpdot):
     '''
     Propagates the orbit over the specified time interval, transforming
     the position vector into the earth-fixed frame and computing
-    the right ascension and declination histories.
+    the right ascension and declination histories
     '''
     we = (2 * np.pi + 2 * np.pi / 365.26) / (24 * 3600)
 
@@ -111,8 +111,8 @@ def find_ra_and_dec(to, tf, T, h, e, mu, Wo, Wdot, incl, wpo, wpdot):
         TA = 2 * np.arctan(np.tan(E / 2) * np.sqrt((1 + e) / (1 - e)))
         r = h**2 / mu / (1 + e * np.cos(TA)) * np.array([np.cos(TA), np.sin(TA), 0])
 
-        W = Wo + Wdot * t
-        wp = wpo + wpdot * t
+        W = Wo + Wdot * (t - to)
+        wp = wpo + wpdot * (t - to)
 
         R1 = np.array([[np.cos(W), np.sin(W), 0],
                        [-np.sin(W), np.cos(W), 0],

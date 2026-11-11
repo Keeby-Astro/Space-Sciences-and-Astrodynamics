@@ -22,7 +22,7 @@ def fDot_and_gDot_ta(r0, v0, dt, mu):
     c = np.cos(np.radians(dt))
     s = np.sin(np.radians(dt))
 
-    # Equations 2.158c & d:
+    #...Equations 2.158c & d:
     fdot = mu / h * (vr0 / h * (1 - c) - s / r0)
     gdot = 1 - mu * r0 / h**2 * (1 - c)
 

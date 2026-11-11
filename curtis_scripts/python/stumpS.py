@@ -10,6 +10,8 @@ def stumpS(z):
 
     User py-functions required: none
     '''
+    if abs(z) < 1.e-3:
+        return 1/6 - z/120 + z**2/5040 - z**3/362880 + z**4/39916800
     if z > 0:
         s = (np.sqrt(z) - np.sin(np.sqrt(z))) / (np.sqrt(z))**3
     elif z < 0:

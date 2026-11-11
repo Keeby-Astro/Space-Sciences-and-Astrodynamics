@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import lambert
 import coe_from_sv
@@ -29,7 +37,7 @@ def lambert_test():
 
     User py-functions required: lambert, coe_from_sv
     '''
-    mu = 398600.4418
+    mu = 398600
 
     deg = np.pi / 180.0
 
@@ -38,21 +46,22 @@ def lambert_test():
     r2 = np.array([-14600.0, 2500.0, 7000.0])
     dt = 3600.0
     string = 'pro'
+    #...
 
-    # ...Algorithm 5.2:
+    #...Algorithm 5.2:
     v1, v2 = lambert.lambert(r1, r2, dt, string, mu)
 
-    # ...Algorithm 4.1 (using r1 and v1):
+    #...Algorithm 4.1 (using r1 and v1):
     coe = coe_from_sv.coe_from_sv(r1, v1, mu)
-    # ...Save the initial true anomaly:
+    #...Save the initial true anomaly:
     TA1 = coe[5]
 
-    # ...Algorithm 4.1 (using r2 and v2):
+    #...Algorithm 4.1 (using r2 and v2):
     coe = coe_from_sv.coe_from_sv(r2, v2, mu)
-    # ...Save the final true anomaly:
+    #...Save the final true anomaly:
     TA2 = coe[5]
 
-    # ...Echo the input data and output the results:
+    #...Echo the input data and output the results to the console:
     print('-----------------------------------------------------')
     print('\n\n Input data:\n')
 
@@ -75,16 +84,12 @@ def lambert_test():
     print(f'   True anomaly initial (deg)    = {TA1 / deg}')
     print(f'   True anomaly final (deg)      = {TA2 / deg}')
     print(f'   Semimajor axis (km)           = {coe[6]}')
-
-    # Periapse radius = h^2 / mu / (1+e)
     rp = (coe[0] ** 2) / mu / (1.0 + coe[1])
     print(f'   Periapse radius (km)          = {rp}')
-
     # ...If the orbit is an ellipse, output its period:
     if coe[1] < 1.0:
         # T = 2*pi/sqrt(mu)*coe(7)^1.5
         T = 2.0 * np.pi / np.sqrt(mu) * (coe[6] ** 1.5)
-
         print('\n   Period:')
         print(f'     Seconds                 = {T}')
         print(f'     Minutes                 = {T/60.0}')

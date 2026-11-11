@@ -17,7 +17,10 @@ def dcm_to_ypr(Q):
     User py-function required: atan2d_0_360
     '''
     yaw = atan2d_0_360.atan2d_0_360(Q[0, 1], Q[0, 0])
-    pitch = np.degrees(np.arcsin(-Q[0, 2]))
+    pitch = np.degrees(np.arcsin(np.clip(-Q[0, 2], -1, 1)))
     roll = atan2d_0_360.atan2d_0_360(Q[1, 2], Q[2, 2])
     
+    if np.hypot(Q[0,0], Q[0,1]) < 1.e-12:
+        yaw = atan2d_0_360.atan2d_0_360(-Q[1,0], Q[1,1])
+        roll = 0.0
     return yaw, pitch, roll

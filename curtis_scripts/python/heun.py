@@ -43,33 +43,42 @@ def heun(ode_function, tspan, y0, h):
     itermax = 100
 
     t0, tf = tspan
+    if not np.isfinite([t0, tf]).all() or tf < t0:
+        raise ValueError("Integration requires finite times with tf >= t0.")
+    if np.asarray(y0).ndim != 1 or len(y0) == 0 or not np.isfinite(y0).all():
+        raise ValueError("Initial state must be a finite, nonempty vector.")
+    if not np.isfinite(h) or h <= 0:
+        raise ValueError("Step size must be finite and positive.")
     t = t0
-    y = np.array(y0)
+    y = np.array(y0, dtype=float)
     tout = [t]
     yout = [y.copy()]
 
     while t < tf:
         h = min(h, tf - t)
+        if t + h == t:
+            raise RuntimeError("Integration step cannot advance time.")
         t1 = t
         y1 = y
-        f1 = ode_function(t1, y1)
+        f1 = np.asarray(ode_function(t1, y1), dtype=float)
+        if f1.shape != y.shape or not np.isfinite(f1).all():
+            raise ValueError("Derivative must match the state and be finite.")
         y2 = y1 + f1 * h
         t2 = t1 + h
         err = tol + 1
         iter = 0
         while err > tol and iter <= itermax:
             y2p = y2
-            f2 = ode_function(t2, y2p)
+            f2 = np.asarray(ode_function(t2, y2p), dtype=float)
+            if f2.shape != y.shape or not np.isfinite(f2).all():
+                raise ValueError("Derivative must match the state and be finite.")
             favg = (f1 + f2) / 2
             y2 = y1 + favg * h
             err = np.max(np.abs((y2 - y2p) / (y2 + np.finfo(float).eps)))
             iter += 1
 
         if iter > itermax:
-            print(f'\n Maximum no. of iterations ({itermax})')
-            print(f'\n exceeded at time = {t}')
-            print(f'\n in function "heun."\n\n')
-            return np.array(tout), np.array(yout)
+            raise RuntimeError("Heun corrector failed to converge.")
 
         t += h
         y = y2

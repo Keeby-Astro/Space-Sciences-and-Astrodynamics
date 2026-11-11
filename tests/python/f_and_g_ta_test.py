@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import f_and_g_ta
 
 def f_and_g_ta_test():
@@ -16,7 +24,7 @@ def f_and_g_ta_test():
     User py-functions required: f_and_g_ta
     '''
     # Define input parameters:
-    mu = 398600.4418  # Gravitational parameter for Earth (km^3/s^2)
+    mu = 398600       # Gravitational parameter for Earth (km^3/s^2)
     r0 = [7000, 0, 0] # Initial position vector (km)
     v0 = [0, 7.5, 0]  # Initial velocity vector (km/s)
     dt = 45           # Change in true anomaly (degrees)

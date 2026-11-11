@@ -16,8 +16,7 @@ deg      = pi/180;                 % Degrees to radians
 %...Constants;
 mu       = 398600;                 % Gravitational parameter (km^3/s^2)
 RE       = 6378;                   % Earth's radius (km)
-wE       = [ 0 0 7.2921159e-5];
-% Earth's angular velocity (rad/s)
+wE       = [ 0 0 7.2921159e-5];    % Earth's angular velocity (rad/s)
  
 %...Satellite data:                  
 CD       = 2.2;                    % Drag codfficient

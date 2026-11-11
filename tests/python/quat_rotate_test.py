@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import quat_rotate
 
@@ -12,7 +20,6 @@ def quat_rotate_test():
 
     User functions required: quat_rotate
     '''
-    # Quaternions
     q1 = np.array([np.sqrt(2)/2, 0, 0, np.sqrt(2)/2])  # Quaternion for 90-degree Z-rotation
     q2 = np.array([0, 0, 1, 0])                        # Quaternion for 180-degree Y-rotation
     q3 = np.array([1, 0, 0, 0])                        # Identity quaternion (no rotation)
@@ -24,7 +31,7 @@ def quat_rotate_test():
     v3 = np.array([1, 2, 3])
     v4 = np.array([0, 1, 0])
 
-    # Rotated vectors
+    # Rotated vector
     r1 = quat_rotate.quat_rotate(q1, v1)
     r2 = quat_rotate.quat_rotate(q2, v2)
     r3 = quat_rotate.quat_rotate(q3, v3)

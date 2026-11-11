@@ -6,7 +6,7 @@ import J0
 import kepler_E
 import sv_from_coe
 
-def planet_elements_and_sv(planet_id, year, month, day, hour, minute, second):
+def planet_elements_and_sv(planet_id, year, month, day, hour, minute, second, mu=1.327124e11):
     '''
     This function calculates the orbital elements and the state
     vector of a planet from the date (year, month, day)
@@ -63,32 +63,30 @@ def planet_elements_and_sv(planet_id, year, month, day, hour, minute, second):
     User subfunctions required: planetary_elements, zero_to_360
     '''
     
-    global mu
-    mu = 1.327124e11
     deg = np.pi / 180
 
-    # Equation 5.48:
+    #...Equation 5.48:
     j0 = J0.J0(year, month, day)
     ut = (hour + minute/60 + second/3600) / 24
 
-    # Equation 5.47:
+    #...Equation 5.47:
     jd = j0 + ut
 
-    # Obtain the data for the selected planet:
+    #...Obtain the data for the selected planet from Table 8.1:
     J2000_coe, rates = planetary_elements(planet_id)
 
-    # Equation 8.93a:
+    #...Equation 8.93a:
     t0 = (jd - 2451545) / 36525
 
-    # Equation 8.93b:
+    #...Equation 8.93b:
     elements = J2000_coe + rates * t0
     a = elements[0]
     e = elements[1]
 
-    # Equation 2.71:
+    #...Equation 2.71:
     h = np.sqrt(mu * a * (1 - e**2))
 
-    # Reduce the angular elements to within the range 0 - 360 degrees:
+    #...Reduce the angular elements to within the range 0 - 360 degrees:
     incl = elements[2]
     RA = zero_to_360(elements[3])
     w_hat = zero_to_360(elements[4])
@@ -96,15 +94,15 @@ def planet_elements_and_sv(planet_id, year, month, day, hour, minute, second):
     w = zero_to_360(w_hat - RA)
     M = zero_to_360(L - w_hat)
 
-    # Algorithm 3.1 (for which M must be in radians):
+    #...Algorithm 3.1 (for which M must be in radians):
     E = kepler_E.kepler_E(e, M * deg)
 
-    # Equation 3.13 (converting the result to degrees):
+    #...Equation 3.13 (converting the result to degrees):
     TA = zero_to_360(2 * np.arctan(np.sqrt((1 + e) / (1 - e)) * np.tan(E / 2)) / deg)
 
     coe = np.array([h, e, RA, incl, w, TA, a, w_hat, L, M, E / deg])
 
-    # Algorithm 4.5:
+    #...Algorithm 4.5:
     r, v = sv_from_coe.sv_from_coe([h, e, RA * deg, incl * deg, w * deg, TA * deg], mu)
 
     return coe, r, v, jd
@@ -146,8 +144,6 @@ def planetary_elements(planet_id):
 
     au              - astronomical unit (km)
     '''
-    
-    # Table data from MATLAB's 'J2000_elements' and 'cent_rates'
     J2000_elements = np.array([
         [0.38709893,  0.20563069,   7.00487,   48.33167,   77.45645,  252.25084],
         [0.72333199,  0.00677323,   3.39471,   76.68069,  131.53298,  181.97973],
@@ -157,8 +153,7 @@ def planetary_elements(planet_id):
         [9.53707032,  0.05415060,   2.48446,  113.71504,   92.43194,   49.94432],
         [19.19126393, 0.04716771,   0.76986,   74.22988,  170.96424,  313.23218],
         [30.06896348, 0.00858587,   1.76917,  131.72169,   44.97135,  304.88003],
-        [39.48168677, 0.24880766,  17.14175,  110.30347,  224.06676,  238.92881]
-    ])
+        [39.48168677, 0.24880766,  17.14175,  110.30347,  224.06676,  238.92881]])
 
     cent_rates = np.array([
         [0.00000066,  0.00002527,  -23.51,  -446.30,  573.57,  538101628.29],
@@ -169,16 +164,19 @@ def planetary_elements(planet_id):
         [-0.00301530, -0.00036762,   6.11, -1591.05, -1948.89, 4401052.95],
         [0.00152025, -0.00019150,   -2.09, -1681.40, 1312.56,  1542547.79],
         [-0.00125196, 0.00002514,   -3.64,  -151.25, -844.43,   786449.21],
-        [-0.00076912, 0.00006465,   11.07,   -37.33, -132.25,   522747.90]
-    ])
+        [-0.00076912, 0.00006465,   11.07,   -37.33, -132.25,   522747.90]])
 
+    if not isinstance(planet_id, (int, np.integer)) or not 1 <= planet_id <= 9:
+        raise ValueError("Planet identifier must be an integer from 1 to 9.")
     J2000_coe = J2000_elements[planet_id - 1, :]
     rates = cent_rates[planet_id - 1, :]
 
-    # Convert from AU to km and arcseconds to degrees
+    #...Convert from AU to km:
     au = 149597871
     J2000_coe[0] *= au
     rates[0] *= au
+
+    #...Convert from arcseconds to fractions of a degree:
     rates[2:6] /= 3600
 
     return J2000_coe, rates

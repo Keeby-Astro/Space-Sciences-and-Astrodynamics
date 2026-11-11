@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import matplotlib.pyplot as plt
 import rk1_4
@@ -60,7 +68,7 @@ def rk1_4_test():
     #...End input data
 
     #...Solve using RK1 through RK4, using the same and a larger
-    #   time step for each method
+    # time step for each method
     rk       = 1
     h        = 0.01
     t1, f1   = rk1_4.rk1_4(rates, tspan, f0, h, rk)
@@ -88,6 +96,19 @@ def rk1_4_test():
     output(t0, tf, x0, x_dot0, wn, z, w, Fo, m, t1, f1, t11, f11, t2, f2, t21, f21, t3, f3, t31, f31, t4, f4, t41, f41)
 
 def rates(t, f):
+    '''
+    This function calculates first and second time derivatives
+    of x as governed by the equation
+
+    x'' + 2*z*wn*x' + wn^2*x = (Fo/m)*sin(w*t)
+
+    Dx   - velocity (x')
+    D2x  - acceleration (x'')
+    f    - column vector containing x and Dx at time t
+    dfdt - column vector containing Dx and D2x at time t
+
+    User py-functions required: none
+    '''
     m  = 1
     z  = 0.03
     wn = 1
@@ -101,20 +122,20 @@ def rates(t, f):
     return dfdt
 
 def output(t0, tf, x0, x_dot0, wn, z, w, Fo, m, t1, f1, t11, f11, t2, f2, t21, f21, t3, f3, t31, f31, t4, f4, t41, f41):
+    #...Exact solution:
     wd  = wn * np.sqrt(1 - z**2)
     den = (wn**2 - w**2)**2 + (2 * w * wn * z)**2
     C1  = (wn**2 - w**2) / den * Fo / m
     C2  = -2 * w * wn * z / den * Fo / m
-    A   = x0 * wn / wd + x_dot0 / wd + (w**2 + (2 * z**2 - 1) * wn**2) / den * w / wd * Fo / m
+    A   = x0 * z * wn / wd + x_dot0 / wd + (w**2 + (2 * z**2 - 1) * wn**2) / den * w / wd * Fo / m
     B   = x0 + 2 * w * wn * z / den * Fo / m
 
     t   = np.linspace(t0, tf, 5000)
     x   = (A * np.sin(wd * t) + B * np.cos(wd * t)) * np.exp(-wn * z * t) + C1 * np.sin(w * t) + C2 * np.cos(w * t)
 
     #...Plot solutions
-    plt.figure(figsize=(10, 15))
-
     # Exact
+    plt.figure(figsize=(10, 15))
     plt.subplot(5, 1, 1)
     plt.plot(t / max(t), x / max(x), 'k', linewidth=1)
     plt.title('Exact')
@@ -156,7 +177,6 @@ def output(t0, tf, x0, x_dot0, wn, z, w, Fo, m, t1, f1, t11, f11, t2, f2, t21, f
     plt.legend(['h = 1.0', 'h = 2.0'])
     plt.grid(False)
     plt.axis('tight')
-
     plt.show()
 
 if __name__ == "__main__":

@@ -17,7 +17,10 @@ def dcm_to_euler(Q):
     User py-function required: atan2d_0_360
     '''
     alpha = atan2d_0_360.atan2d_0_360(Q[2,0], -Q[2,1])
-    beta  = np.degrees(np.arccos(Q[2,2]))
+    beta  = np.degrees(np.arccos(np.clip(Q[2,2], -1, 1)))
     gamma = atan2d_0_360.atan2d_0_360(Q[0,2], Q[1,2])
     
+    if np.hypot(Q[2,0], Q[2,1]) < 1.e-12:
+        alpha = atan2d_0_360.atan2d_0_360(Q[0,1], Q[0,0])
+        gamma = 0.0
     return alpha, beta, gamma

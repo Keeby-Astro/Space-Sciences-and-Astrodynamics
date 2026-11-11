@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import gibbs
 import coe_from_sv
@@ -23,14 +31,15 @@ def gibbs_test():
     User py-functions required: gibbs, coe_from_sv
     '''
     deg = np.pi / 180
-    mu = 398600.4418  # Gravitational parameter (km^3/s^2)
+    mu = 398600
 
-    # Input data
+    #...Data declaration for Example 5.1:
     r1 = np.array([-294.32, 4265.1, 5986.7])
     r2 = np.array([-1365.5, 3637.6, 6346.8])
     r3 = np.array([-2940.3, 2473.7, 6555.8])
+    #...
 
-    # Echo the input data
+    #...Echo the input data to the console:
     print('-----------------------------------------------------')
     print('\n\n Input data:\n')
     print(f'\n Gravitational parameter (km^3/s^2) = {mu}')
@@ -39,15 +48,15 @@ def gibbs_test():
     print(f'\n r3 (km) = {r3}')
     print('\n\n')
 
-    # Algorithm 5.1: Gibbs method
+    # Algorithm 5.1:
     v2, ierr = gibbs.gibbs(r1, r2, r3, mu)
 
-    # If the vectors r1, r2, r3 are not coplanar, abort
+    # If the vectors r1, r2, r3 are not coplanar, abort:
     if ierr == 1:
         print('\n These vectors are not coplanar.\n\n')
         return
 
-    # Algorithm 4.2: Compute orbital elements
+    # Algorithm 4.2:
     coe = coe_from_sv.coe_from_sv(r2, v2, mu)
 
     h    = coe[0]
@@ -58,7 +67,7 @@ def gibbs_test():
     TA   = coe[5]
     a    = coe[6]
 
-    # Output the results
+    #...Output the results to the console:
     print(' Solution:')
     print('\n')
     print(f'\n v2 (km/s) = {v2}')
@@ -70,8 +79,7 @@ def gibbs_test():
     print(f'\n Argument of perigee (deg)  = {w / deg}')
     print(f'\n True anomaly (deg)         = {TA / deg}')
     print(f'\n Semimajor axis (km)        = {a}')
-
-    # If the orbit is an ellipse, output the period
+    #...If the orbit is an ellipse, output the period
     if e < 1:
         T = 2 * np.pi / np.sqrt(mu) * a ** 1.5
         print(f'\n Period (s)                 = {T}')

@@ -1041,7 +1041,7 @@ Space-Sciences-and-Astrodynamics/
 Clone the repository and open a `.m` example in `curtis_scripts/matlab` or a test in `tests/matlab`. Run the whole file from the MATLAB Editor, changing to its folder or adding that folder to the path if prompted. Tests locate the companion functions in `curtis_scripts/matlab` automatically using paths relative to their own files. Keep the repository's folder structure intact; no installation or permanent MATLAB path setup is required. See the [MATLAB test instructions](tests/matlab/README.md) for command-window examples and dependency troubleshooting.
 
 ### Python
-Clone the repository and navigate to the python files directory. Install the required .py packages and run scripts directly.
+Install the external dependencies with `python -m pip install numpy scipy matplotlib`. Each test locates the companion scripts in `curtis_scripts/python` relative to its own file, so no repository installation or `PYTHONPATH` setup is required. Keep the repository's folder structure intact. See the [Python test instructions](tests/python/README.md) for more examples and dependency troubleshooting.
 
 ### C++
 Clone the repository and navigate to the cpp files directory. Navigate to the .cpp and .h files and execute scripts as needed.

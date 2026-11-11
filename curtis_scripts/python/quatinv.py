@@ -11,15 +11,19 @@ def quatinv(q):
     q = np.asarray(q)
     
     if q.ndim == 1:
-        # Single quaternion case
+        #...Single quaternion case:
         w, x, y, z = q
         norm_squared = w**2 + x**2 + y**2 + z**2
+        if norm_squared == 0:
+            raise ValueError("Quaternion norm is zero.")
         qinv = np.array([w, -x, -y, -z]) / norm_squared
         return qinv
     elif q.ndim == 2:
-        # Multiple quaternions case
+        #...Multiple quaternions case:
         w, x, y, z = q[:, 0], q[:, 1], q[:, 2], q[:, 3]
         norm_squared = w**2 + x**2 + y**2 + z**2
+        if np.any(norm_squared == 0):
+            raise ValueError("Quaternion norm is zero.")
         conjugate = np.column_stack((w, -x, -y, -z))
         qinv = conjugate / norm_squared[:, np.newaxis]
         return qinv

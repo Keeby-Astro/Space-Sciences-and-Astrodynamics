@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import simpsons_lunar_ephemeris
 
 def simpsons_lunar_ephemeris_test():
@@ -18,7 +26,7 @@ def simpsons_lunar_ephemeris_test():
     User py-functions required: simpsons_lunar_ephemeris
     '''
     # Define a sample Julian date (e.g., January 1, 2024, at 12:00 TT)
-    jd_sample = 2460271.0  # Julian date
+    jd_sample = 2460311.0  # Julian date
 
     # Call the simpsons_lunar_ephemeris function
     pos, vel = simpsons_lunar_ephemeris.simpsons_lunar_ephemeris(jd_sample)

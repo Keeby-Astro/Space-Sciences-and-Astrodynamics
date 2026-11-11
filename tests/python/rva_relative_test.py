@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import sv_from_coe
 import rva_relative
@@ -30,7 +38,7 @@ def rva_relative_test():
 
     User py-function required:   sv_from_coe, rva_relative
     '''
-    mu  = 398600.4418
+    mu  = 398600
     deg = np.pi/180
 
     #...Input data:

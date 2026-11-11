@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import fDot_and_gDot_ta
 
 def fDot_and_gDot_ta_test():
@@ -20,11 +28,12 @@ def fDot_and_gDot_ta_test():
     r0 = [7000, 0, 0]  # Initial position vector (km)
     v0 = [0, 7.546, 0] # Initial velocity vector (km/s)
     dt = 30            # Change in true anomaly (degrees)
-    mu = 398600.4418   # Gravitational parameter (km^3/s^2)
+    mu = 398600        # Gravitational parameter (km^3/s^2)
 
+    # Call the function
     fdot, gdot = fDot_and_gDot_ta.fDot_and_gDot_ta(r0, v0, dt, mu)
 
-    # Display the results
+    # Display results
     print('Results:')
     print(f'fdot: {fdot} (1/s)')
     print(f'gdot: {gdot}')

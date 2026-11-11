@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import planet_elements_and_sv
 import month_planet_names
@@ -54,7 +62,7 @@ def compute_planet_elements_and_sv():
     mu = 1.327124e11
     deg = np.pi / 180
 
-    # Input data
+    #...Input data
     planet_id = 3
     year      = 2003
     month     = 8
@@ -62,15 +70,17 @@ def compute_planet_elements_and_sv():
     hour      = 12
     minute    = 0
     second    = 0
+    #...
 
-    # Algorithm 8.1:
+    #...Algorithm 8.1:
     coe, r, v, jd = planet_elements_and_sv.planet_elements_and_sv(planet_id, year, month, day, 
                                                                   hour, minute, second)
 
-    # Convert the planet_id and month numbers into names for output:
+    #...Convert the planet_id and month numbers into names for output:
     month_name, planet_name = month_planet_names.month_planet_names(month, planet_id)
 
-    # Echo the input data and output the solution
+    #...Echo the input data and output the solution to
+    #   the console:
     print('-----------------------------------------------------')
     print('\n Input data:')
     print(f'\n   Planet: {planet_name}')

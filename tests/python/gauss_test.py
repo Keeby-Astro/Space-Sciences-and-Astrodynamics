@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import gauss
 import coe_from_sv
@@ -38,11 +46,11 @@ def gauss_test():
     User py-functions required: gauss, coe_from_sv     
     '''
     deg = np.pi/180
-    mu  = 398600.4418
-    Re  = 6378.14
+    mu  = 398600
+    Re  = 6378
     f   = 1/298.26
 
-    #...Data declaration:
+    #...Data declaration for Example 5.11:
     H     = 1
     phi   = 40 * deg
     t     = np.array([0, 118.104, 237.577])
@@ -50,7 +58,7 @@ def gauss_test():
     dec   = np.array([-8.78334, -12.0739, -15.1054]) * deg
     theta = np.array([44.5065, 45.000, 45.4992]) * deg
 
-    #...Equations 5.64, 5.76 and 5.79
+    #...Equations 5.64, 5.76 and 5.79:
     fac1 = Re / np.sqrt(1 - (2 * f - f * f) * np.sin(phi)**2)
     fac2 = (Re * (1 - f)**2 / np.sqrt(1 - (2 * f - f * f) * np.sin(phi)**2) + H) * np.sin(phi)
 
@@ -65,7 +73,7 @@ def gauss_test():
         rho[i, 1] = np.cos(dec[i]) * np.sin(ra[i])
         rho[i, 2] = np.sin(dec[i])
 
-    #...Algorithms 5.5 and 5.6
+    #...Algorithms 5.5 and 5.6:
     r, v, r_old, v_old = gauss.gauss(rho[0, :], rho[1, :], rho[2, :],
                                 R[0, :], R[1, :], R[2, :],
                                 t[0], t[1], t[2])
@@ -75,7 +83,8 @@ def gauss_test():
     coe_old = coe_from_sv.coe_from_sv(r_old, v_old, mu)
     coe = coe_from_sv.coe_from_sv(r, v, mu)
 
-    #...Echo the input data and output the solution
+    #...Echo the input data and output the solution to
+    #   the console:
     print('-----------------------------------------------------')
     print(' Example 5.11: Orbit determination by the Gauss method\n')
     print(f' Radius of earth (km)               = {Re}')
@@ -107,6 +116,7 @@ def gauss_test():
     print(f'   Semimajor axis (km)           = {coe_old[6]}')
     print(f'   Periapse radius (km)          = {coe_old[0]**2 / mu / (1 + coe_old[1])}')
 
+    #...If the orbit is an ellipse, output the period:
     if coe_old[1] < 1:
         T = 2 * np.pi / np.sqrt(mu) * coe_old[6]**1.5
         print(f'   Period:')
@@ -128,6 +138,7 @@ def gauss_test():
     print(f'   Semimajor axis (km)           = {coe[6]}')
     print(f'   Periapse radius (km)          = {coe[0]**2 / mu / (1 + coe[1])}')
 
+    #...If the orbit is an ellipse, output the period:
     if coe[1] < 1:
         T = 2 * np.pi / np.sqrt(mu) * coe[6]**1.5
         print(f'   Period:')

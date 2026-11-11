@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import sv_from_coe
 
@@ -23,23 +31,23 @@ def sv_from_coe_test():
     User py-function required: sv_from_coe
     '''
     deg = np.pi / 180
-    mu = 398600.4418
+    mu = 398600
 
     #...Data declaration (angles in degrees):
-    h = 80000
-    e = 1.4
-    RA = 40
+    h    = 80000
+    e    = 1.4
+    RA   = 40
     incl = 30
-    w = 60
-    TA = 30
+    w    = 60
+    TA   = 30
     #...
 
     coe = [h, e, RA * deg, incl * deg, w * deg, TA * deg]
 
-    # Algorithm 4.5 (requires angular elements be in radians):
+    #...Algorithm 4.5 (requires angular elements be in radians):
     r, v = sv_from_coe.sv_from_coe(coe, mu)
 
-    # Echo the input data and output the results to the console:
+    #...Echo the input data and output the results to the console:
     print('-----------------------------------------------------')
     print(f'\n Gravitational parameter (km^3/s^2)  = {mu}')
     print(f'\n Angular momentum (km^2/s)           = {h}')

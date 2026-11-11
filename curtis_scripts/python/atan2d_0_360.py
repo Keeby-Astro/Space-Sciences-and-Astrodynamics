@@ -9,6 +9,9 @@ def atan2d_0_360(y, x):
     
     User py-functions required: none
     '''
+    if not np.isfinite([y, x]).all():
+        raise ValueError("Angle components must be finite.")
+
     if x == 0:
         if y == 0:
             t = 0
@@ -25,6 +28,8 @@ def atan2d_0_360(y, x):
         if y == 0:
             t = 180
         else:
-            t = np.degrees(np.arctan2(y, x)) + 180
+            t = np.degrees(np.arctan2(y, x))
+            if t < 0:
+                t = t + 360
 
     return t

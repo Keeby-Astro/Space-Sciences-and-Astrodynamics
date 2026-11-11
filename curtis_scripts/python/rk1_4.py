@@ -63,26 +63,37 @@ def rk1_4(ode_function, tspan, y0, h, rk):
         raise ValueError("The parameter rk must have the value 1, 2, 3, or 4.")
     
     t0, tf = tspan
+    if not np.isfinite([t0, tf]).all() or tf < t0:
+        raise ValueError("Integration requires finite times with tf >= t0.")
+    if np.asarray(y0).ndim != 1 or len(y0) == 0 or not np.isfinite(y0).all():
+        raise ValueError("Initial state must be a finite, nonempty vector.")
+    if not np.isfinite(h) or h <= 0:
+        raise ValueError("Step size must be finite and positive.")
+    
     t = t0
-    y = np.array(y0)
+    y = np.array(y0, dtype=float)
     tout = [t]
     yout = [y.copy()]
 
     while t < tf:
+        h = min(h, tf - t)
+        if h <= 0 or t + h == t:
+            raise RuntimeError("Integration step cannot advance time.")
         ti = t
         yi = y.copy()
-
-        # Evaluate the time derivative(s) at the `n_stages` points within the current interval:
+        #...Evaluate the time derivative(s) at the ’n_stages’ points within the
+        # current interval:
         f = np.zeros((len(y), n_stages))
         for i in range(n_stages):
             t_inner = ti + a[i] * h
             y_inner = yi + h * sum(b[i, j] * f[:, j] for j in range(i))
-            f[:, i] = ode_function(t_inner, y_inner)
+            fi = np.asarray(ode_function(t_inner, y_inner), dtype=float)
+            if fi.shape != y.shape or not np.isfinite(fi).all():
+                raise ValueError("Derivative must match the state and be finite.")
+            f[:, i] = fi
 
-        h = min(h, tf - t)
         t += h
         y = yi + h * f @ c
-
         tout.append(t) # Add current time to the output time vector
         yout.append(y) # Add current y to the output solution matrix
 

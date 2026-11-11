@@ -1,3 +1,11 @@
+import sys
+from pathlib import Path
+
+# Locate companion scripts relative to this test file
+_SCRIPTS_DIR = str(Path(__file__).resolve().parents[2] / "curtis_scripts" / "python")
+if _SCRIPTS_DIR not in sys.path:
+    sys.path.append(_SCRIPTS_DIR)
+
 import numpy as np
 import rv_from_observe
 import coe_from_sv
@@ -62,7 +70,7 @@ def rv_from_observe_test():
     #...
 
     #...Algorithm 5.4:
-    r, v = rv_from_observe.rv_from_observe(rho, rhodot, A, Adot, a, adot, theta, phi, H)
+    r, v = rv_from_observe.rv_from_observe(rho, rhodot, A, Adot, a, adot, theta, phi, H, f=f, Re=Re, wE=wE)
 
     #...Algorithm 4.2:
     coe = coe_from_sv.coe_from_sv(r, v, mu)
@@ -73,7 +81,7 @@ def rv_from_observe_test():
     incl = coe[3]
     w    = coe[4]
     TA   = coe[5]
-    a    = coe[6]
+    a_orbit = coe[6]
 
     #...Equation 2.40:
     rp = h**2 / mu / (1 + e)
@@ -105,12 +113,12 @@ def rv_from_observe_test():
     print(f'   RA of ascending node (deg)  = {RA / deg}')
     print(f'   Argument of perigee (deg)   = {w / deg}')
     print(f'   True anomaly (deg)          = {TA / deg}')
-    print(f'   Semimajor axis (km)         = {a}')
+    print(f'   Semimajor axis (km)         = {a_orbit}')
     print(f'   Perigee radius (km)         = {rp}')
 
     # If the orbit is an ellipse, output its period:
     if e < 1:
-        T = 2 * np.pi / np.sqrt(mu) * a**1.5
+        T = 2 * np.pi / np.sqrt(mu) * a_orbit**1.5
         print(f'\n   Period:')
         print(f'     Seconds = {T}')
         print(f'     Minutes = {T / 60}')
